@@ -1,0 +1,42 @@
+## Add Antigen
+[[ -f ~/.zsh/antigen/antigen.zsh ]] && source ~/.zsh/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library, so antigen treat it as a bundle and we can directly
+# use the names to get the plugins.
+# For non on-my-zsh plugins we need <git_user>/<repro> format.
+antigen use oh-my-zsh
+
+# Load antigen plugins
+antigen bundles <<EOBUNDLES
+	# Oh-my-zsh plugins
+	command-not-found
+	colored-man-pages
+	magic-enter
+	ssh-agent
+	extract
+	tmux
+	git
+	fzf
+
+	# Alias Tool tip
+	djui/alias-tips
+
+   # Use FZF for ZSH tab completion
+	Aloxaf/fzf-tab
+
+	# colorfull ls
+	supercrabtree/k
+
+	zsh-users/zsh-completions
+	zsh-users/zsh-autosuggestions
+	zsh-users/zsh-syntax-highlighting
+	HeroCC/LS_COLORS
+	rupa/z
+
+EOBUNDLES
+
+# Lead ZSH themes
+antigen theme romkatv/powerlevel10k
+
+# Tell antigen that you're done.
+antigen apply
