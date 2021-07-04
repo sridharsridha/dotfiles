@@ -11,6 +11,7 @@ fi
 
 export PAGER='less'
 export LESS='--ignore-case --raw-control-chars'
+export LANG=en_US.UTF-8
 
 # Paths {{{
 ###########
@@ -31,3 +32,9 @@ paths=( \
 	/sbin\
 )
 export PATH=$(IFS=:; echo "${paths[*]}")
+
+generic_paths=(
+	$FZF_SHELL/bin
+)
+# Enable default exports
+export PATH=$PATH:$(IFS=:; echo "${generic_paths[*]}")

@@ -1,6 +1,7 @@
 is_linux="$([[ $(uname) == Linux ]] && echo true || echo false)"
-is_macos="$([[ $(uname) == Darwin ]] && echo true || echo false)"alias c='clear'
+is_macos="$([[ $(uname) == Darwin ]] && echo true || echo false)"
 
+alias c='clear'
 alias rm='rm -i'
 alias f='find'
 alias tree='tree -C --charset utf-8'
@@ -13,7 +14,8 @@ alias fv='popd'
 alias cp='cp -iv'                            # Preferred 'cp' implementation
 alias mv='mv -iv'                            # Preferred 'mv' implementation
 alias gentags='ctags -R .'
-alias grep='grep -n'
+alias grep='grep -n --color=auto'
+alias vim=nvim
 alias mem='free -h'
 alias disk='df -h'
 # I like verbose in chmod & chown
@@ -34,7 +36,7 @@ mcd() {
 alias py='python'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' # Coppied from default Ubuntu bash config
 alias d='dirs -v | head -10'
-ialias vim nvim
+
 # Enable color support
 if [[ -x /usr/bin/dircolors ]]; then
 	if [[ -r ~/.dircolors ]]; then
@@ -47,6 +49,7 @@ if [[ -x /usr/bin/dircolors ]]; then
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 fi
+
 if $is_linux; then
 	alias ll='ls -l --almost-all --classify --human-readable'
 	alias la='ls --almost-all'

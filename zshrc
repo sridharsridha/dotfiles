@@ -1,15 +1,21 @@
-[[ -z "$PS1" ]] && return
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# [[ -z "$PS1" ]] && return
+export FZF_BASE=$HOME/.zsh/fzf
 
 # Load Antigen
-[[ -f ~/.zsh/antigen.zsh ]] && source ~/.zsh/antigen.zsh
-
-# Load custom configurations
-[[ -f ~/.zsh/functions.zsh ]] && source ~/.zsh/functions.zsh
-[[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
-[[ -f ~/.zsh/exports.zsh ]] && source ~/.zsh/exports.zsh
-[[ -f ~/.zsh/bindings.zsh ]] && source ~/.zsh/bindings.zsh
-[[ -f ~/.zsh/hooks.zsh ]] && source ~/.zsh/hooks.zsh
-[[ -f ~/.zsh/fzf.zsh ]] && source ~/.zsh/fzf.zsh
+source ~/.zsh/antigen.zsh
+source ~/.zsh/functions.zsh
+source ~/.zsh/aliases.zsh
+source ~/.zsh/exports.zsh
+source ~/.zsh/bindings.zsh
+source ~/.zsh/hooks.zsh
+source ~/.zsh/fzf.zsh
 
 # Oh-my-zsh's configurations
 DISABLE_AUTO_TITLE="true"
@@ -31,3 +37,5 @@ if [[ -e "${CUSTOM}" ]]; then
 	source $CUSTOM
 fi
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
