@@ -1,0 +1,39 @@
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Intellij files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# vscode
+.vscode/
+
+# Swapfiles
+*~
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Vim files
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+tags
+*.log
+/build/

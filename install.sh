@@ -14,6 +14,11 @@ echo "Installing dotfiles..."
 
 git submodule update --init --recursive
 
+# Install Fonts
+echo "Installing fonts..."
+echo sudo cp ${PWD}/fonts/* ~/Library/Fonts/
+sudo cp ${PWD}/fonts/* ~/Library/Fonts/ || true
+
 echo "Installing zsh dotfiles..."
 echo ln -s ${PWD}/zsh ~/.zsh
 ln -s ${PWD}/zsh ~/.zsh || true
@@ -27,3 +32,21 @@ ln -s ${PWD}/tmux.conf ~/.tmux.conf || true
 echo "Installing neovim dotfiles..."
 echo ln -s ${PWD}/nvim ~/.config/nvim
 ln -s ${PWD}/nvim ~/.config/nvim || true
+
+# iTerm2 installation
+echo "Installing iTerm2 dotfiles..."
+# Specify the preferences directory to iTerm2
+echo defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string ${PWD}
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string ${PWD} || true
+# Tell iTerm2 to use the custom preferences in the directory
+echo defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true || true
+
+# Install git config
+echo "Installing git dotfiles..."
+echo ln -s ${PWD}/gitconfig ~/.gitconfig
+ln -s ${PWD}/gitconfig ~/.gitconfig || true
+echo ln -s ${PWD}/gitignore ~/.gitignore
+ln -s ${PWD}/gitignore ~/.gitignore || true
+echo ln -s ${PWD}/gitattributes ~/.gitattributes
+ln -s ${PWD}/gitattributes ~/.gitattributes || true
