@@ -15,7 +15,6 @@ source ~/.zsh/aliases.zsh
 source ~/.zsh/exports.zsh
 source ~/.zsh/bindings.zsh
 source ~/.zsh/hooks.zsh
-source ~/.zsh/fzf.zsh
 
 # Oh-my-zsh's configurations
 DISABLE_AUTO_TITLE="true"
@@ -24,6 +23,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
 # FZF installation
+[ ! -f ~/.fzf.zsh ] && $FZF_BASE/install --all
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Node installation
