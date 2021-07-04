@@ -21,7 +21,7 @@ if [[ -d ~/Library/Fonts/ ]]; then
 fi
 
 # ZSH
-if command -v zsh &> /dev/null
+if command -v zsh &> /dev/null; then
 	echo "Installing zsh dotfiles..."
 	echo ln -s ${PWD}/zsh ~/.zsh
 	ln -s ${PWD}/zsh ~/.zsh || true
@@ -30,14 +30,14 @@ if command -v zsh &> /dev/null
 fi
 
 # Tmux
-if command -v tmux &> /dev/null
+if command -v tmux &> /dev/null; then
 	echo "Installing tmux dotfiles..."
 	echo ln -s ${PWD}/tmux.conf ~/.tmux.conf
 	ln -s ${PWD}/tmux.conf ~/.tmux.conf || true
 fi
 
 # Neovim
-if command -v nvim &> /dev/null
+if command -v nvim &> /dev/null; then
 	echo "Installing neovim dotfiles..."
 	echo ln -s ${PWD}/nvim ~/.config/nvim
 	ln -s ${PWD}/nvim ~/.config/nvim || true
@@ -55,7 +55,7 @@ if [[ -d /Applications/iTerm.app ]]; then
 fi
 
 # Install git config
-if command -v git &> /dev/null
+if command -v git &> /dev/null; then
 	echo "Installing git dotfiles..."
 	echo ln -s ${PWD}/git/gitconfig ~/.gitconfig
 	ln -s ${PWD}/git/gitconfig ~/.gitconfig || true
