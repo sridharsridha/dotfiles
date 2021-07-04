@@ -20,6 +20,7 @@ function! darkvim#layers#highlights#plugins() abort
   call add(l:plugins, ['MattesGroeger/vim-bookmarks', {
 	\ 'loadconf' : 1,
 	\ 'loadconf_before' : 1,
+	\ 'nolazy' : 1,
 	\ }])
 
   " Show indent line highlight
