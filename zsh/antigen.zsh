@@ -11,36 +11,59 @@ antigen bundles <<EOBUNDLES
 	# Oh-my-zsh plugins
 	command-not-found
 	colored-man-pages
-	magic-enter
-	ssh-agent
+	# magic-enter
 	extract
 	tmux
 	git
 	fzf
+	# bol
+	# bofh
 
+	# autojump directories
+	rupa/z
+	# zabb z abbr for a directory
+	Mellbourn/zabb
 	# Alias Tool tip
 	djui/alias-tips
 
-        # Use FZF for ZSH tab completion
-	# Aloxaf/fzf-tab
+   # Use FZF for ZSH tab completion
+	Aloxaf/fzf-tab
+
+	# Autonotify long running commands when finished
+	# MichaelAquilina/zsh-auto-notify
+
+	# Use bd to move up folders
+	Tarrasch/zsh-bd
+
+	# adds pbcopy, pbpaste and clip
+	zpm-zsh/clipboard
+
+	ael-code/zsh-colored-man-pages
+
+	# C-h
+	micrenda/zsh-nohup
+
+	# Todo
+	AlexisBRENON/oh-my-zsh-reminder
 
 	# colorfull ls
 	supercrabtree/k
 
+	# HeroCC/LS_COLORS
+
 	zsh-users/zsh-completions
 	zsh-users/zsh-autosuggestions
 	zsh-users/zsh-syntax-highlighting
-	HeroCC/LS_COLORS
-	rupa/z
 
 EOBUNDLES
 
 # Lead ZSH themes
-if ! is-at-least 5.1; then
-   antigen theme robbyrussell
-else
-   antigen theme romkatv/powerlevel10k
-fi
+# if ! is-at-least 5.1; then
+#    antigen theme robbyrussell
+# else
+#    antigen theme romkatv/powerlevel10k
+# fi
+antigen theme robbyrussell
 
 # Tell antigen that you're done.
 antigen apply

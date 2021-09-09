@@ -81,10 +81,10 @@ function! darkvim#layers#edit#plugins() abort
 	"			\ }])
 
 	" Convert text into table using delimiters helful for formatting code
-	call add(l:plugins, ['godlygeek/tabular', {
-				\ 'on_cmd' : ['Tabularize'],
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['godlygeek/tabular', {
+	"			\ 'on_cmd' : ['Tabularize'],
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" Faster j and k movement
 	call add(l:plugins, ['rhysd/accelerated-jk', {
@@ -93,11 +93,11 @@ function! darkvim#layers#edit#plugins() abort
 				\ }])
 
 	" Split and join code
-	call add(l:plugins, ['AndrewRadev/splitjoin.vim', {
-				\ 'on_cmd': darkvim#util#prefix('Splitjoin', ['Join', 'Split']),
-				\ 'on_map': {'n': ['gJ', 'gS']},
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['AndrewRadev/splitjoin.vim', {
+	"			\ 'on_cmd': darkvim#util#prefix('Splitjoin', ['Join', 'Split']),
+	"			\ 'on_map': {'n': ['gJ', 'gS']},
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" Exchange text between two regions
 	call add(l:plugins, ['tommcdo/vim-exchange', {
@@ -108,10 +108,10 @@ function! darkvim#layers#edit#plugins() abort
 				\ }])
 
 	" Move an item in a delimiter-separated list left or right
-	call add(l:plugins, ['AndrewRadev/sideways.vim', {
-				\ 'on_cmd': darkvim#util#prefix('Sideways', ['Left', 'Right']),
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['AndrewRadev/sideways.vim', {
+	"			\ 'on_cmd': darkvim#util#prefix('Sideways', ['Left', 'Right']),
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" Covert a number between different base representations
 	call add(l:plugins, ['glts/vim-magnum'])
@@ -121,10 +121,10 @@ function! darkvim#layers#edit#plugins() abort
 				\ }])
 
 	" Multiple cursor support
-	call add(l:plugins, ['terryma/vim-multiple-cursors', {
-				\ 'on_event' : ['BufReadPost'],
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['terryma/vim-multiple-cursors', {
+	"			\ 'on_event' : ['BufReadPost'],
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	return l:plugins
 endfunction

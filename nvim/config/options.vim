@@ -4,7 +4,7 @@ scriptencoding utf-8
 " ----------------------------------------------------------------------------
 set path+=**                 " Directories to search when using gf
 set report=0                 " Don't report on line changes
-set hidden                   " hide buffers when abandoned instead of unload
+" set hidden                   " hide buffers when abandoned instead of unload
 set magic                    " For regular expressions turn magic on
 set virtualedit=block        " Position cursor anywhere in visual block
 set noerrorbells visualbell t_vb= " No bell sounds.
@@ -98,7 +98,7 @@ set completeopt+=preview " show extra information about the current completion
 " Editor UI:
 " ----------------------------------------------------------------------------
 set number           " Don't show line numbers
-set foldenable
+set nofoldenable
 set showtabline=1
 set conceallevel=2 concealcursor=niv " For snippet_complete marker
 set lazyredraw                          " Don't redraw while executing macros.

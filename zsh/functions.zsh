@@ -96,10 +96,10 @@ function cu() {
 		cd "$d"
 	fi
 }
-function _cu () {
-	compadd $(dirname "$PWD" | tr / \\n)
-}
-compdef _cu cu
+# function _cu () {
+# 	compadd $(dirname "$PWD" | tr / \\n)
+# }
+# compdef _cu cu
 
 # Copy the full absolute path into the clipboard, and also echo it. Handles the
 # path in the argument, if any, else `pwd`.

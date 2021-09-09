@@ -1,9 +1,10 @@
 function! darkvim#layers#highlights#plugins() abort
   let l:plugins = []
   " Match paren
+"\ 'on_cmd' : ['MatchupWhereAmI'],
+"\ 'loadconf': 1,
   call add(l:plugins, ['andymass/vim-matchup', {
-	\ 'on_cmd' : ['MatchupWhereAmI'],
-	\ 'loadconf': 1,
+	\ 'nolazy' : 1,
 	\ }])
 
   " info window
@@ -24,8 +25,10 @@ function! darkvim#layers#highlights#plugins() abort
 	\ }])
 
   " Show indent line highlight
+  "
+  "\ 'on_cmd' : darkvim#util#prefix('IndentGuides', ['Enable', 'Toggle']),
   call add(l:plugins, ['nathanaelkane/vim-indent-guides', {
-	\ 'on_cmd' : darkvim#util#prefix('IndentGuides', ['Enable', 'Toggle']),
+	\ 'nolazy' : 1,
 	\ 'loadconf_before' : 1,
 	\ }])
 

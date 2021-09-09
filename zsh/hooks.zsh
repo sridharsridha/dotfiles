@@ -16,7 +16,6 @@ zlong_ignore_cmds='vim ssh mo mongo man watch crontab pgcli tmux'
 # Set as true to ignore commands starting with a space
 zlong_ignorespace=true
 
-
 # Need to set an initial timestamps otherwise, we'll be comparing an empty
 # string with an integer.
 zlong_timestamp=$EPOCHSECONDS
@@ -57,6 +56,6 @@ add-zsh-hook preexec zlong_alert_pre
 add-zsh-hook precmd zlong_alert_post
 
 # Automatically list directory contents on `cd`.
-auto-ls () { ls -FG; }
-chpwd_functions=( auto-ls $chpwd_functions )
+# auto-ls () { ls -FG; }
+# chpwd_functions=( auto-ls $chpwd_functions )
 

@@ -27,18 +27,25 @@ endfunction
 
 function! darkvim#layers#tmux#config() abort
 	" Disable tmux navigator when zooming the Vim pane
-	let g:tmux_navigator_disable_when_zoomed = 1
-	let g:tmux_navigator_no_mappings = 1
-	nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-	nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-	nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-	nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+	if exists('$TMUX')
+		let g:tmux_navigator_disable_when_zoomed = 1
+		let g:tmux_navigator_no_mappings = 1
+		nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+		nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+		nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+		nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 
-	" Diable tmux resizeer default keymapping and lazy load it
-	" using commands
-	let g:tmux_resizer_no_mappings = 1
-	nnoremap <silent> <M-h> :TmuxResizeLeft<cr>
-	nnoremap <silent> <M-j> :TmuxResizeDown<cr>
-	nnoremap <silent> <M-k> :TmuxResizeUp<cr>
-	nnoremap <silent> <M-l> :TmuxResizeRight<cr>
+		" Diable tmux resizeer default keymapping and lazy load it
+		" using commands
+		let g:tmux_resizer_no_mappings = 1
+		nnoremap <silent> <M-h> :TmuxResizeLeft<cr>
+		nnoremap <silent> <M-j> :TmuxResizeDown<cr>
+		nnoremap <silent> <M-k> :TmuxResizeUp<cr>
+		nnoremap <silent> <M-l> :TmuxResizeRight<cr>
+	else
+		nnoremap <silent> <C-h> <C-w>h
+		nnoremap <silent> <C-j> <C-w>j
+		nnoremap <silent> <C-k> <C-w>k
+		nnoremap <silent> <C-l> <C-w>l
+	endif
 endfunction

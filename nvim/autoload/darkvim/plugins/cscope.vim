@@ -56,7 +56,7 @@ endfunc
 function! darkvim#plugins#cscope#open_list() abort
    if exists( ":Denite"  )
       Denite quickfix
-   elseif exists( ":FZF" )
+   elseif exists( ":FZFQuickfix" )
       FZFQuickfix
    else
       botright copen

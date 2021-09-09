@@ -108,8 +108,12 @@ function! darkvim#layers#core#plugins() abort
 
 	" Colorscheme
 	call add(l:plugins, ['morhetz/gruvbox', {
-				\ 'nolazy' : 1,
-				\ }])
+	 		\ 'nolazy' : 1,
+	 		\ }])
+
+	" call add(l:plugins, ['arcticicestudio/nord-vim', {
+	"  		\ 'nolazy' : 1,
+	"  		\ }])
    return l:plugins
 endfunction
 

@@ -99,7 +99,7 @@ function! QFixToggle(forced)
 	if exists('g:qfix_win') && a:forced == 0
 		cclose
 	else
-		execute 'copen ' . get(g:, 'darkvim_quickfix_winheight', 15)
+		copen
 	endif
 endfunction
 " used to track the quickfix window

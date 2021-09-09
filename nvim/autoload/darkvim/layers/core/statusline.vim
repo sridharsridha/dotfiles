@@ -17,5 +17,6 @@ endfunction
 function! darkvim#layers#core#statusline#config() abort
 	" Airline
 	let g:airline_powerline_fonts = 1
-	let g:airline_theme='gruvbox'
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_theme=g:darkvim_colorscheme
 endfunction

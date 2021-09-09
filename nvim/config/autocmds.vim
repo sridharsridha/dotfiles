@@ -24,5 +24,6 @@ augroup darkvim_core
   autocmd BufWritePre MERGE_MSG       setlocal noundofile
   autocmd BufWritePre *.tmp           setlocal noundofile
   autocmd BufWritePre *.bak           setlocal noundofile
+  autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 augroup END
 

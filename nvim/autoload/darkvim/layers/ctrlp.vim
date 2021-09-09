@@ -4,8 +4,6 @@ function! darkvim#layers#ctrlp#plugins() abort
 
 	call add(l:plugins, ['ctrlpvim/ctrlp.vim', {
 				\ 'on_cmd' : 'CtrlP'}])
-	call add(l:plugins, ['FelikZ/ctrlp-py-matcher', {
-				\ 'on_source': ['ctrlp.vim']}])
 	call add(l:plugins, ['mattn/ctrlp-register', {
 				\ 'on_cmd' : 'CtrlPRegister'}])
 	call add(l:plugins, ['DeaR/ctrlp-jumps', {
@@ -22,36 +20,25 @@ endfunction
 
 function! darkvim#layers#ctrlp#config() abort
 	if executable('rg')
-		set grepprg=rg\ --color=never
+		set grepprg=rg\ --color=auto
 		let g:ctrlp_user_command = 'rg %s --hidden --files --color=never -g ""'
+	elseif executable('ag')
+		set grepprg=ag\ --nogroup\ --nocolor
+		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 	else
-		let g:ctrlp_user_command =
-					\ 'find %s -type f | grep -v -P "\.git|\.jpg$|/tmp/"' " MacOSX/Linux
+		let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
 	endif
 
 	" caching
 	let g:ctrlp_use_caching = 1
-	let g:ctrlp_clear_cache_on_exit = 0
 	let g:ctrlp_cache_dir = $HOME.'/.cache/darkvim/ctrlp'
-	let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results:25'
-	let g:ctrlp_switch_buffer = 'Et'
-	let g:ctrlp_reuse_window = 'startify'
-	let g:ctrlp_working_path_mode = 'ra'
+	let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:30'
+	let g:ctrlp_switch_buffer = 'et'
 
-	let g:ctrlp_custom_ignore = {
-				\ 'dir':  '\v[\/]\.(git|hg|svn)$|target|node_modules|build|cmake-build-debug|te?mp$|logs?$|public$|dist$',
-				\ 'file': '\v\.(exe|so|dll|ttf|png|gif|jpe?g|bpm)$|\-rplugin\~',
-				\ 'link': 'some_bad_symbolic_links',
-				\ }
 	let g:ctrlp_prompt_mappings = {
 				\ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-g>'],
 				\ 'PrtExit()':            ['<esc>', '<c-c>', '<c-s>'],
 				\ }
-	let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch'  }
-	let g:ctrlp_funky_syntax_highlight = get(g:, 'ctrlp_funky_syntax_highlight', 1)
-	let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir',
-				\ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-
 
 	" Quick access files
 	call darkvim#mapping#def('nnoremap <silent><nowait>', '<C-p>',

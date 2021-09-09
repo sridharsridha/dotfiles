@@ -6,6 +6,8 @@
 	<true/>
 	<key>AboutToPasteTabsWithCancel_selection</key>
 	<integer>0</integer>
+	<key>AdjustWindowForFontSizeChange</key>
+	<false/>
 	<key>AllowClipboardAccess</key>
 	<true/>
 	<key>AlternateMouseScroll</key>
@@ -2081,13 +2083,13 @@
 		</dict>
 	</dict>
 	<key>Default Bookmark Guid</key>
-	<string>A1145FE3-3D43-4912-BF68-515024D03091</string>
+	<string>20A3AB11-ED47-4613-A33A-BE9BD6044826</string>
 	<key>DimInactiveSplitPanes</key>
 	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
 	<key>DoubleClickPerformsSmartSelection</key>
-	<false/>
+	<true/>
 	<key>DoubleReportScrollWheel</key>
 	<false/>
 	<key>EnableAPIServer</key>
@@ -2105,7 +2107,7 @@
 	<key>HideActivityIndicator</key>
 	<false/>
 	<key>HideMenuBarInFullscreen</key>
-	<true/>
+	<false/>
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTab</key>
@@ -2959,7 +2961,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SauceCodeProNerdFontCompleteM-Semibold 14</string>
+			<string>SauceCodeProNerdFontCompleteM-Semibold 12</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -3380,7 +3382,7 @@
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
-			<integer>1</integer>
+			<integer>15</integer>
 			<key>Working Directory</key>
 			<string>/Users/nsridhar</string>
 		</dict>
@@ -5962,11 +5964,15 @@
 	<true/>
 	<key>SavePasteHistory</key>
 	<true/>
+	<key>SeparateWindowTitlePerTab</key>
+	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>ShowPaneTitles</key>
+	<false/>
+	<key>SmartPlacement</key>
 	<false/>
 	<key>Snippets</key>
 	<array/>
@@ -5977,7 +5983,7 @@
 	<key>StatusBarPosition</key>
 	<integer>1</integer>
 	<key>StretchTabsToFillBar</key>
-	<false/>
+	<true/>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>6</integer>
 	<key>TabViewType</key>
@@ -5989,6 +5995,8 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UseBorder</key>
+	<false/>
+	<key>UseLionStyleFullscreen</key>
 	<false/>
 	<key>UseMetal</key>
 	<true/>
@@ -6009,7 +6017,7 @@
 	<key>kCPKUseSystemColorPicker</key>
 	<false/>
 	<key>metalMaximizeThroughput</key>
-	<false/>
+	<true/>
 	<key>preferIntegratedGPU</key>
 	<false/>
 </dict>
