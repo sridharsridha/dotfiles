@@ -15,15 +15,17 @@ function! darkvim#layers#lsp#plugins() abort
 	call add(l:plugins, ['tenfyzhong/CompleteParameter.vim', {
 				\ 'on_event' : 'InsertEnter',
 				\ }])
-	" Language server protocal client intergration support
-	call add(l:plugins, ['neoclide/coc.nvim', {
-				\ 'merged': 0,
-				\ 'rev': 'release',
-				\ 'build' : './install.sh',
-				\ 'hook_post_update' : 'call coc#util#install()',
-				\ 'on_event' : 'InsertEnter',
-				\ 'loadconf' : 1,
-				\ }])
+	if has('nvim-0.5.0')
+		" Language server protocal client intergration support
+		call add(l:plugins, ['neoclide/coc.nvim', {
+					\ 'merged': 0,
+					\ 'rev': 'release',
+					\ 'build' : './install.sh',
+					\ 'hook_post_update' : 'call coc#util#install()',
+					\ 'on_event' : 'InsertEnter',
+					\ 'loadconf' : 1,
+					\ }])
+	endif
 
 	" Snippet support
 	call add(l:plugins, ['honza/vim-snippets'])
@@ -121,11 +123,13 @@ function! darkvim#layers#lsp#config() abort
 	" Use K to show documentation in preview window
 	nnoremap <silent> K :call darkvim#layers#lsp#show_documentation()<CR>
 
-	augroup lsp_custom
-		autocmd!
-		" Update signature help on jump placeholder
-		autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-	augroup end
+	if has('nvim-0.5.0')
+		augroup lsp_custom
+			autocmd!
+			" Update signature help on jump placeholder
+			autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+		augroup end
+	endif
 
 	call darkvim#mapping#space#group(['l'], 'LSP')
 	call darkvim#mapping#space#group(['l', 'g'], 'GlobalOptions')
