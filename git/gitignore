@@ -37,3 +37,10 @@ Session.vim
 tags
 *.log
 /build/
+
+# zcompile'd files
+*.zwc
+*.zwc.old
+
+# Local config
+*.local

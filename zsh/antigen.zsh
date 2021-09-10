@@ -27,7 +27,7 @@ antigen bundles <<EOBUNDLES
 	djui/alias-tips
 
    # Use FZF for ZSH tab completion
-	Aloxaf/fzf-tab
+	# Aloxaf/fzf-tab
 
 	# Autonotify long running commands when finished
 	# MichaelAquilina/zsh-auto-notify
