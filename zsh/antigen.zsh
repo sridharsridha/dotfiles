@@ -38,8 +38,6 @@ antigen bundles <<EOBUNDLES
 	# adds pbcopy, pbpaste and clip
 	zpm-zsh/clipboard
 
-	ael-code/zsh-colored-man-pages
-
 	# C-h
 	micrenda/zsh-nohup
 
@@ -49,8 +47,8 @@ antigen bundles <<EOBUNDLES
 	# colorfull ls
 	supercrabtree/k
 
-	# HeroCC/LS_COLORS
-
+	# marlonrichert/zsh-autocomplete
+	# zsh-users/zsh-history-substring-search
 	zsh-users/zsh-completions
 	zsh-users/zsh-autosuggestions
 	zsh-users/zsh-syntax-highlighting

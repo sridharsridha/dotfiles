@@ -200,3 +200,6 @@
 
 [pull]
 	rebase = true
+[user]
+	name = sridharsridha
+	email = sridha.in@gmail.com

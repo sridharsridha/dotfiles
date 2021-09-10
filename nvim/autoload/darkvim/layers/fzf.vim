@@ -6,9 +6,9 @@ function! darkvim#layers#fzf#plugins() abort
 	call add(l:plugins, ['junegunn/fzf.vim', {
 				\ 'depends' : ['fzf'],
 				\ 'on_cmd' : darkvim#util#prefix('FZF', [
-				\ '', 'Buffers', 'Files', 'Rg', 'Lines', 'Marks', 'History', 'Commands',
-				\ 'Maps', "Helptags", 'Locate', 'Windows', 'BTags', 'Tags', 'Colors']),
-				\ }])
+					\ '', 'Buffers', 'Files', 'Rg', 'Lines', 'Marks', 'History', 'Commands',
+					\ 'Maps', "Helptags", 'Locate', 'Windows', 'BTags', 'Tags', 'Colors']),
+					\ }])
 
 	" Fzf yank source
 	call add(l:plugins, ['Shougo/neoyank.vim'])
@@ -25,7 +25,7 @@ function! darkvim#layers#fzf#config() abort
 	let g:fzf_command_prefix = 'FZF'
 
 	let g:fzf_action = {
-            \ 'ctrl-q': function('darkvim#layers#fzf#build_quickfix_list'),
+				\ 'ctrl-q': function('darkvim#layers#fzf#build_quickfix_list'),
 				\ 'ctrl-t': 'tab split',
 				\ 'ctrl-g': 'split',
 				\ 'ctrl-v': 'vsplit' }
@@ -59,7 +59,7 @@ function! darkvim#layers#fzf#config() abort
 	call darkvim#mapping#space#def('nnoremap', ['b', 'b'], 'FZFBuffers', 'list-buffers', 1)
 	call darkvim#mapping#space#def('nnoremap', ['b', 'f'], 'execute "FZFFiles ". expand("%:p:h")', 'list-files', 1)
 
-   call darkvim#mapping#space#def('nnoremap', ['b', 'd'], 'execute "FZFDirectory " . expand("%:p:h")', 'list-dir', 1)
+	call darkvim#mapping#space#def('nnoremap', ['b', 'd'], 'execute "FZFDirectory " . expand("%:p:h")', 'list-dir', 1)
 	call darkvim#mapping#space#def('nnoremap', ['b', 'p', 'f'], 'execute "FZFFiles" . expand("%:p:h:h")', 'list-file-parent-dir', 1)
 	call darkvim#mapping#space#def('nnoremap', ['b', 'p', 'd'], 'execute "FZFDirectory " . expand("%:p:h:h")', 'list-parent-dir', 1)
 	call darkvim#mapping#space#def('nnoremap', ['b', 's'], 'FZFLines', 'search-line', 1)
@@ -215,10 +215,10 @@ function! s:directories(...) abort
 	endif
 	call fzf#run(
 				\ fzf#wrap(s:source, {
-				\	'source': reverse(split(system('find '.l:path.' -type d -print'))),
-				\	'sink': 'lcd',
-				\	'options': '--reverse' })
-				\ )
+					\	'source': reverse(split(system('find '.l:path.' -type d -print'))),
+					\	'sink': 'lcd',
+					\	'options': '--reverse' })
+					\ )
 endfunction
 
 command! -bang FZFOutline call fzf#run(fzf#wrap('outline', s:outline(), <bang>0))
@@ -295,7 +295,8 @@ endfunction
 
 " An action can be a reference to a function that processes selected lines
 function! darkvim#layers#fzf#build_quickfix_list(lines)
-   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-   copen
-   cc
+	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+	copen
+	cc
 endfunction
+

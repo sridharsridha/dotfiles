@@ -1,5 +1,4 @@
 " Improved editing layers for darkvim
-"
 scriptencoding utf-8
 
 function! darkvim#layers#edit#plugins() abort
@@ -51,11 +50,11 @@ function! darkvim#layers#edit#plugins() abort
 	call add(l:plugins, ['tpope/vim-surround', {
 				\ 'depends': 'vim-repeat',
 				\ 'on_map': {
-				\   'i': ['<C-g>S', '<C-g>s', '<C-s>'],
-				\   'n': ['cS', 'cs', 'ds', 'yS', 'ys'],
-				\   'x': 'S',
-				\ },
-				\ }])
+					\   'i': ['<C-g>S', '<C-g>s', '<C-s>'],
+					\   'n': ['cS', 'cs', 'ds', 'yS', 'ys'],
+					\   'x': 'S',
+					\ },
+					\ }])
 
 	" Improved J
 	call add(l:plugins, ['osyo-manga/vim-jplus', {
@@ -75,43 +74,19 @@ function! darkvim#layers#edit#plugins() abort
 				\ 'loadconf_before' : 1,
 				\ }])
 
-	" Align text motion support gl, gL motion
-	" call add(l:plugins, ['tommcdo/vim-lion', {
-	"			\ 'on_map': {'n': ['gl', 'gL']},
-	"			\ }])
-
-	" Convert text into table using delimiters helful for formatting code
-	" call add(l:plugins, ['godlygeek/tabular', {
-	"			\ 'on_cmd' : ['Tabularize'],
-	"			\ 'loadconf_before' : 1,
-	"			\ }])
-
 	" Faster j and k movement
 	call add(l:plugins, ['rhysd/accelerated-jk', {
 				\ 'on_map' : {'n' : '<Plug>(accelerated_'},
 				\ 'loadconf_before' : 1,
 				\ }])
 
-	" Split and join code
-	" call add(l:plugins, ['AndrewRadev/splitjoin.vim', {
-	"			\ 'on_cmd': darkvim#util#prefix('Splitjoin', ['Join', 'Split']),
-	"			\ 'on_map': {'n': ['gJ', 'gS']},
-	"			\ 'loadconf_before' : 1,
-	"			\ }])
-
 	" Exchange text between two regions
 	call add(l:plugins, ['tommcdo/vim-exchange', {
 				\ 'on_map': {
-				\   'n': 'cx',
-				\   'v': 'X',
-				\ },
-				\ }])
-
-	" Move an item in a delimiter-separated list left or right
-	" call add(l:plugins, ['AndrewRadev/sideways.vim', {
-	"			\ 'on_cmd': darkvim#util#prefix('Sideways', ['Left', 'Right']),
-	"			\ 'loadconf_before' : 1,
-	"			\ }])
+					\   'n': 'cx',
+					\   'v': 'X',
+					\ },
+					\ }])
 
 	" Covert a number between different base representations
 	call add(l:plugins, ['glts/vim-magnum'])
@@ -121,10 +96,10 @@ function! darkvim#layers#edit#plugins() abort
 				\ }])
 
 	" Multiple cursor support
-	" call add(l:plugins, ['terryma/vim-multiple-cursors', {
-	"			\ 'on_event' : ['BufReadPost'],
-	"			\ 'loadconf_before' : 1,
-	"			\ }])
+	call add(l:plugins, ['terryma/vim-multiple-cursors', {
+				\ 'on_event' : ['BufReadPost'],
+				\ 'loadconf_before' : 1,
+				\ }])
 
 	return l:plugins
 endfunction
@@ -273,27 +248,26 @@ endfunction
 " String Joinning functions
 let s:string_info = {
 			\ 'vim' : {
-			\ 'connect' : '.',
-			\ 'line_prefix' : '\',
+			\   'connect' : '.',
+			\   'line_prefix' : '\',
 			\ },
 			\ 'java' : {
-			\ 'connect' : '+',
-			\ 'line_prefix' : '',
-			\ },
-			\ 'cpp' : {
-			\ 'connect' : '+',
-			\ 'line_prefix' : '',
-			\ },
-			\ 'perl' : {
-			\ 'connect' : '.',
-			\ 'line_prefix' : '\',
-			\ },
-			\ 'python' : {
-			\ 'connect' : '+',
-			\ 'line_prefix' : '\',
-			\ 'quotes_hi' : ['pythonQuotes']
-			\ },
-			\ }
+		   \    'connect' : '+',
+		   \    'line_prefix' : '',
+		   \ },
+		   \ 'cpp' : {
+		  	\    'connect' : '+',
+		  	\    'line_prefix' : '',
+		  	\ },
+		  	\ 'perl' : {
+		  	\    'connect' : '.',
+		  	\    'line_prefix' : '\',
+		  	\ },
+		  	\ 'python' : {
+		  	\     'connect' : '+',
+		   \     'line_prefix' : '\',
+		   \     'quotes_hi' : ['pythonQuotes']
+		   \ },}
 
 function! s:string_join_with() abort
 	if s:is_string(line('.'), col('.'))

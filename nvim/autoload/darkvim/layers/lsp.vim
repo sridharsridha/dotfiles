@@ -17,6 +17,8 @@ function! darkvim#layers#lsp#plugins() abort
 				\ }])
 	" Language server protocal client intergration support
 	call add(l:plugins, ['neoclide/coc.nvim', {
+				\ 'merged': 0,
+				\ 'rev': 'release',
 				\ 'build' : './install.sh',
 				\ 'hook_post_update' : 'call coc#util#install()',
 				\ 'on_event' : 'InsertEnter',
