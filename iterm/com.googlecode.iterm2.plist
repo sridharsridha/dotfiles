@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AboutToPasteTabsWithCancel</key>
-	<true/>
+	<false/>
 	<key>AboutToPasteTabsWithCancel_selection</key>
 	<integer>0</integer>
 	<key>AdjustWindowForFontSizeChange</key>
@@ -13,7 +13,7 @@
 	<key>AlternateMouseScroll</key>
 	<false/>
 	<key>AlwaysAcceptFirstMouse</key>
-	<false/>
+	<true/>
 	<key>CloseBookmarksWindowAfterOpening</key>
 	<true/>
 	<key>Command</key>
@@ -5983,7 +5983,7 @@
 	<key>StatusBarPosition</key>
 	<integer>1</integer>
 	<key>StretchTabsToFillBar</key>
-	<true/>
+	<false/>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>6</integer>
 	<key>TabViewType</key>

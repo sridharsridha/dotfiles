@@ -154,3 +154,72 @@ function cont(){
     ps axw | grep -i $1 | awk -v PROC="$1" '{print $1}' | xargs kill -CONT
   fi
 }
+
+# Revert all the files in the diff
+#
+# Param: 1 - diff file
+# example: revert_diff test.diff
+function revert_diff() {
+   grep "+++" $1 | awk -F " " '{print $2}'  | xargs svn revert
+}
+
+function cscope_gen()
+{
+   rm -f cscope.files cscope.out cscope.po.out
+   find `pwd` -name '[^.]*.[chlyCGHL]' -print | grep -v CVS > cscope.files
+   cscope -buqk -F cscope.files
+}
+
+function image_clean(){
+   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+   docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+}
+
+function splitPane() {
+   case "$1" in
+      -h|--horizontal)
+         shift 1
+         splitBelow "$@" ;;
+      -v|--vertical)
+         shift 1
+         splitRight "$@" ;;
+      -s|--smart)
+         shift 1
+         smartSplit "$@" ;;
+      *)
+         echo "Unknown option '$1'" 1>&2
+         return 2 ;;
+   esac
+}
+
+function splitBelow() {
+   tmux split-window -v -c '#{pane_current_path}' "$@"
+}
+
+function splitRight() {
+   tmux split-window -h -c '#{pane_current_path}' "$@"
+}
+
+function smartSplit() {
+   # NerdFont appear to have a 4:10 width:height ratio
+   # adjust the coefficients to suite your font
+   local ROWS=$(tmux display-message -p '#{pane_height}')
+   local COLS=$(tmux display-message -p '#{pane_width}')
+   # echo $((ROWS*10)) $((COLS*4))
+   if [ $((ROWS*10)) -lt $((COLS*4)) ]; then
+      splitRight "$@"
+   else
+      splitBelow "$@"
+   fi
+}
+
+function frg() {
+   [ $# -eq 0  ] && return
+   local out cols
+   if out=$(rg "$@" . --vimgrep | fzf --ansi); then
+      setopt sh_word_split
+      cols=(${out//:/  })
+      unsetopt sh_word_split
+      vim ${cols[1]} +"normal! ${cols[2]}zz"
+   fi
+}

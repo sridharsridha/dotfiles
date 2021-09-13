@@ -70,3 +70,8 @@ if $is_linux; then
 else
 	alias o=open
 fi
+
+# Mosh
+alias mk='kill `pidof mosh-server`' # Kill all mosh servers
+# Tmux
+alias to="tmux detach -a"
