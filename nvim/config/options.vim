@@ -4,6 +4,7 @@ scriptencoding utf-8
 " ----------------------------------------------------------------------------
 set path+=**                 " Directories to search when using gf
 set report=0                 " Don't report on line changes
+set shortmess=a
 " set hidden                   " hide buffers when abandoned instead of unload
 set magic                    " For regular expressions turn magic on
 set virtualedit=block        " Position cursor anywhere in visual block
@@ -21,7 +22,7 @@ set clipboard=unnamed,unnamedplus
 "   @ - Maximum number of items in the input-line history to be
 "   s - Maximum size of an item contents in KiB
 "   h - Disable the effect of 'hlsearch' when loading the shada
-set shada=!,'300,<50,@100,s10,h
+"" set shada=!,'300,<50,@100,s10,h
 " ----------------------------------------------------------------------------
 
 " WildMenu:
