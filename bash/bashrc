@@ -1,0 +1,33 @@
+[[ -z "$PS1" ]] && return
+
+# BASH configuration directory
+BASH_D="$HOME/bash"
+
+
+# Load all functions
+for file in "$BASH_D"/functions/*.bash; do
+	[ -r "$file"  ] && [ -f "$file"  ] && source "$file";
+done
+
+for cfg in "${BASH_D}"/*; do
+	[[ -f "$cfg" ]] && source "$cfg"
+done
+
+hostname="$(hostname)"
+for host_config in "$BASH_D"/hosts/*.bash; do
+	host_pattern="$(basename "$host_config" .bash)"
+	if [[ "$hostname" = *$host_pattern* ]]; then
+		source "$host_config"
+	fi
+done
+
+# FZF installation
+[ ! -f ~/.fzf.bash ] && $BASH_D/fzf/install --all
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Load the private bash config files
+CUSTOM="${HOME}/.bashrc.local"
+if [[ -e "${CUSTOM}" ]]; then
+	# shellcheck disable=SC1090
+	source $CUSTOM
+fi

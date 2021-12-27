@@ -1,0 +1,3 @@
+# Will display all alternatives for completion after one tab keypress
+set show-all-if-ambiguous On
+set completion-ignore-case on
