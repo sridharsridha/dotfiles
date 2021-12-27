@@ -1,10 +1,3 @@
-function bgsc { # Start screen session in background if it doesn't exist
-	if screen -list | awk '{print $1}' | grep -q "$1$"; then
-		echo "screen $1 already exists"
-	else
-		screen -d -m -S $1
-	fi
-}
 
 function ialias { # If command you want to alias to exists, do it, else print an error
 	if command -v $2 >/dev/null 2>&1; then
