@@ -1,9 +1,3 @@
-[submodule "zsh/zsh/antigen"]
-	path = zsh/zsh/antigen
-	url = git@github.com:zsh-users/antigen.git
-[submodule "zsh/zsh/fzf"]
-	path = zsh/zsh/fzf
-	url = git@github.com:junegunn/fzf.git
 [submodule "bash/bash/bash-it"]
 	path = bash/bash/bash-it
 	url = https://github.com/Bash-it/bash-it.git
