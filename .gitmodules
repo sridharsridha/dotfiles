@@ -1,3 +1,12 @@
 [submodule "bash/bash/bash-it"]
 	path = bash/bash/bash-it
 	url = https://github.com/Bash-it/bash-it.git
+[submodule "zsh/zsh/antigen"]
+	path = zsh/zsh/antigen
+	url = https://github.com/zsh-users/antigen.git
+[submodule "zsh/zsh/fzf"]
+	path = zsh/zsh/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "bash/bash/fzf"]
+	path = bash/bash/fzf
+	url = https://github.com/junegunn/fzf.git
