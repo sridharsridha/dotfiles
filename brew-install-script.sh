@@ -13,7 +13,6 @@ terminal_applications=(
   "python"
   "ccache"
   "doxygen"
-  "conan"
   "clang-tidy"
   "cppcheck"
   "ccls"
@@ -37,7 +36,6 @@ terminal_applications=(
   "wget"
   "rg"
   "ack"
-  "grep"
   "awk"
   "the_silver_searcher"
   "tree"
@@ -47,12 +45,6 @@ terminal_applications=(
 
 # Cast Applications
 cask_applications=(
-  "github-desktop"
-  "keybase"
-  "slack"
-  "skype"
-  "google-chrome"
-  "dropbox"
   "anki"
 )
 
