@@ -21,11 +21,11 @@ function! darkvim#layers#tools#plugins() abort
 				\ }])
 
 	" Shell tools
-	call add(l:plugins, ['tpope/vim-eunuch', {
-				\ 'on_cmd' : ['Delete', 'Unlink', 'Move', 'Rename', 'Chmod', 'Mkdir',
-				\             'Cfind', 'Clocate', 'Lfind', 'Llocate', 'Wall',
-				\             'SudoWrite', 'SudoEdit'],
-				\ }])
+	" call add(l:plugins, ['tpope/vim-eunuch', {
+	"			\ 'on_cmd' : ['Delete', 'Unlink', 'Move', 'Rename', 'Chmod', 'Mkdir',
+	"			\             'Cfind', 'Clocate', 'Lfind', 'Llocate', 'Wall',
+	"			\             'SudoWrite', 'SudoEdit'],
+	"			\ }])
 
 	" Quickrun
 	call add(l:plugins, ['thinca/vim-quickrun', {

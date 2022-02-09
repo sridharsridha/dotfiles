@@ -5,46 +5,46 @@ function! darkvim#layers#edit#plugins() abort
 	let l:plugins = []
 
 	" Adds bunch of testobjs (quotes, brackets, etc with a, i, A, I, n, l)
-	call add(l:plugins, ['wellle/targets.vim', {
-				\ 'loadconf_before' : 1,
-				\ 'nolazy' : 1,
-				\ }])
+	" call add(l:plugins, ['wellle/targets.vim', {
+	"			\ 'loadconf_before' : 1,
+	"			\ 'nolazy' : 1,
+	"			\ }])
 
 	" textobject 'i/I' for indentation
-	call add(l:plugins, ['kana/vim-textobj-indent', {
-				\ 'depends':[ 'vim-textobj-user' ],
-				\ 'on_map':{'vo':'<Plug>(textobj-indent-'},
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['kana/vim-textobj-indent', {
+	"			\ 'depends':[ 'vim-textobj-user' ],
+	"			\ 'on_map':{'vo':'<Plug>(textobj-indent-'},
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" textobj 'L' for selecting line
-	call add(l:plugins, ['kana/vim-textobj-line', {
-				\ 'depends':[ 'vim-textobj-user' ],
-				\ 'on_map':{'vo':'<Plug>(textobj-line-'},
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['kana/vim-textobj-line', {
+	"			\ 'depends':[ 'vim-textobj-user' ],
+	"			\ 'on_map':{'vo':'<Plug>(textobj-line-'},
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" textobj 'e' for selection entire text
 	" Usefull for bulk copying result operator or clipboard
-	call add(l:plugins, ['kana/vim-textobj-entire', {
-				\ 'depends':[ 'vim-textobj-user' ],
-				\ 'on_map':{'vo':'<Plug>(textobj-entire-'},
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['kana/vim-textobj-entire', {
+	"			\ 'depends':[ 'vim-textobj-user' ],
+	"			\ 'on_map':{'vo':'<Plug>(textobj-entire-'},
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" textobj 'c/C' for seletin comments
-	call add(l:plugins, ['glts/vim-textobj-comment', {
-				\ 'depends':[ 'vim-textobj-user' ],
-				\ 'on_map':{'vo':'<Plug>(textobj-comment-'},
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['glts/vim-textobj-comment', {
+	"			\ 'depends':[ 'vim-textobj-user' ],
+	"			\ 'on_map':{'vo':'<Plug>(textobj-comment-'},
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" textobj 'f/F' for selecting functions
-	call add(l:plugins, ['kana/vim-textobj-function', {
-				\ 'depends' : [ 'vim-textobj-user' ],
-				\ 'on_map' : {'vo':'<Plug>(textobj-function-'},
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['kana/vim-textobj-function', {
+	"			\ 'depends' : [ 'vim-textobj-user' ],
+	"			\ 'on_map' : {'vo':'<Plug>(textobj-function-'},
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	" add/change/del quotes etc around word
 	call add(l:plugins, ['tpope/vim-surround', {
@@ -81,25 +81,25 @@ function! darkvim#layers#edit#plugins() abort
 				\ }])
 
 	" Exchange text between two regions
-	call add(l:plugins, ['tommcdo/vim-exchange', {
-				\ 'on_map': {
-					\   'n': 'cx',
-					\   'v': 'X',
-					\ },
-					\ }])
+	" call add(l:plugins, ['tommcdo/vim-exchange', {
+	"			\ 'on_map': {
+	"				\   'n': 'cx',
+	"				\   'v': 'X',
+	"				\ },
+	"				\ }])
 
 	" Covert a number between different base representations
-	call add(l:plugins, ['glts/vim-magnum'])
-	call add(l:plugins, ['glts/vim-radical', {
-				\ 'depends' : ['vim-magnum', 'vim-repeat'],
-				\ 'on_map' : {'nvx' : ['gA', 'crd', 'crx', 'cro', 'crb']}
-				\ }])
+	" call add(l:plugins, ['glts/vim-magnum'])
+	" call add(l:plugins, ['glts/vim-radical', {
+	"			\ 'depends' : ['vim-magnum', 'vim-repeat'],
+	"			\ 'on_map' : {'nvx' : ['gA', 'crd', 'crx', 'cro', 'crb']}
+	"			\ }])
 
 	" Multiple cursor support
-	call add(l:plugins, ['terryma/vim-multiple-cursors', {
-				\ 'on_event' : ['BufReadPost'],
-				\ 'loadconf_before' : 1,
-				\ }])
+	" call add(l:plugins, ['terryma/vim-multiple-cursors', {
+	"			\ 'on_event' : ['BufReadPost'],
+	"			\ 'loadconf_before' : 1,
+	"			\ }])
 
 	return l:plugins
 endfunction
