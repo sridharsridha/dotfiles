@@ -2118,13 +2118,15 @@
 	<true/>
 	<key>IRMemory</key>
 	<integer>4</integer>
+	<key>MaxVertically</key>
+	<false/>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
 			<key>ASCII Ligatures</key>
-			<true/>
+			<false/>
 			<key>Allow Paste Bracketing</key>
 			<false/>
 			<key>Allow Title Reporting</key>
@@ -2961,7 +2963,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SauceCodeProNerdFontCompleteM-Semibold 12</string>
+			<string>SauceCodeProNerdFontCompleteM-Semibold 13</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -3356,7 +3358,7 @@
 			<key>Title Components</key>
 			<integer>3</integer>
 			<key>Transparency</key>
-			<real>0.18987944162436549</real>
+			<real>0.26022949218749997</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unicode Version</key>
@@ -5965,7 +5967,7 @@
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>SeparateWindowTitlePerTab</key>
-	<true/>
+	<false/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
 	<key>ShowNewOutputIndicator</key>
@@ -5973,7 +5975,7 @@
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SmartPlacement</key>
-	<false/>
+	<true/>
 	<key>Snippets</key>
 	<array/>
 	<key>SoundForEsc</key>
@@ -5997,7 +5999,7 @@
 	<key>UseBorder</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
-	<false/>
+	<true/>
 	<key>UseMetal</key>
 	<true/>
 	<key>UseTmuxStatusBar</key>
