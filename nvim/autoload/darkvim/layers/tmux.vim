@@ -3,9 +3,13 @@ function! darkvim#layers#tmux#plugins() abort
 	let l:plugins = []
 
 	" Tmux and vim navigation
+	" call add(l:plugins, ['christoomey/vim-tmux-navigator', {
+	"			\ 'on_cmd': darkvim#util#prefix('TmuxNavigate', ['Left', 'Down', 'Up', 'Right']),
+	"			\ }])
+
 	call add(l:plugins, ['christoomey/vim-tmux-navigator', {
-				\ 'on_cmd': darkvim#util#prefix('TmuxNavigate', ['Left', 'Down', 'Up', 'Right']),
-				\ }])
+            \ 'on_event' : ['BufEnter'],
+            \ }])
 
 	" Vim and tmux pane common resize command
 	call add(l:plugins, ['RyanMillerC/better-vim-tmux-resizer', {
@@ -34,6 +38,7 @@ function! darkvim#layers#tmux#config() abort
 		nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 		nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 		nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+      nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 		" Diable tmux resizeer default keymapping and lazy load it
 		" using commands

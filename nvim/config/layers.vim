@@ -12,7 +12,7 @@ call darkvim#layers#load('fzf')
 " call darkvim#layers#load('format')
 " call darkvim#layers#load('checkers')
 " call darkvim#layers#load('lsp')
-call darkvim#layers#load('git')
+" call darkvim#layers#load('git')
 
 " Lang support
 call darkvim#layers#load('lang#qf')

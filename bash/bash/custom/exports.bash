@@ -5,15 +5,18 @@ export KEYTIMEOUT=1
 
 if type "nvim" > /dev/null; then
   export EDITOR='nvim'
+  export P4EDITOR='nvim'
 else
   export EDITOR='vim'
+  export P4EDITOR='vim'
 fi
 
 # Increase Bash history size. Allow 32³ entries; the default is 500.
 export HISTSIZE='32768';
 export HISTFILESIZE="${HISTSIZE}";
 # Omit duplicates and commands that begin with a space from history.
-export HISTCONTROL='ignoreboth';
+# avoid duplicates..
+export HISTCONTROL=ignoredups:erasedups
 
 export PAGER='less -X'
 export LESS='--ignore-case --raw-control-chars'
@@ -22,6 +25,9 @@ export LC_ALL='en_US.UTF-8'
 
 # Hide the “default interactive shell is now zsh” warning on macOS.
 export BASH_SILENCE_DEPRECATION_WARNING=1;
+
+# After each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Paths {{{
 ###########
