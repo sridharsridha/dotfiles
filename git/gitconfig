@@ -96,25 +96,6 @@
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
 	ui = auto
 
-[color "branch"]
-
-	current = yellow reverse
-	local = yellow
-	remote = green
-
-[color "diff"]
-
-	meta = yellow bold
-	frag = magenta bold # line info
-	old = red # deletions
-	new = green # additions
-
-[color "status"]
-
-	added = yellow
-	changed = green
-	untracked = cyan
-
 [diff "bin"]
 
     # Use `hexdump` to diff binary files
@@ -160,46 +141,7 @@
 
   decorate = short
 
-[pretty]
-
-    custom = "%C(magenta)%h%C(red)%d %C(yellow)%ar %C(green)%s %C(yellow)(%an)"
-    #                     │        │            │            │             └─ author name
-    #                     │        │            │            └─ message
-    #                     │        │            └─ date (relative)
-    #                     │        └─ decorations (branch, heads or tags)
-    #                     └─ hash (abbreviated)
-
-
-
-[pager]
-
-  status = true
-  show-branch = true
-
-# URL shorthands
-
-[url "git@github.com:"]
-
-	insteadOf = "gh:"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
-
-[url "git://github.com/"]
-
-	insteadOf = "github:"
-
-[url "git@gist.github.com:"]
-
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
-
-[url "git://gist.github.com/"]
-
-	insteadOf = "gist:"
-
-[pull]
-	rebase = true
 [user]
+
 	name = sridharsridha
 	email = sridha.in@gmail.com
