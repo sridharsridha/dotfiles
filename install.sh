@@ -29,6 +29,16 @@ if command -v zsh &> /dev/null; then
 	ln -s ${PWD}/zshrc ~/.zshrc || true
 fi
 
+if command -v bash &> /dev/null; then
+   echo "Installing bash..."
+   echo "ln -s $PWD/bashrc ~/.bashrc"
+   ln -s $PWD/bashrc ~/.bashrc || true
+   echo "ln -s $PWD/bash_profile ~/.bash_profile"
+   ln -s $PWD/bash_profile ~/.bash_profile || true
+   echo "ln -s $PWD/inputrc ~/.inputrc"
+   ln -s $PWD/inputrc ~/.inputrc || true
+fi
+
 # Tmux
 if command -v tmux &> /dev/null; then
 	echo "Installing tmux dotfiles..."

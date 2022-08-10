@@ -22,7 +22,8 @@ set clipboard=unnamed,unnamedplus
 "   @ - Maximum number of items in the input-line history to be
 "   s - Maximum size of an item contents in KiB
 "   h - Disable the effect of 'hlsearch' when loading the shada
-"" set shada=!,'300,<50,@100,s10,h
+" set shada=!,'300,<50,@100,s10,h
+set shada="NONE"
 " ----------------------------------------------------------------------------
 
 " WildMenu:
