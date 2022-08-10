@@ -66,9 +66,9 @@ set history=100
 " ----------------------------------------------------------------------------
 set textwidth=85  " Text width maximum chars before wrapping
 set smartindent   " Enable smart indent.
-set tabstop=3     " The number of spaces a tab is
-set shiftwidth=3  " Number of spaces to use in auto(indent)
-set softtabstop=3 " While performing editing operations
+set tabstop=2     " The number of spaces a tab is
+set shiftwidth=2  " Number of spaces to use in auto(indent)
+set softtabstop=2 " While performing editing operations
 " ----------------------------------------------------------------------------
 
 " Searching:

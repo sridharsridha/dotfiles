@@ -51,17 +51,7 @@
 
 [user]
 
-	name = sridharn
-	email = sridharn@arista.com
-
-[gitar]
-	configured = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[core]
-	editor = nvim
-[safe]
-	directory = /src/GitarBandMutDb
+	name = sridharsridha
+	email = sridha.in@gmail.com
+[init]
+	defaultBranch = master

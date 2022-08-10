@@ -10,52 +10,43 @@ else
   let s:direction = 'topleft'
 endif
 
-let g:defx_icons_column_length = 2
-let g:defx_icons_mark_icon = '✓'
-let g:defx_icons_parent_icon = ''
+" let g:defx_icons_column_length = 4
+" let g:defx_icons_mark_icon = '✓'
+" let g:defx_icons_parent_icon = ''
 
 call defx#custom#option('_', {
-      \ 'columns': 'mark:indent:icons:filename:icon:size:git',
-      \ 'winwidth': get(g:, 'darkvim_sidebar_width', 30),
-      \ 'split': 'vertical',
-      \ 'direction': s:direction,
-      \ 'show_ignored_files': g:_darkvim_filetree_show_hidden_files,
-      \ 'root_marker': ' ',
-      \ 'floating_preview': 1,
-      \ 'vertical_preview': 1,
-      \ 'preview_width': 100,
-      \ 'preview_height': 30,
+      \ 'split': 'floating',
       \ })
 
-call defx#custom#column('mark', {
-      \ 'readonly_icon': '',
-      \ 'selected_icon': '',
-      \ })
-call defx#custom#column('indent', { 'indent': '  '})
-call defx#custom#column('icon', {
-      \ 'root_icon': ' ',
-      \ 'directory_icon': '',
-      \ 'opened_icon': '',
-      \ })
+" call defx#custom#column('mark', {
+"      \ 'readonly_icon': '',
+"      \ 'selected_icon': '',
+"      \ })
+" call defx#custom#column('indent', { 'indent': '  '})
+" call defx#custom#column('icon', {
+"      \ 'root_icon': ' ',
+"      \ 'directory_icon': '',
+"      \ 'opened_icon': '',
+"      \ })
 
 " Git
-call defx#custom#column('git', 'indicators', {
-      \ 'Modified'  : '✚',
-      \ 'Staged'    : '●',
-      \ 'Untracked' : '?',
-      \ 'Renamed'   : '➜',
-      \ 'Unmerged'  : 'שּׁ',
-      \ 'Ignored'   : 'ⁱ',
-      \ 'Deleted'   : '✖',
-      \ 'Unknown'   : '?'
-      \ })
+" call defx#custom#column('git', 'indicators', {
+"      \ 'Modified'  : '✚',
+"      \ 'Staged'    : '●',
+"      \ 'Untracked' : '?',
+"      \ 'Renamed'   : '➜',
+"      \ 'Unmerged'  : 'שּׁ',
+"      \ 'Ignored'   : 'ⁱ',
+"      \ 'Deleted'   : '✖',
+"      \ 'Unknown'   : '?'
+"      \ })
 
 call defx#custom#column('filename', {
       \ 'min_width': 23,
       \ 'max_width': -55,
       \ })
 
-call defx#custom#column('time', {'format': '%Y%m%d %H:%M'})
+" call defx#custom#column('time', {'format': '%Y%m%d %H:%M'})
 
 " Shown only current directory in root
 function! Root(path) abort
@@ -63,37 +54,37 @@ function! Root(path) abort
 endfunction
 call defx#custom#source('file', {'root': 'Root'})
 
-" Devicons
-let g:defx_icons_enable_syntax_highlight = 0
-let g:defx_icons_extensions = {
-      \ 'tex'       : {'icon' : ''},
-      \ 'bib'       : {'icon' : ''},
-      \ 'gitcommit' : {'icon' : ''},
-      \ 'pdf'       : {'icon' : ''},
-      \ 'r'         : {'icon' : 'ﳒ'},
-      \ 'R'         : {'icon' : 'ﳒ'},
-      \ }
-let g:defx_icons_exact_matches = {
-      \ '.gitconfig'    : {'icon' : ''},
-      \ '.gitignore'    : {'icon' : ''},
-      \ 'bashrc'        : {'icon' : ''},
-      \ '.bashrc'       : {'icon' : ''},
-      \ 'bash_profile'  : {'icon' : ''},
-      \ '.bash_profile' : {'icon' : ''},
-      \ }
-let g:defx_icon_exact_dir_matches = {
-      \ '.git'      : {'icon' : ''},
-      \ 'Desktop'   : {'icon' : ''},
-      \ 'Documents' : {'icon' : ''},
-      \ 'Downloads' : {'icon' : ''},
-      \ 'Dropbox'   : {'icon' : ''},
-      \ 'Music'     : {'icon' : ''},
-      \ 'Pictures'  : {'icon' : ''},
-      \ 'Public'    : {'icon' : ''},
-      \ 'Templates' : {'icon' : ''},
-      \ 'Videos'    : {'icon' : ''},
-      \ }
-
+" " Devicons
+" let g:defx_icons_enable_syntax_highlight = 0
+" let g:defx_icons_extensions = {
+"      \ 'tex'       : {'icon' : ''},
+"      \ 'bib'       : {'icon' : ''},
+"      \ 'gitcommit' : {'icon' : ''},
+"      \ 'pdf'       : {'icon' : ''},
+"      \ 'r'         : {'icon' : 'ﳒ'},
+"      \ 'R'         : {'icon' : 'ﳒ'},
+"      \ }
+" let g:defx_icons_exact_matches = {
+"      \ '.gitconfig'    : {'icon' : ''},
+"      \ '.gitignore'    : {'icon' : ''},
+"      \ 'bashrc'        : {'icon' : ''},
+"      \ '.bashrc'       : {'icon' : ''},
+"      \ 'bash_profile'  : {'icon' : ''},
+"      \ '.bash_profile' : {'icon' : ''},
+"      \ }
+" let g:defx_icon_exact_dir_matches = {
+"      \ '.git'      : {'icon' : ''},
+"      \ 'Desktop'   : {'icon' : ''},
+"      \ 'Documents' : {'icon' : ''},
+"      \ 'Downloads' : {'icon' : ''},
+"      \ 'Dropbox'   : {'icon' : ''},
+"      \ 'Music'     : {'icon' : ''},
+"      \ 'Pictures'  : {'icon' : ''},
+"      \ 'Public'    : {'icon' : ''},
+"      \ 'Templates' : {'icon' : ''},
+"      \ 'Videos'    : {'icon' : ''},
+"      \ }
+" 
 augroup defx_init
   au!
   " Init defx mappings
@@ -102,9 +93,9 @@ augroup defx_init
 
   " auto close last defx windows
   autocmd BufEnter * nested if
-        \ (!has('vim_starting') && winnr('$') == 1  && g:_darkvim_autoclose_filetree
-        \ && &filetype ==# 'defx') |
-        \ call s:close_last_defx_windows() | endif
+       \ (!has('vim_starting') && winnr('$') == 1  && g:_darkvim_autoclose_filetree
+       \ && &filetype ==# 'defx') |
+       \ call s:close_last_defx_windows() | endif
   " Move focus to the next window if current buffer is defx
   autocmd TabLeave * if &filetype == 'defx' | wincmd w | endif
   autocmd User defx-preview setlocal number winblend=4
@@ -142,32 +133,32 @@ function! s:defx_settings()
   " nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
   " nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-        \ ':<C-u>wincmd w<CR>' :
-        \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+       \ ':<C-u>wincmd w<CR>' :
+       \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
   " Exit with escape key and q, Q
   nnoremap <silent><buffer><expr> <ESC> defx#do_action('quit')
   nnoremap <silent><buffer><expr> q defx#do_action('quit')
   nnoremap <silent><buffer><expr> Q defx#do_action('call', '<SID>defx_quit_all')
   " Edit and open with external program
   nnoremap <silent><buffer><expr> <CR>
-        \ defx#is_directory() ? defx#do_action('open_directory') :
-        \ defx#do_action('multi', ['drop', 'quit'])
+       \ defx#is_directory() ? defx#do_action('open_directory') :
+       \ defx#do_action('multi', ['drop', 'quit'])
   nnoremap <silent><buffer><expr> l
-        \ defx#is_directory() ? defx#do_action('open') :
-        \ defx#do_action('multi', ['drop', 'quit'])
+       \ defx#is_directory() ? defx#do_action('open') :
+       \ defx#do_action('multi', ['drop', 'quit'])
   nnoremap <silent><buffer><expr> o defx#do_action('execute_system')
   nnoremap <silent><buffer><expr> <2-LeftMouse>
-        \ defx#is_directory() ?
-        \     (
-        \     defx#is_opened_tree() ?
-        \     defx#do_action('close_tree') :
-        \     defx#do_action('open_tree')
-        \     )
-        \ : defx#do_action('drop')
+       \ defx#is_directory() ?
+       \     (
+       \     defx#is_opened_tree() ?
+       \     defx#do_action('close_tree') :
+       \     defx#do_action('open_tree')
+       \     )
+       \ : defx#do_action('drop')
   " Tree editing, opening and closing
   nnoremap <silent><buffer><expr> e
-        \ defx#is_directory() ? defx#do_action('open_tree', 'toggle') :
-        \ defx#do_action('multi', ['drop', 'quit'])
+       \ defx#is_directory() ? defx#do_action('open_tree', 'toggle') :
+       \ defx#do_action('multi', ['drop', 'quit'])
   nnoremap <silent><buffer><expr> t  defx#do_action('open_tree_recursive')
   nnoremap <silent><buffer><expr> zo defx#do_action('open_tree', 'toggle')
   nnoremap <silent><buffer><expr> zc defx#do_action('close_tree')
@@ -210,9 +201,9 @@ function! s:defx_settings()
   nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'Time')
   " Toggle columns to show time
   nnoremap <silent><buffer><expr> T defx#do_action('toggle_columns',
-        \ 'icons:filename:time')
+       \ 'icons:filename:time')
   nnoremap <silent><buffer><expr> C
-        \ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
+       \ defx#do_action('toggle_columns', 'indent:mark:filename:type:size:time')
   " Print current file path
   nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
   " Save session
@@ -226,14 +217,14 @@ function! s:defx_settings()
   nnoremap <silent><buffer><expr><nowait> <Space> defx#do_action('toggle_select') . 'j'
   " Resize window (increasing truncated filename)
   nnoremap <silent><buffer><expr> >
-        \ defx#do_action('resize', defx#get_context().winwidth + 5)
+       \ defx#do_action('resize', defx#get_context().winwidth + 5)
   nnoremap <silent><buffer><expr> <
-        \ defx#do_action('resize', defx#get_context().winwidth - 5)
+       \ defx#do_action('resize', defx#get_context().winwidth - 5)
 
   " Open new defx buffer
   nnoremap <silent><buffer>       sp
-        \ :execute 'Defx -new -split=horizontal -direction= ' . b:defx.paths[0]<CR>
-        \ :wincmd p<CR>:execute float2nr(&lines /2) . 'wincmd _ '<CR>
+       \ :execute 'Defx -new -split=horizontal -direction= ' . b:defx.paths[0]<CR>
+       \ :wincmd p<CR>:execute float2nr(&lines /2) . 'wincmd _ '<CR>
 
   " Custom Defx Actions
   " smart h/l
@@ -243,7 +234,7 @@ function! s:defx_settings()
   nnoremap <silent><buffer><expr> <Right> defx#do_action('call', '<SID>defx_smart_l')
   " git diff of current file
   nnoremap <silent><buffer><expr> gd
-        \ defx#async_action('multi', ['drop', ['call', '<SID>defx_git_diff']])
+       \ defx#async_action('multi', ['drop', ['call', '<SID>defx_git_diff']])
   " Open file explorer in a new tmux plane
   nnoremap <silent><buffer><expr> gt defx#async_action('call', '<SID>defx_tmux_file_explorer')
   " Quickly toggle defx width
@@ -383,7 +374,7 @@ endfunction
 
 function! s:defx_quit_all(context) abort
   let l:buffers = filter(range(1, bufnr('$')),
-        \ 'getbufvar(v:val, "&filetype") ==# "defx"')
+       \ 'getbufvar(v:val, "&filetype") ==# "defx"')
   let l:win_id = -1
   for l:i in l:buffers
     call defx#call_action('quit')

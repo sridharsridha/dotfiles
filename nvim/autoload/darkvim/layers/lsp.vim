@@ -72,7 +72,7 @@ function! darkvim#layers#lsp#config() abort
 	let g:vista_stay_on_open = 0
 	let g:vista_cursor_delay = 800
 
-	let g:complete_parameter_use_ultisnips_mapping = 1
+	" let g:complete_parameter_use_ultisnips_mapping = 1
 
 	imap <expr> <M-/> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : ""
 
@@ -89,7 +89,7 @@ function! darkvim#layers#lsp#config() abort
 				\ "\<Plug>delimitMate(" :
 				\ '('
 
-	smap <expr><TAB
+	smap <expr><TAB>
 				\ neosnippet#expandable_or_jumpable() ?
 				\ "\<Plug>(neosnippet_expand_or_jump)" :
 				\ (complete_parameter#jumpable(1) ?
@@ -301,9 +301,6 @@ function! darkvim#layers#lsp#check_back_space() abort
 endfunction
 
 function! darkvim#layers#lsp#tab() abort
-	if getline('.')[col('.')-2] ==# '{' && pumvisible()
-		return "\<C-n>"
-	endif
 	if neosnippet#expandable() && getline('.')[col('.')-2] ==# '(' && !pumvisible()
 		return "\<Plug>(neosnippet_expand)"
 	elseif neosnippet#jumpable()

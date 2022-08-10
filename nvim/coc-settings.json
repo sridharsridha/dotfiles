@@ -21,10 +21,9 @@
    "python.jediEnabled": true,
    "python.linting.enabled": true,
    "clangd.semanticHighlighting": true,
-   "clangd.compilationDatabasePath" : "/src",
   "clangd.arguments": [
     "-j",
     "7"
   ],
-  "clangd.path": "/Users/sridharnagarajan/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd"
+  "clangd.path": "/Users/sridharnagarajan/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd"
 }
