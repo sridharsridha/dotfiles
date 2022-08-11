@@ -11,67 +11,81 @@ IFS=$'\t\n' # Stricter IFS settings
 ORIGINAL_IFS=$IFS
 
 echo "Installing dotfiles..."
+echo "Update submodules..."
 git submodule update --init --recursive
 
-# Install Fonts
-if [[ -d ~/Library/Fonts/ ]]; then
-    echo "Installing fonts..."
-	 echo sudo cp $PWD/fonts/* ~/Library/Fonts/
-    sudo cp $PWD/fonts/* ~/Library/Fonts/ || true
+cmd_exist() {
+	local cmd=$1
+	local exist=$(command -v $cmd &> /dev/null)
+	return $exist
+}
+
+symlink() {
+	local source=$1
+	local target=$2
+	if [[ -e $source ]]; then
+		[[ -e $target ]] && mv -f $target ${target}.old
+		echo ln -s $source $target
+		ln -s $source $target
+	fi
+}
+
+dir_exist() {
+	local dir=$1
+	local exist=$(test -d $dir)
+	return $exist
+}
+
+
+echo Installing fonts...
+if dir_exist ~/Library/Fonts/; then
+		for f in ${PWD}/fonts/*; do
+			if [[ ! -e "~/Library/Fonts/${f}" ]]; then # TODO: permission issue, always false
+				echo sudo cp "$f" ~/Library/Fonts/
+				sudo cp "$f" ~/Library/Fonts/
+			fi
+		done
 fi
 
-# ZSH
-if command -v zsh &> /dev/null; then
-	echo "Installing zsh dotfiles..."
-	echo ln -s $PWD/zsh ~/.zsh
-	ln -s $PWD/zsh ~/.zsh || true
-	echo ln -s $PWD/zshrc ~/.zshrc
-	ln -s $PWD/zshrc ~/.zshrc || true
+echo Installing zsh soft links
+if cmd_exist zsh; then
+	symlink ${PWD}/zsh/zsh ~/.zsh
+	symlink ${PWD}/zsh/zshrc ~/.zshrc 
 fi
 
-if command -v bash &> /dev/null; then
-   echo "Installing bash..."
-   echo "ln -s $PWD/bashrc ~/.bashrc"
-   ln -s $PWD/bashrc ~/.bashrc || true
-   echo "ln -s $PWD/bash_profile ~/.bash_profile"
-   ln -s $PWD/bash_profile ~/.bash_profile || true
-   echo "ln -s $PWD/inputrc ~/.inputrc"
-   ln -s $PWD/inputrc ~/.inputrc || true
+
+echo Installing bash soft links
+if cmd_exist bash; then
+   symlink ${PWD}/bash/bashrc ~/.bashrc
+   symlink ${PWD}/bash/bash_profile ~/.bash_profile
+   symlink ${PWD}/bash/inputrc ~/.inputrc
 fi
 
-# Tmux
-if command -v tmux &> /dev/null; then
-	echo "Installing tmux dotfiles..."
-	echo ln -s $PWD/tmux.conf ~/.tmux.conf
-	ln -s $PWD/tmux.conf ~/.tmux.conf || true
+echo Installing tmux dotfiles...
+if cmd_exist tmux; then
+	 [[ ! -e ~/.tmux ]] && mkdir ~/.tmux
+	 symlink ${PWD}/tmux/tmux.conf ~/.tmux.conf
 fi
 
-# Neovim
-if command -v nvim &> /dev/null; then
-	echo "Installing neovim dotfiles..."
-	echo ln -s $PWD/nvim ~/.config/nvim
-	ln -s $PWD/nvim ~/.config/nvim || true
+echo Installing neovim configuration symlink
+if cmd_exist nvim; then
+	symlink ${PWD}/nvim ~/.config/nvim
 fi
 
-# iTerm2 installation
-if [[ -d /Applications/iTerm.app ]]; then
-	echo "Installing iTerm2 dotfiles..."
+echo Installing iTerm2 dotfiles...
+if dir_exist /Applications/iTerm.app; then
 	# Specify the preferences directory to iTerm2
 	echo defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string $PWD
-	defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string $PWD/iterm || true
+	defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string $PWD/iterm
 	# Tell iTerm2 to use the custom preferences in the directory
 	echo defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-	defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true || true
+	defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 fi
 
-# Install git config
-if command -v git &> /dev/null; then
-	echo "Installing git dotfiles..."
-	echo ln -s $PWD/git/gitconfig ~/.gitconfig
-	ln -s $PWD/git/gitconfig ~/.gitconfig || true
-	echo ln -s $PWD/git/gitignore ~/.gitignore
-	ln -s $PWD/git/gitignore ~/.gitignore || true
-	echo ln -s $PWD/git/gitattributes ~/.gitattributes
-	ln -s $PWD/git/gitattributes ~/.gitattributes || true
+echo Installing git dotfiles...
+if cmd_exist git; then
+	symlink $PWD/git/gitconfig ~/.gitconfig
+	symlink $PWD/git/gitignore ~/.gitignore
+	symlink $PWD/git/gitattributes ~/.gitattributes
 fi
 

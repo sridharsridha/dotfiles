@@ -30,7 +30,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1;
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Cppman bash completion support with '::'
-export COMP_WORDBREAKS=" /\"\'><;|&("
+# export COMP_WORDBREAKS=" /\"\'><;|&("
 
 # Paths {{{
 ###########

@@ -6,14 +6,12 @@
 	<true/>
 	<key>AboutToPasteTabsWithCancel_selection</key>
 	<integer>0</integer>
-	<key>AdjustWindowForFontSizeChange</key>
-	<true/>
 	<key>AllowClipboardAccess</key>
 	<true/>
 	<key>AlternateMouseScroll</key>
 	<false/>
 	<key>AlwaysAcceptFirstMouse</key>
-	<true/>
+	<false/>
 	<key>CloseBookmarksWindowAfterOpening</key>
 	<true/>
 	<key>Command</key>
@@ -2089,7 +2087,7 @@
 	<key>DisableFullscreenTransparency</key>
 	<false/>
 	<key>DoubleClickPerformsSmartSelection</key>
-	<true/>
+	<false/>
 	<key>DoubleReportScrollWheel</key>
 	<false/>
 	<key>EnableAPIServer</key>
@@ -2107,7 +2105,7 @@
 	<key>HideActivityIndicator</key>
 	<false/>
 	<key>HideMenuBarInFullscreen</key>
-	<false/>
+	<true/>
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTab</key>
@@ -2118,8 +2116,6 @@
 	<true/>
 	<key>IRMemory</key>
 	<integer>4</integer>
-	<key>MaxVertically</key>
-	<true/>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2346,7 +2342,7 @@
 			<key>Automatically Log</key>
 			<false/>
 			<key>BM Growl</key>
-			<true/>
+			<false/>
 			<key>Background Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -2957,13 +2953,13 @@
 			<key>Name</key>
 			<string>Laptop</string>
 			<key>Non Ascii Font</key>
-			<string>Arial-Black 15</string>
+			<string>Menlo-Regular 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SauceCodeProNerdFontCompleteM-Semibold 16</string>
+			<string>SauceCodeProNerdFontCompleteM-Semibold 15</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -3358,7 +3354,7 @@
 			<key>Title Components</key>
 			<integer>3</integer>
 			<key>Transparency</key>
-			<real>0.26022949218749997</real>
+			<real>0.18987944162436549</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unicode Version</key>
@@ -3384,7 +3380,7 @@
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
-			<integer>15</integer>
+			<integer>1</integer>
 			<key>Working Directory</key>
 			<string>/Users/nsridhar</string>
 		</dict>
@@ -5966,15 +5962,11 @@
 	<true/>
 	<key>SavePasteHistory</key>
 	<true/>
-	<key>SeparateWindowTitlePerTab</key>
-	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>ShowPaneTitles</key>
-	<false/>
-	<key>SmartPlacement</key>
 	<false/>
 	<key>Snippets</key>
 	<array/>
@@ -5998,8 +5990,6 @@
 	<false/>
 	<key>UseBorder</key>
 	<false/>
-	<key>UseLionStyleFullscreen</key>
-	<false/>
 	<key>UseMetal</key>
 	<true/>
 	<key>UseTmuxStatusBar</key>
@@ -6019,7 +6009,7 @@
 	<key>kCPKUseSystemColorPicker</key>
 	<false/>
 	<key>metalMaximizeThroughput</key>
-	<true/>
+	<false/>
 	<key>preferIntegratedGPU</key>
 	<false/>
 </dict>
