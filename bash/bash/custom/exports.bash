@@ -29,6 +29,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1;
 # After each command, save and reload history
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
+# Cppman bash completion support with '::'
+export COMP_WORDBREAKS=" /\"\'><;|&("
+
 # Paths {{{
 ###########
 paths=( \
@@ -54,3 +57,4 @@ generic_paths=(
 )
 # Enable default exports
 export PATH=$PATH:$(IFS=:; echo "${generic_paths[*]}")
+
