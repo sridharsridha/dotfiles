@@ -4,9 +4,11 @@ export CLICOLOR=1
 export KEYTIMEOUT=1
 
 if type "nvim" > /dev/null; then
+  export VISUAL='nvim'
   export EDITOR='nvim'
   export P4EDITOR='nvim'
 else
+  export VISUAL='vim'
   export EDITOR='vim'
   export P4EDITOR='vim'
 fi
