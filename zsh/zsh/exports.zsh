@@ -38,6 +38,7 @@ export PATH=$(IFS=:; echo "${paths[*]}")
 
 generic_paths=(
 	$FZF_SHELL/bin
+	/opt/homebrew/bin
 )
 # Enable default exports
 export PATH=$PATH:$(IFS=:; echo "${generic_paths[*]}")

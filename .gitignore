@@ -1,3 +1,4 @@
+*.zwc
 zsh/fzf/
 zsh/antigen/
 bash/bash-it/
