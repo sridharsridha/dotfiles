@@ -100,6 +100,7 @@ set completeopt+=preview " show extra information about the current completion
 " Editor UI:
 " ----------------------------------------------------------------------------
 set number           " Don't show line numbers
+set relativenumber
 set nofoldenable
 set showtabline=1
 set conceallevel=2 concealcursor=niv " For snippet_complete marker
