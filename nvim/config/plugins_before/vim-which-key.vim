@@ -1,3 +1,4 @@
+"
 " Which-Key toplevel mappings, no guide need for these mappings
 nnoremap <silent> z :<c-u>WhichKey 'z'<CR>
 nnoremap <silent><nowait> g :<c-u>WhichKey 'g'<CR>
@@ -12,3 +13,4 @@ vnoremap <silent> <localleader> :<c-u>WhichKeyVisual '\'<CR>
 
 nnoremap <silent> <space> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <space> :<c-u>WhichKeyVisual '<Space>'<CR>
+

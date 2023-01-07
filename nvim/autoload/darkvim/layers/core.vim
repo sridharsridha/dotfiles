@@ -5,11 +5,10 @@ function! darkvim#layers#core#plugins() abort
 	let l:plugins = []
 
 	" Show a help screen for keymap
-	"\ 'on_cmd' : darkvim#util#prefix('WhichKey', ['', 'Visual', '!', 'Visual!']),
 	call add(l:plugins, [ 'liuchengxu/vim-which-key', {
+        \ 'on_cmd' : darkvim#util#prefix('WhichKey', ['', 'Visual', '!', 'Visual!']),
 				\ 'loadconf' : 1,
 				\ 'loadconf_before': 1,
-				\ 'nolazy' : 1,
 				\ }])
 
 	" Toggle search highlights automatically

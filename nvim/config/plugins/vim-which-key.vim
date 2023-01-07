@@ -9,3 +9,4 @@ call which_key#register('g', 'g:_darkvim_mappings_g')
 call which_key#register('z', 'g:_darkvim_mappings_z')
 call which_key#register(',', 'g:_darkvim_mappings_leader')
 call which_key#register('\', 'g:_darkvim_mappings_localleader')
+
