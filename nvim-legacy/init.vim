@@ -79,8 +79,6 @@ Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 " General:
-syntax enable
-filetype plugin indent on
 set path+=**
 set magic
 set wrap
