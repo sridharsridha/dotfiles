@@ -1,2 +1,6 @@
+# For now use zsh
+# export SHELL=`which zsh`
+# [ -z "$ZSH_VERSION" ] && exec "$SHELL"
+
 # Source bash configuration.
 [ -r ~/.bashrc ] && [ -f ~/.bashrc ] && source ~/.bashrc

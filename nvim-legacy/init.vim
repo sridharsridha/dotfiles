@@ -23,6 +23,7 @@ Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Git
 Plug 'tpope/vim-fugitive'                               " git support
 Plug 'tpope/vim-repeat'
+Plug 'rhysd/accelerated-jk'
 " Operator for deleting or adding brackets and quotes 'saiw(' 'sdb' 'sd(' 'srb"' 'sr("'
 Plug 'machakann/vim-sandwich'
 " Search and Files
@@ -44,6 +45,7 @@ Plug 'thirtythreeforty/lessspace.vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " " Plug 'puremourning/vimspector', {'do': 'python3 install_gadget.py --enable-vscode-cpptools'}
 " command! -nargs=+ Vfb call vimspector#AddFunctionBreakpoint(<f-args>)
 
@@ -82,7 +84,6 @@ filetype plugin indent on
 set path+=**
 set magic
 set wrap
-set timeout
 set timeoutlen=500
 set clipboard=unnamed,unnamedplus
 
@@ -91,14 +92,12 @@ set clipboard=unnamed,unnamedplus
 " options, and the third tab will present a list that allows you to scroll
 " through and select filenames beginning with that prefix.
 set wildmode=longest,list,full
-set wildmenu
 set wildignorecase
 set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
 set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
-set wildcharm=<C-z>  " substitue for 'wildchar' (<Tab>) in macros
 
 " Directories:
 function s:create_cache_directory(dir)
@@ -107,28 +106,24 @@ function s:create_cache_directory(dir)
    endif
 endfunction
 let g:data_dir = $HOME . '/.cache/nvim/'
-call s:create_cache_directory(g:data_dir . 'backups')
-call s:create_cache_directory(g:data_dir . 'swaps')
-call s:create_cache_directory(g:data_dir . 'undofiles')
-call s:create_cache_directory(g:data_dir . 'views')
-set undodir=$HOME/.cache/nvim/undofiles
-set backupdir=$HOME/.cache/nvim/backups
-set directory=$HOME/.cache/nvim/swaps
-set viewdir=$HOME/.cache/nvim/views
-set undofile
+call s:create_cache_directory(g:data_dir . '.bkp')
+call s:create_cache_directory(g:data_dir . '.swp')
+call s:create_cache_directory(g:data_dir . '.undo')
+call s:create_cache_directory(g:data_dir . '.view')
+set undodir=$HOME/.cache/nvim/.undo
+set backupdir=$HOME/.cache/nvim/.bkp
+set directory=$HOME/.cache/nvim/.swp
+set viewdir=$HOME/.cache/nvim/.view
 set history=10000
 
 " Indents:
 set textwidth=85  " Text width maximum chars before wrapping
-set autoindent    " Enable smart indent.
-set shiftwidth=3  " Number of spaces to use in auto(indent)
+set tabstop=3
 set expandtab
-set smarttab
 
 " Searching:
 set autowrite
 set nojoinspaces
-set incsearch
 set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
 set infercase       " Adjust case in insert completion mode
@@ -141,39 +136,32 @@ elseif executable('ag')
 endif
 
 " Behaviour:
-set splitbelow splitright " Splits open bottom right
-set switchbuf=usetab,newtab
-set completeopt=menuone   " menuone: show the pupmenu when only one match
-set completeopt+=noselect " Do not select a match in the menu
-" Do not insert any text for a match until the user selects from menu
-set completeopt+=noinsert " Do not auto insert the match
-set completeopt+=preview " show extra information about the current completion
 set formatoptions-=cro    " stop annoying auto commenting on new lines
 
 " Editor UI:
 set number relativenumber
 set nofoldenable
-set showtabline=1
-" set conceallevel=2 concealcursor=niv " For snippet_complete marker
+set conceallevel=2 concealcursor=niv " For snippet_complete marker
 set lazyredraw                       " Don't redraw while executing macros.
 set showtabline=2
-if has('termguicolors')
-   set termguicolors
-endif
+set termguicolors
 
 " Builtin Plugins:
-let loaded_netrwPlugin = 1                              " disable netrw
 let g:omni_sql_no_default_maps = 1                      " disable sql omni completion
 let g:loaded_python_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
-let g:python3_host_prog = systemlist('which python3')[0]
+
+" Accelerated jk:
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
 
 " PLUGIN CONFIGURATIONS:
 
 " Mapping Hints:
 let g:which_key_map =  {}
 let g:which_key_map_visual =  {}
+let g:which_key_timeout = 500
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
 augroup vim_which_key_custom
@@ -377,8 +365,8 @@ nnoremap <silent><Up> gk
 nnoremap Y y$
 " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
 " these mappings will move through display-lines in visual mode too.
-vnoremap j gj
-vnoremap k gk
+" vnoremap j gj
+" vnoremap k gk
 " Start an external command with a single bang
 nnoremap !  :!
 " Search result navigation
@@ -401,6 +389,7 @@ imap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " map <Enter> o<ESC>
 " map <S-Enter> O<ESC>
 noremap q :q<CR>
+noremap <C-q> :q!<CR>
 " use a different register for delete and paste
 " nnoremap d "_d
 " vnoremap d "_d
@@ -446,11 +435,11 @@ let g:which_key_map.b = {
          \ }
 let g:which_key_map.t = {
          \ 'name' : '+toggles' ,
-         \ 'p' : [':setlocal paste!', 'paste'],
-         \ 'h' : [':setlocal nohlsearch!', 'hlsearch'],
-         \ 'c' : [':setlocal nocursorline!', 'cursorline'],
-         \ 'n' : [':setlocal nonumber! norelativenumber!', 'number'],
-         \ 'w' : [':setlocal nowrap! nobreakindent!', 'wrap'],
+         \ 'p' : [':setlocal invpaste', 'paste'],
+         \ 'h' : [':setlocal invhlsearch!', 'hlsearch'],
+         \ 'c' : [':setlocal invcursorline', 'cursorline'],
+         \ 'n' : [':setlocal invnumber invrelativenumber!', 'number'],
+         \ 'w' : [':setlocal invwrap invbreakindent', 'wrap'],
          \ 'q' : ['QToggle', 'quickfix'],
          \ 'l' : ['LToggle', 'locationlist'],
          \ }
