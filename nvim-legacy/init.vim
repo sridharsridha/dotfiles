@@ -81,6 +81,7 @@ call plug#end()
 " General:
 set path+=**
 set magic
+set mouse=a
 set wrap
 set timeoutlen=500
 set clipboard=unnamed,unnamedplus
