@@ -78,20 +78,26 @@ set wildmode=longest,list,full
 set wildignorecase
 
 " Directories:
+" use ~/.cache/darkvim/ as default data directory, create the directory if
+" it does not exist.
 function s:create_cache_directory(dir)
    if finddir(a:dir) ==# ''
       silent call mkdir(a:dir, 'p', 0700)
    endif
 endfunction
-" let g:data_dir = $HOME . '/.cache/nvim/'
-" call s:create_cache_directory(g:data_dir . '.bkp')
-" call s:create_cache_directory(g:data_dir . '.swp')
-" call s:create_cache_directory(g:data_dir . '.undo')
-" call s:create_cache_directory(g:data_dir . '.view')
-" set undodir=$HOME/.cache/nvim/.undo
-" set backupdir=$HOME/.cache/nvim/.bkp
-" set directory=$HOME/.cache/nvim/.swp
-" set viewdir=$HOME/.cache/nvim/.view
+
+let g:data_dir = $HOME . '/.cache/nvim/'
+call s:create_cache_directory(g:data_dir . 'backup')
+call s:create_cache_directory(g:data_dir . 'swap')
+call s:create_cache_directory(g:data_dir . 'undofile')
+call s:create_cache_directory(g:data_dir . 'conf')
+call s:create_cache_directory(g:data_dir . 'view')
+set undodir=$HOME/.cache/nvim/undofile
+set backupdir=$HOME/.cache/nvim/backup
+set directory=$HOME/.cache/nvim/swap
+set viewdir=$HOME/.cache/nvim/view/
+
+set undofile
 set history=10000
 
 " Indents:
@@ -214,6 +220,13 @@ let g:switch_custom_definitions =
 let g:toggle_list_no_mappings = 0
 command! QToggle call ToggleQuickfixList()
 command! LToggle call ToggleLocationList()
+nnoremap tp :set invpaste<CR>
+nnoremap th :set invhlsearch<CR>
+nnoremap tn :set invnumber invrelativenumber<CR>
+nnoremap tq :QToggle<CR>
+nnoremap tl :LToggle<CR>
+nnoremap tw :set invwrap<CR>
+
 
 " OpenBrowser:
 let g:openbrowser_search_engines = extend(
@@ -264,6 +277,8 @@ inoremap jk <Esc>
 inoremap kj <Esc>
 vnoremap jk <Esc>
 vnoremap kj <Esc>
+" Replace
+nnoremap R "_d"
 " Improve scroll, credits: https://github.com/Shougo
 nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
          \ 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
@@ -322,12 +337,6 @@ noremap sb :Buffers<CR>
 " noremap sw :Windows<CR>
 noremap sn :bnext<CR>
 noremap sp :bprevious<CR>
-
-noremap tp :setlocal invpaste<CR>
-noremap th :setlocal invhlsearch<CR>
-noremap tq :QToggle<CR>
-noremap tl :LToggle<CR>
-noremap tw :setlocal invwrap<CR>
 
 " turn on redirection in curl (for opening log file links from dashboard)
 if !exists("g:netrw_http_cmd") && !exists("g:netrw_http_xcmd")
