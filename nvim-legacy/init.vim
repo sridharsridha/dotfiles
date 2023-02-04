@@ -18,8 +18,6 @@ let g:maplocalleader = ','
 " PLUGINS:
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-
 " Git
 Plug 'tpope/vim-fugitive'                               " git support
 Plug 'tpope/vim-repeat'
@@ -46,22 +44,6 @@ Plug 'derekwyatt/vim-fswitch'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-" " Plug 'puremourning/vimspector', {'do': 'python3 install_gadget.py --enable-vscode-cpptools'}
-" command! -nargs=+ Vfb call vimspector#AddFunctionBreakpoint(<f-args>)
-
-" nnoremap <localleader>gd :call vimspector#Launch()<cr>
-" nnoremap <localleader>gc :call vimspector#Continue()<cr>
-" nnoremap <localleader>gs :call vimspector#Stop()<cr>
-" nnoremap <localleader>gR :call vimspector#Restart()<cr>
-" nnoremap <localleader>gp :call vimspector#Pause()<cr>
-" nnoremap <localleader>gb :call vimspector#ToggleBreakpoint()<cr>
-" nnoremap <localleader>gB :call vimspector#ToggleConditionalBreakpoint()<cr>
-" nnoremap <localleader>gn :call vimspector#StepOver()<cr>
-" nnoremap <localleader>gi :call vimspector#StepInto()<cr>
-" nnoremap <localleader>go :call vimspector#StepOut()<cr>
-" nnoremap <localleader>gr :call vimspector#RunToCursor()<cr>
-" Plug 'liuchengxu/vista.vim'
-" Plug 'ludovicchabant/vim-gutentags'
 "Documentation
 Plug 'sbdchd/neoformat'
 Plug 'tyru/open-browser.vim'
@@ -101,15 +83,15 @@ function s:create_cache_directory(dir)
       silent call mkdir(a:dir, 'p', 0700)
    endif
 endfunction
-let g:data_dir = $HOME . '/.cache/nvim/'
-call s:create_cache_directory(g:data_dir . '.bkp')
-call s:create_cache_directory(g:data_dir . '.swp')
-call s:create_cache_directory(g:data_dir . '.undo')
-call s:create_cache_directory(g:data_dir . '.view')
-set undodir=$HOME/.cache/nvim/.undo
-set backupdir=$HOME/.cache/nvim/.bkp
-set directory=$HOME/.cache/nvim/.swp
-set viewdir=$HOME/.cache/nvim/.view
+" let g:data_dir = $HOME . '/.cache/nvim/'
+" call s:create_cache_directory(g:data_dir . '.bkp')
+" call s:create_cache_directory(g:data_dir . '.swp')
+" call s:create_cache_directory(g:data_dir . '.undo')
+" call s:create_cache_directory(g:data_dir . '.view')
+" set undodir=$HOME/.cache/nvim/.undo
+" set backupdir=$HOME/.cache/nvim/.bkp
+" set directory=$HOME/.cache/nvim/.swp
+" set viewdir=$HOME/.cache/nvim/.view
 set history=10000
 
 " Indents:
@@ -142,13 +124,6 @@ set lazyredraw                       " Don't redraw while executing macros.
 set showtabline=2
 set termguicolors
 
-" Builtin Plugins:
-let g:omni_sql_no_default_maps = 1                      " disable sql omni completion
-let g:loaded_python_provider = 0
-let g:loaded_perl_provider = 0
-let g:loaded_ruby_provider = 0
-let g:loaded_node_provider = 0
-
 " Accelerated jk:
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
@@ -156,24 +131,24 @@ nmap k <Plug>(accelerated_jk_gk)
 " PLUGIN CONFIGURATIONS:
 
 " Mapping Hints:
-let g:which_key_map =  {}
-let g:which_key_map_visual =  {}
-let g:which_key_timeout = 500
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
-augroup vim_which_key_custom
-   autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'n') | call which_key#register('<Space>', 'g:which_key_map_visual', 'v')
-   autocmd! FileType which_key
-   autocmd  FileType which_key set laststatus=0 noshowmode noruler
-            \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
+" let g:which_key_map =  {}
+" let g:which_key_map_visual =  {}
+" let g:which_key_timeout = 500
+" nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+" vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
+" augroup vim_which_key_custom
+"    autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'n') | call which_key#register('<Space>', 'g:which_key_map_visual', 'v')
+"    autocmd! FileType which_key
+"    autocmd  FileType which_key set laststatus=0 noshowmode noruler
+"             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" augroup END
 
 " Package Manager:
-let g:which_key_map.p = {
-         \ 'name' : '+plugins' ,
-         \ 'u' : [':PlugUpdate'     , 'update'],
-         \ 'c' : [':PlugClean'     , 'clean'],
-         \ }
+" let g:which_key_map.p = {
+"          \ 'name' : '+plugins' ,
+"          \ 'u' : [':PlugUpdate'     , 'update'],
+"          \ 'c' : [':PlugClean'     , 'clean'],
+"          \ }
 augroup vim_plug_custom
    " Automatically install missing plugins on startup
    autocmd VimEnter *
@@ -185,33 +160,9 @@ augroup END
 " FuzzyFinder:
 let g:fzf_layout = { 'down': '~100%' }
 noremap <C-p> :Files<CR>
-let g:which_key_map.f = {
-         \ 'name' : '+find' ,
-         \ '/' : [':History/'     , 'history'],
-         \ ';' : [':Commands'     , 'commands'],
-         \ 'a' : [':Ag'           , 'text Ag'],
-         \ 'b' : [':BLines'       , 'current buffer'],
-         \ 'B' : [':Buffers'      , 'open buffers'],
-         \ 'c' : [':Commits'      , 'commits'],
-         \ 'C' : [':BCommits'     , 'buffer commits'],
-         \ 'f' : [':Files'        , 'files'],
-         \ 'g' : [':GFiles'       , 'git files'],
-         \ 'G' : [':GFiles?'      , 'modified git files'],
-         \ 'h' : [':History'      , 'file history'],
-         \ 'H' : [':History:'     , 'command history'],
-         \ 'l' : [':Lines'        , 'lines'] ,
-         \ 'm' : [':Marks'        , 'marks'] ,
-         \ 'M' : [':Maps'         , 'normal maps'] ,
-         \ 'p' : [':Helptags'     , 'help tags'] ,
-         \ 'P' : [':Tags'         , 'project tags'],
-         \ 's' : [':Snippets'     , 'snippets'],
-         \ 'S' : [':Colors'       , 'color schemes'],
-         \ 't' : [':Rg'           , 'text Rg'],
-         \ 'T' : [':BTags'        , 'buffer tags'],
-         \ 'w' : [':Windows'      , 'search windows'],
-         \ 'y' : [':Filetypes'    , 'file types'],
-         \ 'z' : [':FZF'          , 'FZF'],
-         \ }
+noremap <Space>ff :Rg<CR>
+noremap <Space>fl :BLines<CR>
+noremap <Space>fb :Buffers<CR>
 
 " Statusline:
 colorscheme gruvbox
@@ -261,21 +212,21 @@ let g:switch_custom_definitions =
          \   ['eslint-enable', 'eslint-disable'],
          \   ['TRUE', 'FALSE']
          \ ]
-augroup SwitchJavaScript
-   autocmd FileType javascript let b:switch_custom_definitions =
-            \  [
-            \    {
-            \     '="\(.\{-}\)"':                    '={`\1`}',
-            \     '={`\(.\{-}\)`}':                  '="\1"',
-            \    },
-            \    {
-            \     '\%(=\)\@!''\(.\{-}\)''':          '"\1"',
-            \     '\%(=\)\@!"\(.\{-}\)"':            '`\1`',
-            \     '\%(=\)\@!`\%(\$\)\@!\(.\{-}\)`':  '`${\1}`',
-            \     '\%(=\)\@!`${\(.\{-}\)}`':         '''\1''',
-            \    }
-            \  ]
-augroup END
+" augroup SwitchJavaScript
+"    autocmd FileType javascript let b:switch_custom_definitions =
+"             \  [
+"             \    {
+"             \     '="\(.\{-}\)"':                    '={`\1`}',
+"             \     '={`\(.\{-}\)`}':                  '="\1"',
+"             \    },
+"             \    {
+"             \     '\%(=\)\@!''\(.\{-}\)''':          '"\1"',
+"             \     '\%(=\)\@!"\(.\{-}\)"':            '`\1`',
+"             \     '\%(=\)\@!`\%(\$\)\@!\(.\{-}\)`':  '`${\1}`',
+"             \     '\%(=\)\@!`${\(.\{-}\)}`':         '''\1''',
+"             \    }
+"             \  ]
+" augroup END
 
 " ToggleList:
 let g:toggle_list_no_mappings = 0
@@ -297,14 +248,8 @@ let g:which_key_map.o = {
          \}
 
 " Fswitch:
-let g:which_key_map.a = {
-         \ 'name' : '+alternate',
-         \ 'a' : ['FSHere', 'switch-here'],
-         \ 'h' : ['FSSplitLeft', 'switch-left'],
-         \ 'j' : ['FSSplitBelow', 'switch-below'],
-         \ 'k' : ['FSSplitAbove', 'switch-above'],
-         \ 'l' : ['FSSplitRight', 'switch-right'],
-         \}
+noremap <Space>aa :FSHere<CR>
+noremap <Space>ah :FSSplitLeft<CR>
 let g:fsnonewfiles = 1
 augroup fswitch_custom
    au!
@@ -321,14 +266,7 @@ function! s:RemoveDebugPrints()
   :g/\/\/\ prdbg$/d
   call setpos('.', save_cursor)
 endfunction
-command! RemoveDebugPrints call s:RemoveDebugPrints()
-let g:which_key_map.c = {
-         \ 'name' : '+code',
-         \}
-let g:which_key_map.c.r = {
-         \ 'name' : '+remove',
-         \ 'd' : ['RemoveDebugPrints', 'remove-debug-print'],
-         \}
+noremap <Space>cd call s:RemoveDebugPrints()
 
 " Neoformat:
 " custom setting for clangformat
@@ -398,48 +336,19 @@ noremap <C-q> :q!<CR>
 " vnoremap <C-x> "+d<CR>
 " disable hl with 2 esc
 noremap <silent><esc> <esc>:noh<CR><esc>
-let g:which_key_map.w = {
-         \ 'name' : '+windows' ,
-         \ 'w' : ['<C-W>w'     , 'other-window']          ,
-         \ 'd' : ['<C-W>c'     , 'delete-window']         ,
-         \ '-' : ['<C-W>s'     , 'split-window-below']    ,
-         \ '|' : ['<C-W>v'     , 'split-window-right']    ,
-         \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
-         \ 'h' : ['<C-W>h'     , 'window-left']           ,
-         \ 'j' : ['<C-W>j'     , 'window-below']          ,
-         \ 'l' : ['<C-W>l'     , 'window-right']          ,
-         \ 'k' : ['<C-W>k'     , 'window-up']             ,
-         \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
-         \ 'J' : [':resize +5'  , 'expand-window-below']   ,
-         \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
-         \ 'K' : [':resize -5'  , 'expand-window-up']      ,
-         \ '=' : ['<C-W>='     , 'balance-window']        ,
-         \ 's' : ['<C-W>s'     , 'split-window-below']    ,
-         \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
-         \ '?' : ['Windows'    , 'fzf-window']            ,
-         \ }
-let g:which_key_map.b = {
-         \ 'name' : '+buffer' ,
-         \ '1' : ['b1'        , 'buffer 1']        ,
-         \ '2' : ['b2'        , 'buffer 2']        ,
-         \ 'd' : ['bd'        , 'delete-buffer']   ,
-         \ 'f' : ['bfirst'    , 'first-buffer']    ,
-         \ 'h' : ['Startify'  , 'home-buffer']     ,
-         \ 'l' : ['blast'     , 'last-buffer']     ,
-         \ 'n' : ['bnext'     , 'next-buffer']     ,
-         \ 'p' : ['bprevious' , 'previous-buffer'] ,
-         \ '?' : ['Buffers'   , 'fzf-buffer']      ,
-         \ }
-let g:which_key_map.t = {
-         \ 'name' : '+toggles' ,
-         \ 'p' : [':setlocal invpaste', 'paste'],
-         \ 'h' : [':setlocal invhlsearch!', 'hlsearch'],
-         \ 'c' : [':setlocal invcursorline', 'cursorline'],
-         \ 'n' : [':setlocal invnumber invrelativenumber!', 'number'],
-         \ 'w' : [':setlocal invwrap invbreakindent', 'wrap'],
-         \ 'q' : ['QToggle', 'quickfix'],
-         \ 'l' : ['LToggle', 'locationlist'],
-         \ }
+noremap sv <C-w>v
+noremap sg <C-w>s
+noremap s= <C-w>=
+noremap sb :Buffers<CR>
+noremap sw :Windows<CR>
+noremap sn :bnext<CR>
+noremap sp :bprevious<CR>
+
+noremap tp :setlocal invpaste<CR>
+noremap th :setlocal invhlsearch<CR>
+noremap tq :QToggle<CR>
+noremap tl :LToggle<CR>
+noremap tw :setlocal invwrap<CR>
 
 " turn on redirection in curl (for opening log file links from dashboard)
 if !exists("g:netrw_http_cmd") && !exists("g:netrw_http_xcmd")
@@ -464,8 +373,8 @@ augroup core
             \   exe "normal! g`\"" |
             \ endif
    autocmd BufNewFile,BufEnter * set cpoptions+=d " NOTE: ctags find the tags file from the current path instead of the path of currect file
-   " autocmd BufWinLeave * let b:_winview = winsaveview()
-   " autocmd BufWinEnter * if(exists('b:_winview')) | call winrestview(b:_winview) | endif
+   autocmd BufWinLeave * let b:_winview = winsaveview()
+   autocmd BufWinEnter * if(exists('b:_winview')) | call winrestview(b:_winview) | endif
    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
    autocmd InsertLeave *
             \ if &paste | setlocal nopaste | echo 'nopaste' | endif |
@@ -477,11 +386,13 @@ augroup core
    autocmd BufWritePre *.bak           setlocal noundofile
    autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 augroup END
+
 " startify if no passed argument or all buffers are closed
 augroup noargs
    " open startify on start if no argument was passed
    autocmd VimEnter * if argc() == 0 | Startify | endif
 augroup END
+
 " fzf if passed argument is a folder
 augroup folderarg
    " change working directory to passed directory
