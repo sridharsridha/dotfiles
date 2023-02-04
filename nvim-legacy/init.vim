@@ -84,7 +84,9 @@ set magic
 set mouse=a
 set wrap
 set timeoutlen=500
-set clipboard=unnamed,unnamedplus
+set clipboard=unnamedplus
+set completeopt=menuone,noinsert,noselect,preview
+set showmatch
 
 " WildMenu:
 " The first tab completes as much as it can, second tab displays a list of
@@ -92,11 +94,6 @@ set clipboard=unnamed,unnamedplus
 " through and select filenames beginning with that prefix.
 set wildmode=longest,list,full
 set wildignorecase
-set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
-set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
-set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
-set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
-set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
 
 " Directories:
 function s:create_cache_directory(dir)
@@ -150,6 +147,7 @@ let g:omni_sql_no_default_maps = 1                      " disable sql omni compl
 let g:loaded_python_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
+let g:loaded_node_provider = 0
 
 " Accelerated jk:
 nmap j <Plug>(accelerated_jk_gj)

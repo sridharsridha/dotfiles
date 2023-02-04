@@ -1,5 +1,3 @@
-
-require('sri.settings')
-require('sri.autocmd')
+require('sri.options')
 require('sri.plugins')
-require('sri.keybinds')
+require('sri.keymaps')
