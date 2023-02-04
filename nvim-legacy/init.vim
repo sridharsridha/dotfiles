@@ -19,23 +19,23 @@ let g:maplocalleader = ','
 call plug#begin('~/.config/nvim/plugged')
 
 " Git
-Plug 'tpope/vim-fugitive'                               " git support
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'rhysd/accelerated-jk'
 " Operator for deleting or adding brackets and quotes 'saiw(' 'sdb' 'sd(' 'srb"' 'sr("'
 Plug 'machakann/vim-sandwich'
 " Search and Files
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " fzf itself
-Plug 'junegunn/fzf.vim', { 'on': ['Files', 'FZF']}                                " fuzzy search integration
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim', { 'on': ['Files', 'FZF', 'Rg']}
 " QuickFix
 Plug 'yssl/QFEnter'
 Plug 'milkypostman/vim-togglelist', { 'on': ['QToggle', 'LToggle']}
 " Visuals
-Plug 'mhinz/vim-startify'                               " cool start up screen
+Plug 'mhinz/vim-startify'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
 " Code editing helpers
-Plug 'tpope/vim-commentary'                             " better commenting
+Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'AndrewRadev/switch.vim'
@@ -131,24 +131,6 @@ nmap k <Plug>(accelerated_jk_gk)
 " PLUGIN CONFIGURATIONS:
 
 " Mapping Hints:
-" let g:which_key_map =  {}
-" let g:which_key_map_visual =  {}
-" let g:which_key_timeout = 500
-" nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-" vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
-" augroup vim_which_key_custom
-"    autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'n') | call which_key#register('<Space>', 'g:which_key_map_visual', 'v')
-"    autocmd! FileType which_key
-"    autocmd  FileType which_key set laststatus=0 noshowmode noruler
-"             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-" augroup END
-
-" Package Manager:
-" let g:which_key_map.p = {
-"          \ 'name' : '+plugins' ,
-"          \ 'u' : [':PlugUpdate'     , 'update'],
-"          \ 'c' : [':PlugClean'     , 'clean'],
-"          \ }
 augroup vim_plug_custom
    " Automatically install missing plugins on startup
    autocmd VimEnter *
@@ -242,10 +224,7 @@ let g:openbrowser_search_engines = extend(
 \ 'keep'
 \)
 command! OpenBrowserCppRef call openbrowser#smart_search(expand('<cword>'), "cppreference")
-let g:which_key_map.o = {
-         \ 'name' : '+open',
-         \ 'c' : ['OpenBrowserCppRef', 'cppreference' ],
-         \}
+nnoremap <Space>co :OpenBrowserCppRef<CR>
 
 " Fswitch:
 noremap <Space>aa :FSHere<CR>
@@ -300,8 +279,8 @@ nnoremap <silent><Up> gk
 nnoremap Y y$
 " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
 " these mappings will move through display-lines in visual mode too.
-" vnoremap j gj
-" vnoremap k gk
+vnoremap j gj
+vnoremap k gk
 " Start an external command with a single bang
 nnoremap !  :!
 " Search result navigation
@@ -317,12 +296,12 @@ imap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 imap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 imap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " Buffer movement
-" nmap <Tab> :bnext<CR>
-" nmap <S-Tab> :bprevious<CR>
+nmap <Tab> :bnext<CR>
+nmap <S-Tab> :bprevious<CR>
 
 " new line in normal mode and back
-" map <Enter> o<ESC>
-" map <S-Enter> O<ESC>
+map <Enter> o<ESC>
+map <S-Enter> O<ESC>
 noremap q :q<CR>
 noremap <C-q> :q!<CR>
 " use a different register for delete and paste
@@ -340,7 +319,7 @@ noremap sv <C-w>v
 noremap sg <C-w>s
 noremap s= <C-w>=
 noremap sb :Buffers<CR>
-noremap sw :Windows<CR>
+" noremap sw :Windows<CR>
 noremap sn :bnext<CR>
 noremap sp :bprevious<CR>
 

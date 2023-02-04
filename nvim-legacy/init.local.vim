@@ -25,12 +25,9 @@ function AGidPySym()
 endfunc
 
 function LocalMappings()
-   let g:which_key_map.s = {
-         \ 'name' : '+agid' ,
-         \ 'f' : ['AGidFull()', 'full-search'],
-         \ 'd' : ['AGidDef()', 'definition'],
-         \ 'p' : ['AGidPySym()', 'python-symbols'],
-         \ 'v' : [':silent AGidVerbose -c'     , 'grep-verbose'],
-         \ }
+   nnoremap <Space>sf call AGidFull()
+   nnoremap <Space>sd call AGidDef()
+   nnoremap <Space>sp call AGidPySym()
+   nnoremap <Space>sv :silent AGidVerbose -c<CR>
 endfunc
 
