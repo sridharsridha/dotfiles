@@ -13,7 +13,7 @@ antigen bundles <<EOBUNDLES
 	colored-man-pages
 	# magic-enter
 	extract
-	tmux
+	# tmux
 	git
 	fzf
 	# bol

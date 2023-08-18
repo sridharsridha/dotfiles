@@ -4,3 +4,5 @@ zsh/antigen/
 bash/bash-it/
 bash/fzf/
 zsh/*.zwc
+*DS_Store
+
