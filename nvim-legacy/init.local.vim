@@ -12,22 +12,8 @@ let g:AGid_OpenQuickfixWindowAtTop = 0
 let g:AGid_FoldQuickfixWindow = 0
 let g:AGid_Jump_To_Match = 0
 
-function AGidFull()
-   silent execute "AGid " . expand("<cword>")
-endfunc
+nnoremap <expr> <Space>sd ':AGid -D '.expand('<cword>').'<cr>'.'<cr>'
+nnoremap <expr> <Space>ss ':AGid '.expand('<cword>').'<cr>'.'<cr>'
+nnoremap <expr> <Space>sp ':AGid -t p '.expand('<cword>').'<cr>'.'<cr>'
 
-function AGidDef()
-   silent execute "AGid -D " . expand("<cword>")
-endfunc
-
-function AGidPySym()
-   silent execute "AGid --compact -t p " . expand("<cword>")
-endfunc
-
-function LocalMappings()
-   nnoremap <Space>sf call AGidFull()
-   nnoremap <Space>sd call AGidDef()
-   nnoremap <Space>sp call AGidPySym()
-   nnoremap <Space>sv :silent AGidVerbose -c<CR>
-endfunc
 

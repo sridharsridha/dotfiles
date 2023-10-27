@@ -55,3 +55,13 @@
 	email = sridha.in@gmail.com
 [init]
 	defaultBranch = master
+[gitar]
+	configured = true
+[safe]
+	directory = /src/GitarBandMutDb
+	directory = /src/GitarBandMutDb
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
