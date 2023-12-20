@@ -1,13 +1,13 @@
 set nocompatible
 
 " Load local config
-if filereadable(fnamemodify(expand('<sfile>'), ':h').'/init.local.vim')
+if filereadable(fnamemodify(expand('<sfile>'), ':h').'/vimrc.local.vim')
    source <sfile>:h/init.local.vim
 endif
 
 " Create vim plug if not already exist
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+if empty(glob('~/.vim/autoload/plug.vim'))
+   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -16,7 +16,7 @@ let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
 
 " PLUGINS:
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 " On-demand lazy load
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
@@ -65,7 +65,6 @@ Plug 'yssl/QFEnter'
 Plug 'milkypostman/vim-togglelist'
 
 " Visuals
-Plug 'mhinz/vim-startify'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
 Plug 'szw/vim-maximizer'
@@ -109,6 +108,7 @@ set path+=**
 set magic
 set mouse=a
 set wrap
+set belloff=all
 " By default timeoutlen is 1000 ms
 set timeoutlen=400
 set clipboard=unnamedplus
@@ -133,16 +133,16 @@ function s:create_cache_directory(dir)
    endif
 endfunction
 
-let g:data_dir = $HOME . '/.cache/nvim/'
+let g:data_dir = $HOME . '/.cache/vim/'
 call s:create_cache_directory(g:data_dir . 'backup')
 call s:create_cache_directory(g:data_dir . 'swap')
 call s:create_cache_directory(g:data_dir . 'undofile')
 call s:create_cache_directory(g:data_dir . 'conf')
 call s:create_cache_directory(g:data_dir . 'view')
-set undodir=$HOME/.cache/nvim/undofile
-set backupdir=$HOME/.cache/nvim/backup
-set directory=$HOME/.cache/nvim/swap
-set viewdir=$HOME/.cache/nvim/view/
+set undodir=$HOME/.cache/vim/undofile
+set backupdir=$HOME/.cache/vim/backup
+set directory=$HOME/.cache/vim/swap
+set viewdir=$HOME/.cache/vim/view/
 
 set undofile
 set history=10000
@@ -159,7 +159,7 @@ set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
 set infercase       " Adjust case in insert completion mode
 set complete=.,w,b  " C-n completion: Scan buffers and windows
-set inccommand=split
+" set inccommand=split
 if executable('rg')
    let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
 elseif executable('ag')
@@ -174,9 +174,9 @@ set number
 set norelativenumber
 set foldenable
 set conceallevel=2 concealcursor=niv " For snippet_complete marker
-set lazyredraw                       " Don't redraw while executing macros.
+" set lazyredraw                       " Don't redraw while executing macros.
 set showtabline=2
-set termguicolors
+" set termguicolors
 set splitright
 set splitbelow
 
@@ -200,37 +200,13 @@ augroup END
 
 " Statusline:
 colorscheme gruvbox
+set background=dark
 let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 let g:gruvbox_italic = 1
 let g:gruvbox_hls_cursor = 'purple'
 let g:gruvbox_italicize_comments = 1
 let g:gruvbox_italicize_strings = 1
-
-" StartingWindow:
-let g:startify_padding_left = 10
-let g:startify_enable_special = 0
-let g:startify_change_to_vcs_root = 1
-let g:startify_lists = [
-         \ { 'type': 'dir'       },
-         \ { 'type': 'files'     },
-         \ { 'type': 'sessions'  },
-         \ { 'type': 'bookmarks' },
-         \ { 'type': 'commands' },
-         \ ]
-let  g:startify_bookmarks =  [
-         \ {'v': '~/.config/nvim'},
-         \ {'d': '~/dotfiles' }
-         \ ]
-let g:startify_commands = [
-         \ {'ch':  ['Health Check', ':checkhealth']},
-         \ {'ps': ['Plugins status', ':PlugStatus']},
-         \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
-         \ {'h':  ['Help', ':help']},
-         \ ]
-let g:startify_custom_header = [
-         \ "",
-         \]
 
 " Quickfix QFEnter:
 let g:qfenter_keymap = {}
@@ -385,12 +361,5 @@ augroup core
    autocmd BufWritePre MERGE_MSG       setlocal noundofile
    autocmd BufWritePre *.tmp           setlocal noundofile
    autocmd BufWritePre *.bak           setlocal noundofile
-   autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
-augroup END
-
-" startify if no passed argument or all buffers are closed
-augroup noargs
-   " open startify on start if no argument was passed
-   autocmd VimEnter * if argc() == 0 | Startify | endif
 augroup END
 

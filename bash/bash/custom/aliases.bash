@@ -16,7 +16,6 @@ alias cp='cp -iv'                            # Preferred 'cp' implementation
 alias mv='mv -iv'                            # Preferred 'mv' implementation
 alias gentags='ctags -R .'
 alias grep='grep -n --color=auto'
-alias vim=nvim
 alias mem='free -h'
 alias disk='df -h'
 # I like verbose in chmod & chown

@@ -13,6 +13,10 @@ else
   export P4EDITOR='vim'
 fi
 
+export VISUAL='vim'
+export EDITOR='vim'
+export P4EDITOR='vim'
+
 # Increase Bash history size. Allow 32³ entries; the default is 500.
 export HISTSIZE='32768';
 export HISTFILESIZE="${HISTSIZE}";
