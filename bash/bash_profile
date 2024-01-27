@@ -4,3 +4,5 @@
 
 # Source bash configuration.
 [ -r ~/.bashrc ] && [ -f ~/.bashrc ] && source ~/.bashrc
+
+if [ -e /home/sridharn/.nix-profile/etc/profile.d/nix.sh ]; then . /home/sridharn/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

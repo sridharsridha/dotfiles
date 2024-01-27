@@ -151,6 +151,7 @@ set history=10000
 set textwidth=85  " Text width maximum chars before wrapping
 set tabstop=3
 set expandtab
+set shiftwidth=3
 
 " Searching:
 set autowrite
@@ -284,8 +285,8 @@ nnoremap > >>_
 nnoremap < <<_
 
 " smart up and down
-nnoremap <silent><Down> gj
-nnoremap <silent><Up> gk
+nnoremap <silent><Down> j
+nnoremap <silent><Up> k
 nnoremap Y y$
 
 " The plugin rhysd/accelerated-jk moves through display-lines in normal mode,

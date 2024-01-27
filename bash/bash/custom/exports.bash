@@ -26,8 +26,8 @@ export HISTCONTROL=ignoredups:erasedups
 
 export PAGER='less -X'
 export LESS='--ignore-case --raw-control-chars'
-export LANG='en_US.UTF-8'
-export LC_ALL='en_US.UTF-8'
+# export LANG='en_US.UTF-8'
+# export LC_ALL='en_US.UTF-8'
 
 # Hide the “default interactive shell is now zsh” warning on macOS.
 export BASH_SILENCE_DEPRECATION_WARNING=1;

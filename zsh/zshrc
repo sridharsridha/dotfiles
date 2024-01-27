@@ -20,8 +20,8 @@ ZSH_AUTOSUGGEST_USE_ASYNC="true"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Node installation
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Load the private bash config files
 CUSTOM="${HOME}/.zshrc.local"
@@ -30,3 +30,19 @@ if [[ -e "${CUSTOM}" ]]; then
 	source $CUSTOM
 fi
 
+# PATH=$HOME/bin:$PATH
+# OLDPATH=$PATH
+# if [ -e /home/sridharn/.nix-profile/etc/profile.d/nix.sh ]; then
+#    . /home/sridharn/.nix-profile/etc/profile.d/nix.sh;
+# fi # added by Nix installer
+# PATH=$OLDPATH
+
+# nix configuration
+if [[ $- == *i* ]]; then  # check if interactive shell
+   if [ -x "$HOME/bin/nix-enter" ]; then
+      if [ ! -e /nix/var/nix/profiles ] || [ -z ${NIX_ENTER} ]; then
+         export NIX_ENTER="TRUE"
+         exec "$HOME/bin/nix-enter"
+      fi
+   fi
+fi

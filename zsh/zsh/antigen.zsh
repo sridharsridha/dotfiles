@@ -49,6 +49,7 @@ antigen bundles <<EOBUNDLES
 
 	# marlonrichert/zsh-autocomplete
 	# zsh-users/zsh-history-substring-search
+
 	zsh-users/zsh-completions
 	zsh-users/zsh-autosuggestions
 	zsh-users/zsh-syntax-highlighting
@@ -56,12 +57,12 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # Lead ZSH themes
-# if ! is-at-least 5.1; then
-#    antigen theme robbyrussell
-# else
-#    antigen theme romkatv/powerlevel10k
-# fi
-antigen theme robbyrussell
+autoload -U is-at-least
+if is-at-least 5.8; then
+   antigen theme spaceship-prompt/spaceship-prompt
+else
+   antigen theme robbyrussell
+fi
 
 # Tell antigen that you're done.
 antigen apply

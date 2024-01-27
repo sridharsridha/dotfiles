@@ -87,11 +87,13 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'RyanMillerC/better-vim-tmux-resizer'
 
 "Visual
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1
+" Plug 'luochen1990/rainbow'
+" let g:rainbow_active = 1
 
 " Colorscheme
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+Plug 'ellisonleao/gruvbox.nvim'
+" Plug 'shaunsingh/nord.nvim'
 
 " Statusline
 Plug 'vim-airline/vim-airline'
@@ -199,13 +201,16 @@ augroup END
 " CtrlP
 
 " Statusline:
+set background=dark
 colorscheme gruvbox
-let g:airline_theme='gruvbox'
+" colorscheme nord
+" let g:airline_theme='base16_nord'
+let g:airline_theme='base16_gruvbox_dark_hard'
 let g:airline#extensions#tabline#enabled = 1
-let g:gruvbox_italic = 1
-let g:gruvbox_hls_cursor = 'purple'
-let g:gruvbox_italicize_comments = 1
-let g:gruvbox_italicize_strings = 1
+" let g:gruvbox_italic = 1
+" let g:gruvbox_hls_cursor = 'purple'
+" let g:gruvbox_italicize_comments = 1
+" let g:gruvbox_italicize_strings = 1
 
 " StartingWindow:
 let g:startify_padding_left = 10
