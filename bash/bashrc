@@ -31,15 +31,8 @@ for host_cfg in "$BASH_D"/custom/hosts/*.bash; do
 done
 unset hostname
 
-# Load the private bash config files
-CUSTOM="${HOME}/.bashrc.local"
-if [[ -e "${CUSTOM}" ]]; then
-	# shellcheck disable=SC1090
-	source $CUSTOM
-fi
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Load the private bash config files
+[ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

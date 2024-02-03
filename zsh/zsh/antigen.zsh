@@ -11,6 +11,8 @@ antigen bundles <<EOBUNDLES
 	# Oh-my-zsh plugins
 	command-not-found
 	colored-man-pages
+	zsh-interactive-cd
+	history-substring-search
 	# magic-enter
 	extract
 	# tmux
@@ -21,8 +23,7 @@ antigen bundles <<EOBUNDLES
 
 	# autojump directories
 	rupa/z
-	# zabb z abbr for a directory
-	Mellbourn/zabb
+
 	# Alias Tool tip
 	djui/alias-tips
 
@@ -48,7 +49,6 @@ antigen bundles <<EOBUNDLES
 	supercrabtree/k
 
 	# marlonrichert/zsh-autocomplete
-	# zsh-users/zsh-history-substring-search
 
 	zsh-users/zsh-completions
 	zsh-users/zsh-autosuggestions
@@ -57,12 +57,7 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # Lead ZSH themes
-autoload -U is-at-least
-if is-at-least 5.8; then
-   antigen theme spaceship-prompt/spaceship-prompt
-else
-   antigen theme robbyrussell
-fi
+ antigen theme robbyrussell
 
 # Tell antigen that you're done.
 antigen apply

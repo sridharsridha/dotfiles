@@ -10,8 +10,8 @@ fi
 
 export PAGER='less'
 export LESS='--ignore-case --raw-control-chars'
-# export LANG="en_US.UTF-8"
-# export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export TZ="Asia/Kolkata"
 
 # Cppman bash completion support with '::'
