@@ -57,7 +57,7 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # Lead ZSH themes
- antigen theme robbyrussell
+antigen theme robbyrussell
 
 # Tell antigen that you're done.
 antigen apply

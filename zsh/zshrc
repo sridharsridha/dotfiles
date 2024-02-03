@@ -19,23 +19,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC="true"
 [ ! -f ~/.fzf.zsh ] && $FZF_BASE/install --all
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Node installation
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# Load the private bash config files
-CUSTOM="${HOME}/.zshrc.local"
-if [[ -e "${CUSTOM}" ]]; then
-	# shellcheck disable=SC1090
-	source $CUSTOM
-fi
-
-# PATH=$HOME/bin:$PATH
-# OLDPATH=$PATH
-# if [ -e /home/sridharn/.nix-profile/etc/profile.d/nix.sh ]; then
-#    . /home/sridharn/.nix-profile/etc/profile.d/nix.sh;
-# fi # added by Nix installer
-# PATH=$OLDPATH
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # nix configuration
 if [[ $- == *i* ]]; then  # check if interactive shell
