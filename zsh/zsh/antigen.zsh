@@ -8,52 +8,30 @@ antigen use oh-my-zsh
 
 # Load antigen plugins
 antigen bundles <<EOBUNDLES
-	# Oh-my-zsh plugins
 	command-not-found
-	colored-man-pages
-	zsh-interactive-cd
-	history-substring-search
+	# colored-man-pages
+	# zsh-interactive-cd
+	# history-substring-search
 	# magic-enter
-	extract
+	# extract
 	# tmux
-	git
+	# git
 	fzf
 	# bol
 	# bofh
-
-	# autojump directories
-	rupa/z
-
-	# Alias Tool tip
-	djui/alias-tips
-
-   # Use FZF for ZSH tab completion
+	# rupa/z
+	# djui/alias-tips
 	# Aloxaf/fzf-tab
-
-	# Autonotify long running commands when finished
 	# MichaelAquilina/zsh-auto-notify
-
-	# Use bd to move up folders
-	Tarrasch/zsh-bd
-
-	# adds pbcopy, pbpaste and clip
-	zpm-zsh/clipboard
-
-	# C-h
-	micrenda/zsh-nohup
-
-	# Todo
-	AlexisBRENON/oh-my-zsh-reminder
-
+	# Tarrasch/zsh-bd
+	# zpm-zsh/clipboard
+	# micrenda/zsh-nohup
+	# AlexisBRENON/oh-my-zsh-reminder
 	# colorfull ls
-	supercrabtree/k
-
-	# marlonrichert/zsh-autocomplete
-
+	# supercrabtree/k
 	zsh-users/zsh-completions
 	zsh-users/zsh-autosuggestions
 	zsh-users/zsh-syntax-highlighting
-
 EOBUNDLES
 
 # Lead ZSH themes

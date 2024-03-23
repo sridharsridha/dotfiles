@@ -88,7 +88,7 @@ class TerminalSizer:
 
 
 def get_workspaces(server):
-    cmd = f"ssh {server} a4c ps"
+    cmd = f"ssh {server} a4c ps -N"
     p = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
     (output, err) = p.communicate()
     p_status = p.wait()
@@ -97,7 +97,7 @@ def get_workspaces(server):
         return list()
     output = output.decode()
     output = output.split("\n")
-    return output[1:]
+    return output
 
 
 def setupArguments():

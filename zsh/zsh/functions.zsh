@@ -216,3 +216,8 @@ function frg() {
       vim ${cols[1]} +"normal! ${cols[2]}zz"
    fi
 }
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
