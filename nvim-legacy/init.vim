@@ -29,16 +29,16 @@ nnoremap <silent> s :<c-u>WhichKey 's'<CR>
 Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
-Plug 'jreybert/vimagit'
-Plug 'cohama/agit.vim'
+" Plug 'jreybert/vimagit'
+" Plug 'cohama/agit.vim'
 
 " Faster j k movements.
 Plug 'tpope/vim-repeat'
 Plug 'rhysd/accelerated-jk'
 
 " Mark workds under cursor
-Plug 'inkarkat/vim-ingo-library'
-Plug 'inkarkat/vim-mark'
+" Plug 'inkarkat/vim-ingo-library'
+" Plug 'inkarkat/vim-mark'
 
 Plug 'AndrewRadev/bufferize.vim'
 
@@ -54,7 +54,7 @@ Plug 'tpope/vim-surround'
 Plug 'farmergreg/vim-lastplace'
 
 " Search and Files
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'pelodelfuego/vim-swoop'
