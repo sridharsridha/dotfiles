@@ -2,12 +2,12 @@
 export CLICOLOR=1
 export KEYTIMEOUT=1
 
+export LANG=en_US.UTF-8
+
 export EDITOR='nvim'
 export PAGER='less'
 export LESS='--ignore-case --raw-control-chars'
 export VISUAL='nvim'
-# export LANG="en_US.UTF-8"
-# export LC_ALL="en_US.UTF-8"
 export TZ="Asia/Kolkata"
 
 # Paths {{{
