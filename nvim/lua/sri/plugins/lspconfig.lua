@@ -126,6 +126,12 @@ return {
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+			-- Below servers will be installed using mason.
+			-- It uses mason registry to install them.
+			--
+			-- NOTE: Custom LSP servers cannot be added here as mason registry will not
+			-- have them.
+			--
 			-- Enable the following language servers
 			--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 			--
@@ -136,7 +142,18 @@ return {
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
-				-- clangd = {},
+				clangd = {
+					cmd = {
+						"/usr/bin/clangd",
+						"--pretty",
+						"-j=40",
+						"--pch-storage=memory",
+						"--clang-tidy",
+						"--compile-commands-dir=/src",
+					},
+					filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+				},
+
 				-- gopls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
@@ -148,7 +165,6 @@ return {
 				-- But for many setups, the LSP (`tsserver`) will work just fine
 				-- tsserver = {},
 				--
-
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes { ...},
@@ -193,7 +209,6 @@ return {
 				"stylua", -- Used to format lua code
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
 			require("mason-lspconfig").setup({
 				handlers = {
 					function(server_name)
@@ -206,6 +221,76 @@ return {
 					end,
 				},
 			})
+
+			local sri_custom_lsp_start = vim.api.nvim_create_augroup("sri-custom-lsp-start", { clear = true })
+			-- Setup custom LSP servers for different filetypes.
+			-- Take a look at server configuration in nvim-lspconfig
+			-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+				group = sri_custom_lsp_start,
+				pattern = { "*.tac" },
+				callback = function()
+					vim.lsp.start({
+						name = "tacc",
+						cmd = { "/usr/bin/artaclsp" },
+						cmd_args = { "-I", "/bld/" },
+						root_dir = "/src",
+					})
+				end,
+			})
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+				group = sri_custom_lsp_start,
+				pattern = { "*.arx" },
+				callback = function()
+					vim.lsp.start({
+						name = "arex",
+						cmd = { "/usr/bin/arexlsp" },
+						root_dir = "/src",
+					})
+				end,
+			})
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+				group = sri_custom_lsp_start,
+				pattern = { "*.py" },
+				callback = function()
+					vim.lsp.start({
+						name = "ar-pylint-ls",
+						cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
+						root_dir = "/src",
+						settings = { debug = false },
+					})
+				end,
+			})
+			-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+			-- 	group = sri_custom_lsp_start,
+			-- 	pattern = "/src/**",
+			-- 	callback = function()
+			-- 		vim.lsp.start({
+			-- 			name = "ar-formatdiff-ls",
+			-- 			cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
+			-- 			root_dir = "/src",
+			-- 			settings = { debug = false },
+			-- 			on_attach = function()
+			-- 				vim.keymap.set("n", "<leader>cf", function()
+			-- 					vim.lsp.buf.format({ timeout_ms = 5000 })
+			-- 				end, { desc = "LSP: " .. "[C]ode [F]ormat" })
+			-- 			end,
+			-- 		})
+			-- 	end,
+			-- })
+
+			-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+			-- 	group = sri_custom_lsp_start,
+			-- 	pattern = "/src/**",
+			-- 	callback = function()
+			-- 		vim.lsp.start({
+			-- 			name = "ar-grok-ls",
+			-- 			cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
+			-- 			root_dir = "/src",
+			-- 			settings = { debug = false },
+			-- 		})
+			-- 	end,
+			-- })
 		end,
 	},
 }

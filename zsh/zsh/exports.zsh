@@ -2,20 +2,13 @@
 export CLICOLOR=1
 export KEYTIMEOUT=1
 
-if type "nvim" > /dev/null; then
-  export EDITOR='nvim'
-else
-  export EDITOR='vim'
-fi
-
+export EDITOR='nvim'
 export PAGER='less'
 export LESS='--ignore-case --raw-control-chars'
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+export VISUAL='nvim'
+# export LANG="en_US.UTF-8"
+# export LC_ALL="en_US.UTF-8"
 export TZ="Asia/Kolkata"
-
-# Cppman bash completion support with '::'
-# export COMP_WORDBREAKS=" /\"\'><;|&("
 
 # Paths {{{
 ###########

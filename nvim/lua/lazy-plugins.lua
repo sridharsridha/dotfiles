@@ -11,16 +11,25 @@ require("lazy").setup({
 	--    require('Comment').setup({})
 	-- "gc" to comment visual regions/lines
 	-- { "numToStr/Comment.nvim", opts = {} },
-
 	require("sri/plugins/gitsigns"),
 	require("sri/plugins/which-key"),
 	require("sri/plugins/telescope"),
 	require("sri/plugins/lspconfig"),
 	require("sri/plugins/conform"),
 	require("sri/plugins/cmp"),
-	require("sri/plugins/tokyonight"),
 	require("sri/plugins/todo-comments"),
+	require("sri/plugins/indent_line"),
 	require("sri/plugins/mini"),
 	require("sri/plugins/treesitter"),
 	require("sri/plugins/whitespace"),
+	require("sri/plugins/terminal"),
+	require("sri/plugins/tmux"),
+
+	-- Custom plugin directory
+	{ dir = "~/arista.nvim", lazy = false },
+
+	-- Themes
+	require("sri/plugins/gruvbox"),
+	-- require("sri/plugins/tokyonight"),
+	-- require("sri/plugins/github-theme"),
 })

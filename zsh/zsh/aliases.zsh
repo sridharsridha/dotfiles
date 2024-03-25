@@ -78,5 +78,6 @@ alias tma="tmux attach -d"
 alias tmcp='tmux capture-pane -p -J -S - -E - | sed ‘s/[ \t]*$//’ | $EDITOR -'
 
 # Nvim.
-# alias vim=nvim
-# alias vi=nvim
+alias vim='nvim'
+alias vi='nvim'
+alias nvim='nvim'

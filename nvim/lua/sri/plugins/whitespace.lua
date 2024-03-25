@@ -12,4 +12,10 @@ return {
 	{
 		"axelf4/vim-strip-trailing-whitespace",
 	},
+	{
+		"johnfrankmorgan/whitespace.nvim",
+		config = function()
+			require("whitespace-nvim").setup()
+		end,
+	},
 }
