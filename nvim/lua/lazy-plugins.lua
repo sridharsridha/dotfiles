@@ -24,6 +24,7 @@ require("lazy").setup({
 	require("sri/plugins/whitespace"),
 	require("sri/plugins/terminal"),
 	require("sri/plugins/tmux"),
+	require("sri/plugins/trouble"),
 
 	-- Custom plugin directory
 	{ dir = "~/arista.nvim", lazy = false },

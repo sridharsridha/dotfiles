@@ -10,6 +10,14 @@ return {
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
+			-- {
+			-- 	"dgagn/diagflow.nvim",
+			-- 	-- event = 'LspAttach', This is what I use personnally and it works great
+			-- 	opts = {
+			-- 		placement = "top",
+			-- 		show_borders = true,
+			-- 	},
+			-- },
 		},
 		config = function()
 			-- Brief Aside: **What is LSP?**

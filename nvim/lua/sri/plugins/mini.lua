@@ -27,8 +27,8 @@ return {
 			statusline.setup()
 
 			-- Simple and easy auto pair.
-			local pairs = require("mini.pairs")
-			pairs.setup()
+			-- local pairs = require("mini.pairs")
+			-- pairs.setup()
 
 			-- Simple comment.
 			local comment = require("mini.comment")
