@@ -1,17 +1,11 @@
 return {
-	-- Lua fork of vim-devicons
 	{ "nvim-tree/nvim-web-devicons", lazy = false },
-	{
-		"echasnovski/mini.tabline",
-		opts = {},
-	},
+
 	{
 		"echasnovski/mini.statusline",
 		opts = {},
 	},
-	-- Active indent guide and indent text objects. When you're browsing
-	-- code, this highlights the current level of indentation, and animates
-	-- the highlighting.
+
 	{
 		"echasnovski/mini.indentscope",
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
@@ -45,29 +39,7 @@ return {
 			})
 		end,
 	},
-
-	{
-		"johnfrankmorgan/whitespace.nvim",
-		opts = {
-			-- `ignored_filetypes` configures which filetypes to ignore when
-			-- displaying trailing whitespace
-			ignored_filetypes = {
-				"TelescopePrompt",
-				"lazy",
-				"Trouble",
-				"help",
-				"toggleterm",
-				"log",
-				"nofile",
-				"lspinfo",
-				"lazyterm",
-				"man",
-				"mason",
-				"Outline",
-			},
-		},
-	},
-	-- -- Visually display indent levels
+	-- -- -- Visually display indent levels
 	-- {
 	-- 	"lukas-reineke/indent-blankline.nvim",
 	-- 	main = "ibl",
@@ -108,18 +80,42 @@ return {
 	-- 		},
 	-- 	},
 	-- },
-	-- 	-- Highlight words quickly
-	{
-		"t9md/vim-quickhl",
-		keys = {
-			{
-				"<Leader>mt",
-				"<Plug>(quickhl-manual-this)",
-				mode = { "n", "x" },
-				desc = "Highlight word",
-			},
-		},
-	},
+
+	-- {
+	-- 	"johnfrankmorgan/whitespace.nvim",
+	-- 	opts = {
+	-- 		-- `ignored_filetypes` configures which filetypes to ignore when
+	-- 		-- displaying trailing whitespace
+	-- 		ignored_filetypes = {
+	-- 			"TelescopePrompt",
+	-- 			"lazy",
+	-- 			"Trouble",
+	-- 			"help",
+	-- 			"toggleterm",
+	-- 			"log",
+	-- 			"nofile",
+	-- 			"lspinfo",
+	-- 			"lazyterm",
+	-- 			"man",
+	-- 			"mason",
+	-- 			"Outline",
+	-- 		},
+	-- 	},
+	-- },
+
+	-- Highlight words quickly
+	-- {
+	-- 	"t9md/vim-quickhl",
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>mt",
+	-- 			"<Plug>(quickhl-manual-this)",
+	-- 			mode = { "n", "x" },
+	-- 			desc = "Highlight word",
+	-- 		},
+	-- 	},
+	-- },
+
 	-- Better quickfix window in Neovim
 	{
 		"kevinhwang91/nvim-bqf",
@@ -163,50 +159,41 @@ return {
 			},
 		},
 	},
+
 	-- Super powerful color picker/colorizer plugin
-	{
-		"uga-rosa/ccc.nvim",
-		event = "FileType",
-		keys = {
-			{ "<Leader>mc", "<cmd>CccPick<CR>", desc = "Color-picker" },
-		},
-		opts = {
-			highlighter = {
-				auto_enable = true,
-				lsp = true,
-				excludes = { "lazy", "mason", "help", "neo-tree" },
-			},
-		},
-	},
-	-- Interacting with and manipulating marks
-	{
-		"chentoast/marks.nvim",
-		dependencies = "lewis6991/gitsigns.nvim",
-		event = "FileType",
-		keys = {
-			{ "m/", "<cmd>MarksListAll<CR>", desc = "Marks from all opened buffers" },
-		},
-		opts = {
-			sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-			bookmark_1 = { sign = "󰈼" }, -- ⚐ ⚑ 󰈻 󰈼 󰈽 󰈾 󰈿 󰉀
-			mappings = {
-				annotate = "m<Space>",
-			},
-		},
-	},
 	-- {
-	-- 	"LunarVim/breadcrumbs.nvim",
-	-- 	dependencies = {
-	-- 		{ "SmiteshP/nvim-navic" },
+	-- 	"uga-rosa/ccc.nvim",
+	-- 	event = "FileType",
+	-- 	keys = {
+	-- 		{ "<Leader>mc", "<cmd>CccPick<CR>", desc = "Color-picker" },
 	-- 	},
+	-- 	opts = {
+	-- 		highlighter = {
+	-- 			auto_enable = true,
+	-- 			lsp = true,
+	-- 			excludes = { "lazy", "mason", "help", "neo-tree" },
+	-- 		},
+	-- 	},
+	-- },
+
+	-- Disable cursorline when moving, for various perf reasons
+	-- {
+	-- 	"yamatsum/nvim-cursorline", -- replaces delphinus/auto-cursorline.nvim",
 	-- 	config = function()
-	-- 		require("nvim-navic").setup({
-	-- 			lsp = {
-	-- 				auto_attach = true,
+	-- 		require("nvim-cursorline").setup({
+	-- 			cursorline = {
+	-- 				enable = true,
+	-- 				timeout = 300,
+	-- 				number = false,
+	-- 			},
+	-- 			cursorword = {
+	-- 				-- known issue https://github.com/yamatsum/nvim-cursorline/issues/27
+	-- 				-- but i don't use netrw, so maybe non-issue
+	-- 				enable = true,
+	-- 				min_length = 3,
+	-- 				hl = { underline = true },
 	-- 			},
 	-- 		})
-	--
-	-- 		require("breadcrumbs").setup()
 	-- 	end,
 	-- },
 }

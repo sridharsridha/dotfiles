@@ -18,9 +18,12 @@ return {
 			},
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
 			"andersevenrud/cmp-tmux",
 			"hrsh7th/cmp-buffer",
+			-- "onsails/lspkind.nvim",
 			"rafamadriz/friendly-snippets",
 		},
 		config = function()
@@ -37,9 +40,18 @@ return {
 				},
 				completion = { completeopt = "menu,menuone,noinsert" },
 
+				sources = cmp.config.sources({
+					{ name = "luasnip" },
+					{ name = "nvim_lsp_signature_help" },
+					{ name = "nvim_lsp" },
+				}, { -- group 2 only if nothing in above had results
+					{ name = "buffer" },
+					{ name = "path" },
+					{ name = "tmux" },
+				}),
+
 				-- For an understanding of why these mappings were
 				-- chosen, you will need to read `:help ins-completion`
-				--
 				-- No, but seriously. Please read `:help ins-completion`, it is really good!
 				mapping = cmp.mapping.preset.insert({
 					-- Select the [n]ext item
@@ -55,7 +67,7 @@ return {
 					-- Manually trigger a completion from nvim-cmp.
 					--  Generally you don't need this, because nvim-cmp will display
 					--  completions whenever it has completion options available.
-					["<C-Space>"] = cmp.mapping.complete({}),
+					["<C-k>"] = cmp.mapping.complete({}),
 
 					-- Think of <c-l> as moving to the right of your snippet expansion.
 					--  So if you have a snippet that's like:
@@ -76,11 +88,43 @@ return {
 						end
 					end, { "i", "s" }),
 				}),
-				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{ name = "path" },
+				window = {
+					completion = {
+						border = "rounded",
+						scrollbar = "║",
+					},
+					documentation = {
+						border = "rounded",
+						scrollbar = "║",
+					},
 				},
+				-- formatting = {
+				-- 	format = require("lspkind").cmp_format({
+				-- 		mode = "symbol", -- show only symbol annotations
+				-- 		maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+				-- 		-- can also be a function to dynamically calculate max width such as
+				-- 		-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+				-- 		show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+				-- 	}),
+				-- },
+			})
+			-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+			cmp.setup.cmdline({ "/", "?" }, {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources(
+					{
+						{ name = "path" },
+					}, -- group 1
+					{ { name = "cmdline" } } -- group 2, only use if nothing in group 1
+				),
 			})
 		end,
 	},

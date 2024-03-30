@@ -1,6 +1,6 @@
 return {
-	{ "MTDL9/vim-log-highlighting" },
-	{ -- Highlight, edit, and navigate code
+	{ "MTDL9/vim-log-highlighting", ft = "log" },
+	{
 		"nvim-treesitter/nvim-treesitter",
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
@@ -32,10 +32,10 @@ return {
 				auto_install = true,
 				highlight = { enable = true },
 				indent = { enable = true },
-				-- refactor = {
-				-- 	highlight_definitions = { enable = true },
-				-- 	highlight_current_scope = { enable = true },
-				-- },
+				refactor = {
+					highlight_definitions = { enable = true },
+					highlight_current_scope = { enable = true },
+				},
 				-- -- See: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 				textobjects = {
 					select = {
@@ -81,14 +81,15 @@ return {
 			})
 		end,
 	},
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		event = { "BufRead" },
-		config = function()
-			require("treesitter-context").setup({
-				mode = "cursor",
-				max_lines = 3,
-			})
-		end,
-	},
+
+	-- {
+	-- 	"nvim-treesitter/nvim-treesitter-context",
+	-- 	event = { "BufRead" },
+	-- 	config = function()
+	-- 		require("treesitter-context").setup({
+	-- 			mode = "cursor",
+	-- 			max_lines = 3,
+	-- 		})
+	-- 	end,
+	-- },
 }

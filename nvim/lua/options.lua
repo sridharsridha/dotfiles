@@ -2,9 +2,9 @@ local indent = 3
 local g = vim.g
 local opt = vim.opt
 
-opt.lazyredraw = true
+-- opt.lazyredraw = true
 opt.path:append("**")
-opt.termguicolors = true
+-- opt.termguicolors = true
 
 -- Make line numbers default
 opt.number = true
@@ -53,7 +53,7 @@ opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.inccommand = "split"
 
 -- Show which line your cursor is on
-opt.cursorline = true
+opt.cursorline = false
 
 -- Minimal number of screen lines to keep above and below the cursor.
 opt.scrolloff = 10

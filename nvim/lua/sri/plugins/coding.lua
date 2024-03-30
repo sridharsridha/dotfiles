@@ -16,6 +16,8 @@ return {
 		-- - sd'   - [S]urround [D]elete [']quotes
 		-- - sr)'  - [S]urround [R]eplace [)] [']
 		"echasnovski/mini.surround",
+		event = "InsertEnter",
+		opts = {},
 	},
 
 	{
@@ -76,6 +78,7 @@ return {
 	{
 		-- Split and join arguments
 		"echasnovski/mini.splitjoin",
+		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		keys = {
 			{
 				"sj",

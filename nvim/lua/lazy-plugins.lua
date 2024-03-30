@@ -4,7 +4,7 @@
 --  To update plugins, you can run
 --    :Lazy update
 require("lazy").setup({
-	require("sri/plugins/which-key"),
+   require("sri/plugins/which-key"),
 	require("sri/plugins/editor"),
 	require("sri/plugins/coding"),
 	require("sri/plugins/gitsigns"),
@@ -12,7 +12,6 @@ require("lazy").setup({
 	require("sri/plugins/lspconfig"),
 	require("sri/plugins/formatting"),
 	require("sri/plugins/cmp"),
-	require("sri/plugins/mini"),
 	require("sri/plugins/treesitter"),
 	require("sri/plugins/ui"),
 

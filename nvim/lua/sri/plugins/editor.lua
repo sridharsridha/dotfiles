@@ -5,34 +5,11 @@ return {
 		priority = 50,
 		config = true,
 	},
-	-- Search labels, enhanced character motions
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		vscode = true,
-		opts = {},
-		-- stylua: ignore
-		keys = {
-			{ 'ss', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
-			{ 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
-			{ 'r', mode = 'o', function() require('flash').remote() end, desc = 'Remote Flash' },
-			{ 'R', mode = { 'x', 'o' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
-			{ '<c-s>', mode = { 'c' }, function() require('flash').toggle() end, desc = 'Toggle Flash Search' },
-		},
-	},
+
 	{
 		"folke/todo-comments.nvim",
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		dependencies = { "nvim-lua/plenary.nvim" },
-		-- stylua: ignore
-		keys = {
-			{ ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
-			{ '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
-			{ '<leader>xt', '<cmd>TodoTrouble<CR>', desc = 'Todo (Trouble)' },
-			{ '<leader>xT', '<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme (Trouble)' },
-			{ '<leader>st', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
-			{ '<leader>sT', '<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>', desc = 'Todo/Fix/Fixme' },
-		},
 		opts = { signs = false },
 	},
 
@@ -40,21 +17,20 @@ return {
 		"mbbill/undotree",
 		cmd = "UndotreeToggle",
 		keys = {
-			{ "<Leader>gu", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree" },
+			{ "<leader>U", "<cmd>UndotreeToggle<CR>", desc = "Undo Tree" },
 		},
 	},
+
 	{
 		"folke/trouble.nvim",
 		cmd = { "Trouble", "TroubleToggle" },
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = { use_diagnostic_signs = true },
     		-- stylua: ignore
 		keys = {
 			{ '<leader>xx', function() require('trouble').toggle('document_diagnostics') end, desc = 'Document Diagnostics (Trouble)' },
-			{ '<leader>xX', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
-			{ '<leader>xL', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
-			{ '<leader>xQ', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
-			{ 'gR', function() require('trouble').open('lsp_references') end, desc = 'LSP References (Trouble)' },
+			{ '<leader>e', function() require('trouble').toggle('workspace_diagnostics') end, desc = 'Workspace Diagnostics (Trouble)' },
+			{ '<leader>xl', function() require('trouble').toggle('loclist') end, desc = 'Location List (Trouble)' },
+			{ '<leader>xq', function() require('trouble').toggle('quickfix') end, desc = 'Quickfix List (Trouble)' },
 			{
 				'[q',
 				function()
@@ -80,51 +56,6 @@ return {
 		},
 	},
 
-	-- Find the enemy and replace them with dark power
-	{
-		"nvim-pack/nvim-spectre",
-		-- stylua: ignore
-		keys = {
-			{ '<Leader>sp', function() require('spectre').toggle() end, desc = 'Spectre', },
-			{ '<Leader>sp', function() require('spectre').open_visual({ select_word = true }) end, mode = 'x', desc = 'Spectre Word' },
-		},
-		opts = {
-			open_cmd = "noswapfile vnew",
-			mapping = {
-				["toggle_gitignore"] = {
-					map = "tg",
-					cmd = "<cmd>lua require('spectre').change_options('gitignore')<CR>",
-					desc = "toggle gitignore",
-				},
-			},
-			find_engine = {
-				["rg"] = {
-					cmd = "rg",
-					args = {
-						"--color=never",
-						"--no-heading",
-						"--with-filename",
-						"--line-number",
-						"--column",
-						"--ignore",
-					},
-					options = {
-						["gitignore"] = {
-							value = "--no-ignore",
-							icon = "[G]",
-							desc = "gitignore",
-						},
-					},
-				},
-			},
-			default = {
-				find = {
-					cmd = "rg",
-					options = { "ignore-case", "hidden", "gitignore" },
-				},
-			},
-		},
-	},
 	-- Helper for removing buffers
 	{
 		"echasnovski/mini.bufremove",
@@ -134,41 +65,7 @@ return {
 			{ '<leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete Buffer', },
 		},
 	},
-	-- Pretty window for navigating LSP locations
-	{
-		"dnlhc/glance.nvim",
-		cmd = "Glance",
-		keys = {
-			{ "gpd", "<cmd>Glance definitions<CR>" },
-			{ "gpr", "<cmd>Glance references<CR>" },
-			{ "gpy", "<cmd>Glance type_definitions<CR>" },
-			{ "gpi", "<cmd>Glance implementations<CR>" },
-		},
-		opts = function()
-			local actions = require("glance").actions
-			return {
-				folds = {
-					fold_closed = "󰅂", -- 󰅂 
-					fold_open = "󰅀", -- 󰅀 
-					folded = true,
-				},
-				mappings = {
-					list = {
-						["<C-u>"] = actions.preview_scroll_win(5),
-						["<C-d>"] = actions.preview_scroll_win(-5),
-						["sg"] = actions.jump_vsplit,
-						["sv"] = actions.jump_split,
-						["st"] = actions.jump_tab,
-						["p"] = actions.enter_win("preview"),
-					},
-					preview = {
-						["q"] = actions.close,
-						["p"] = actions.enter_win("list"),
-					},
-				},
-			}
-		end,
-	},
+
 	-- Fancy window picker
 	{
 		"s1n7ax/nvim-window-picker",
@@ -210,16 +107,6 @@ return {
 			},
 		},
 	},
-	-- Jump to the edge of block
-	{
-		"haya14busa/vim-edgemotion",
-		-- stylua: ignore
-		keys = {
-			{ 'gj', '<Plug>(edgemotion-j)', mode = { 'n', 'x' }, desc = 'Move to bottom edge' },
-			{ 'gk', '<Plug>(edgemotion-k)', mode = { 'n', 'x' }, desc = 'Move to top edge' },
-		},
-	},
-
 	{
 		"akinsho/toggleterm.nvim",
 		keys = {
