@@ -1,124 +1,152 @@
---  See `:help vim.keymap.set()`
+local map = vim.keymap.set
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
-vim.diagnostic.config({
-	virtual_text = false,
-})
+map("n", "<C-t>", ":Term<CR>", { noremap = true, desc = "Enter termial mode" }) -- open
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+map("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("n", "<C-t>", ":Term<CR>", { noremap = true, desc = "Enter termial mode" }) -- open
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-vim.keymap.set("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+map("i", "jk", "<ESC>", { silent = true })
+map("i", "kj", "<ESC>", { silent = true })
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- Moves through display-lines, unless count is provided
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
--- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Easier line-wise movement
+map("n", "gh", "g^", { desc = "Jump to first screen character" })
+map("n", "gl", "g$", { desc = "Jump to last screen character" })
 
-vim.keymap.set("i", "jk", "<ESC>", { silent = true })
-vim.keymap.set("i", "kj", "<ESC>", { silent = true })
+-- Navigation in command line
+map("c", "<C-h>", "<Home>")
+map("c", "<C-l>", "<End>")
+map("c", "<C-f>", "<Right>")
+map("c", "<C-b>", "<Left>")
 
-vim.keymap.set("x", "<", "<gv")
-vim.keymap.set("x", ">", ">gv|")
-vim.keymap.set("n", "<Tab>", ">>_")
-vim.keymap.set("n", "<S-Tab>", "<<_")
-vim.keymap.set("v", "<Tab>", ">gv")
-vim.keymap.set("v", "<S-Tab>", "<gv")
+-- map("x", "<", "<gv")
+-- map("x", ">", ">gv|")
+-- map("n", "<Tab>", ">>_")
+-- map("n", "<S-Tab>", "<<_")
+-- map("v", "<Tab>", ">gv")
+-- map("v", "<S-Tab>", "<gv")
 
-vim.keymap.set("n", "<Enter>", "o<ESC>")
-vim.keymap.set("n", "q", ":q<CR>")
-vim.keymap.set("n", "<C-q>", ":q!<CR>")
+map("n", "<Enter>", "o<ESC>")
+map("n", "q", ":q<CR>")
+map("n", "<C-q>", ":q!<CR>")
 
--- Autocommand functions
+-- Package-manager
+map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy UI" })
+map("n", "<leader>mx", "<cmd>LazyExtras<CR>", { desc = "Open Plugin Extras" })
 
--- Define autocommands with Lua APIs
--- See: h:api-autocmd, h:augroup
-local augroup = vim.api.nvim_create_augroup -- Create/get autocommand group
-local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
-augroup("YankHighlight", { clear = true })
-autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = "YankHighlight",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "1000" })
-	end,
-})
+-- Toggle fold or select option from popup menu
+map("n", "<CR>", function()
+	return vim.fn.pumvisible() == 1 and "<CR>" or "za"
+end, { expr = true, desc = "Toggle Fold" })
 
--- Don't auto commenting new lines
-autocmd("BufEnter", {
-	pattern = "",
-	command = "set fo-=c fo-=r fo-=o",
-})
+-- Focus the current fold by closing all others
+map("n", "<S-Return>", "zMzv", { remap = true, desc = "Focus Fold" })
 
--- Terminal settings:
----------------------
+-- Select last paste
+map("n", "gpp", "'`['.strpart(getregtype(), 0, 1).'`]'", { expr = true, desc = "Select Paste" })
+-- Re-select blocks after indenting in visual/select mode
+map("x", "<", "<gv", { desc = "Indent Right and Re-select" })
+map("x", ">", ">gv|", { desc = "Indent Left and Re-select" })
 
--- Open a Terminal on the right tab
-autocmd("CmdlineEnter", {
-	command = "command! Term :botright vsplit term://$SHELL",
-})
+-- Use tab for indenting in visual/select mode
+map("x", "<Tab>", ">gv|", { desc = "Indent Left" })
+map("x", "<S-Tab>", "<gv", { desc = "Indent Right" })
 
--- Enter insert mode when switching to terminal
-autocmd("TermOpen", {
-	command = "setlocal listchars= nonumber norelativenumber nocursorline",
-})
+-- Better block-wise operations on selected area
+local blockwise_force = function(key)
+	local c_v = vim.api.nvim_replace_termcodes("<C-v>", true, false, true)
+	local keyseq = {
+		I = { v = "<C-v>I", V = "<C-v>^o^I", [c_v] = "I" },
+		A = { v = "<C-v>A", V = "<C-v>0o$A", [c_v] = "A" },
+		gI = { v = "<C-v>0I", V = "<C-v>0o$I", [c_v] = "0I" },
+	}
+	return function()
+		return keyseq[key][vim.fn.mode()]
+	end
+end
+map("x", "I", blockwise_force("I"), { expr = true, noremap = true, desc = "Blockwise Insert" })
+map("x", "gI", blockwise_force("gI"), { expr = true, noremap = true, desc = "Blockwise Insert" })
+map("x", "A", blockwise_force("A"), { expr = true, noremap = true, desc = "Blockwise Append" })
 
-autocmd("TermOpen", {
-	pattern = "",
-	command = "startinsert",
-})
+-- Switch */g* and #/g#
+map("n", "*", "g*")
+map("n", "g*", "*")
+map("n", "#", "g#")
+map("n", "g#", "#")
 
--- Close terminal buffer on process exit
-autocmd("BufLeave", {
-	pattern = "term://*",
-	command = "stopinsert",
-})
+-- Use backspace key for matching pairs
+map({ "n", "x" }, "<BS>", "%", { remap = true, desc = "Jump to Paren" })
 
-autocmd("BufRead", {
-	callback = function(opts)
-		autocmd("BufWinEnter", {
-			once = true,
-			buffer = opts.buf,
-			callback = function()
-				local ft = vim.bo[opts.buf].filetype
-				local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
-				if
-					not (ft:match("commit") and ft:match("rebase"))
-					and last_known_line > 1
-					and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
-				then
-					vim.api.nvim_feedkeys([[g`"]], "nx", false)
-				end
-			end,
-		})
-	end,
-})
+-- Start an external command with a single bang
+map("n", "!", ":!", { desc = "Execute Shell Command" })
+
+-- Put vim command output into buffer
+map("n", "g!", ":put=execute('')<Left><Left>", { desc = "Paste Command" })
+
+-- Switch history search pairs, matching my bash shell
+---@return string
+map("c", "<C-p>", function()
+	return vim.fn.pumvisible() == 1 and "<C-p>" or "<Up>"
+end, { expr = true })
+
+map("c", "<C-n>", function()
+	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Down>"
+end, { expr = true })
+
+map("c", "<Up>", "<C-p>")
+map("c", "<Down>", "<C-n>")
+
+-- Allow misspellings
+local cabbrev = vim.cmd.cnoreabbrev
+cabbrev("qw", "wq")
+cabbrev("Wq", "wq")
+cabbrev("WQ", "wq")
+cabbrev("Qa", "qa")
+cabbrev("Bd", "bd")
+cabbrev("bD", "bd")
+
+map({ "n", "i", "v" }, "<C-s>", "<cmd>write<CR>", { desc = "Save" })
+
+-- Switch with adjacent window
+map("n", "<C-x>", "<C-w>x<C-w>w", { remap = true, desc = "Swap adjacent windows" })
+map("n", "sb", "<cmd>buffer#<CR>", { desc = "Alternate buffer" })
+map("n", "sc", "<cmd>close<CR>", { desc = "Close window" })
+map("n", "sd", "<cmd>bdelete<CR>", { desc = "Buffer delete" })
+map("n", "sx", "<cmd>split<CR>", { desc = "Split window horizontally" })
+map("n", "sv", "<cmd>vsplit<CR>", { desc = "Split window vertically" })
+map("n", "st", "<cmd>tabnew<CR>", { desc = "New tab" })
+map("n", "so", "<cmd>only<CR>", { desc = "Close other windows" })
+map("n", "sq", "<cmd>quit<CR>", { desc = "Quit" })
+-- Empty buffer but leave window
+map("n", "sr", function()
+	require("mini.bufremove").delete(0, false)
+	vim.cmd.enew()
+end, { desc = "Delete buffer and open new" })
+-- Toggle window zoom
+map("n", "sz", function()
+	local width = vim.o.columns - 15
+	local height = vim.o.lines - 5
+	if vim.api.nvim_win_get_width(0) >= width then
+		vim.cmd.wincmd("=")
+	else
+		vim.cmd("vertical resize " .. width)
+		vim.cmd("resize " .. height)
+		vim.cmd("normal! ze")
+	end
+end, { desc = "Maximize window" })

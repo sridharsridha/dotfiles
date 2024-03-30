@@ -4,33 +4,21 @@
 --  To update plugins, you can run
 --    :Lazy update
 require("lazy").setup({
-	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-	-- Use `opts = {}` to force a plugin to be loaded.
-	--  This is equivalent to:
-	--    require('Comment').setup({})
-	-- "gc" to comment visual regions/lines
-	-- { "numToStr/Comment.nvim", opts = {} },
-	require("sri/plugins/gitsigns"),
 	require("sri/plugins/which-key"),
+	require("sri/plugins/editor"),
+	require("sri/plugins/coding"),
+	require("sri/plugins/gitsigns"),
 	require("sri/plugins/telescope"),
 	require("sri/plugins/lspconfig"),
-	require("sri/plugins/conform"),
+	require("sri/plugins/formatting"),
 	require("sri/plugins/cmp"),
-	require("sri/plugins/todo-comments"),
-	require("sri/plugins/indent_line"),
 	require("sri/plugins/mini"),
 	require("sri/plugins/treesitter"),
-	require("sri/plugins/whitespace"),
-	require("sri/plugins/terminal"),
-	require("sri/plugins/tmux"),
-	require("sri/plugins/trouble"),
+	require("sri/plugins/ui"),
 
 	-- Custom plugin directory
 	{ dir = "~/arista.nvim", lazy = false },
 
 	-- Themes
-	require("sri/plugins/gruvbox"),
-	-- require("sri/plugins/tokyonight"),
-	-- require("sri/plugins/github-theme"),
+	require("sri/plugins/colorscheme"),
 })
