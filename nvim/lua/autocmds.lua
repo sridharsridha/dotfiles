@@ -43,22 +43,6 @@ autocmd("BufReadPost", {
 	end,
 })
 
--- Show cursor line only in active window
-autocmd({ "InsertLeave", "WinEnter" }, {
-	group = augroup("auto_cursorline_show"),
-	callback = function(event)
-		if vim.bo[event.buf].buftype == "" then
-			vim.opt_local.cursorline = true
-		end
-	end,
-})
-autocmd({ "InsertEnter", "WinLeave" }, {
-	group = augroup("auto_cursorline_hide"),
-	callback = function()
-		vim.opt_local.cursorline = false
-	end,
-})
-
 -- wrap and check for spell in text filetypes
 autocmd("FileType", {
 	group = augroup("wrap_spell"),

@@ -2,9 +2,10 @@ local indent = 3
 local g = vim.g
 local opt = vim.opt
 
--- opt.lazyredraw = true
 opt.path:append("**")
--- opt.termguicolors = true
+
+opt.lazyredraw = true
+opt.termguicolors = true
 
 -- Make line numbers default
 opt.number = true
@@ -69,6 +70,9 @@ opt.hlsearch = true
 
 opt.textwidth = 85
 opt.colorcolumn = "+1"
+
+opt.spell = true -- Always on spell checking
+opt.title = true -- set terminal title to the filename and path
 
 opt.formatoptions = opt.formatoptions
 	- "a" -- Auto formatting is BAD.

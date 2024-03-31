@@ -2,6 +2,11 @@ return {
 	{ "nvim-tree/nvim-web-devicons", lazy = false },
 
 	{
+		"echasnovski/mini.tabline",
+		opts = {},
+	},
+
+	{
 		"echasnovski/mini.statusline",
 		opts = {},
 	},
@@ -104,17 +109,17 @@ return {
 	-- },
 
 	-- Highlight words quickly
-	-- {
-	-- 	"t9md/vim-quickhl",
-	-- 	keys = {
-	-- 		{
-	-- 			"<leader>mt",
-	-- 			"<Plug>(quickhl-manual-this)",
-	-- 			mode = { "n", "x" },
-	-- 			desc = "Highlight word",
-	-- 		},
-	-- 	},
-	-- },
+	{
+		"t9md/vim-quickhl",
+		keys = {
+			{
+				"<leader>mt",
+				"<Plug>(quickhl-manual-this)",
+				mode = { "n", "x" },
+				desc = "Highlight word",
+			},
+		},
+	},
 
 	-- Better quickfix window in Neovim
 	{
@@ -161,39 +166,96 @@ return {
 	},
 
 	-- Super powerful color picker/colorizer plugin
-	-- {
-	-- 	"uga-rosa/ccc.nvim",
-	-- 	event = "FileType",
-	-- 	keys = {
-	-- 		{ "<Leader>mc", "<cmd>CccPick<CR>", desc = "Color-picker" },
-	-- 	},
-	-- 	opts = {
-	-- 		highlighter = {
-	-- 			auto_enable = true,
-	-- 			lsp = true,
-	-- 			excludes = { "lazy", "mason", "help", "neo-tree" },
-	-- 		},
-	-- 	},
-	-- },
+	{
+		"uga-rosa/ccc.nvim",
+		ft = { "tmux", "markdown", "lua" },
+		event = "FileType",
+		keys = {
+			{ "<Leader>mc", "<cmd>CccPick<CR>", desc = "Color-picker" },
+		},
+		opts = {
+			highlighter = {
+				auto_enable = true,
+				lsp = true,
+				excludes = { "lazy", "mason", "help", "neo-tree" },
+			},
+		},
+	},
+	{
+		"kevinhwang91/nvim-hlslens",
+		opts = {
+			calm_down = true,
+		},
+		keys = {
+			-- FYI: debug mapping with `:map ...`
+			{
+				"n",
+				[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+				noremap = true,
+				silent = true,
+				desc = "Next Match",
+			},
+			{
+				"N",
+				[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+				noremap = true,
+				silent = true,
+				desc = "Previous Match",
+			},
 
-	-- Disable cursorline when moving, for various perf reasons
-	-- {
-	-- 	"yamatsum/nvim-cursorline", -- replaces delphinus/auto-cursorline.nvim",
-	-- 	config = function()
-	-- 		require("nvim-cursorline").setup({
-	-- 			cursorline = {
-	-- 				enable = true,
-	-- 				timeout = 300,
-	-- 				number = false,
-	-- 			},
-	-- 			cursorword = {
-	-- 				-- known issue https://github.com/yamatsum/nvim-cursorline/issues/27
-	-- 				-- but i don't use netrw, so maybe non-issue
-	-- 				enable = true,
-	-- 				min_length = 3,
-	-- 				hl = { underline = true },
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
+			-- TODO: Respect smartcase with:
+			--  https://github.com/olimorris/dotfiles-1/blob/0a3168e068e21fd9f51be27fe7bdb72ef2643d88/.config/nvim/lua/plugins/hlslens.lua#L11-L31
+			{ "*", [[*<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
+			{ "#", [[#<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
+			{ "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
+			{ "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
+		},
+	},
+	{
+		"nvim-zh/colorful-winsep.nvim",
+		config = true,
+		event = { "WinNew" },
+	},
+	{
+		"jinh0/eyeliner.nvim",
+		opts = {
+			highlight_on_key = true, -- show highlights only after keypress
+			dim = false, -- dim all other characters if set to true (recommended!)
+		},
+	},
+	{
+		"max397574/better-escape.nvim",
+		opts = {
+			mapping = { "jk", "kj" },
+			keys = function()
+				return vim.api.nvim_win_get_cursor(0)[2] > 1 and "<esc>l" or "<esc>"
+			end,
+		},
+	},
+	{
+		"nacro90/numb.nvim",
+		config = function()
+			require("numb").setup()
+		end,
+		event = "CmdlineEnter",
+	},
+	{ "winston0410/range-highlight.nvim", dependencies = { "winston0410/cmd-parser.nvim" }, config = true },
+	{ "Aasim-A/scrollEOF.nvim", config = false },
+	{
+		"kawre/neotab.nvim",
+		event = "InsertEnter",
+		opts = {
+			-- FYI: getting tab to work requires extra configuration
+			tabkey = "<C-f>",
+			-- act_as_tab = false, -- Having this produce a tab might be a useful side-effect
+			smart_punctuators = {
+				enabled = false,
+			},
+		},
+	},
+	{
+		"AckslD/muren.nvim",
+		event = "VeryLazy",
+		config = true,
+	},
 }

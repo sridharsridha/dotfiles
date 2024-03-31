@@ -23,7 +23,7 @@ return {
 			"hrsh7th/cmp-cmdline",
 			"andersevenrud/cmp-tmux",
 			"hrsh7th/cmp-buffer",
-			-- "onsails/lspkind.nvim",
+			"onsails/lspkind.nvim",
 			"rafamadriz/friendly-snippets",
 		},
 		config = function()
@@ -88,25 +88,25 @@ return {
 						end
 					end, { "i", "s" }),
 				}),
-				window = {
-					completion = {
-						border = "rounded",
-						scrollbar = "║",
-					},
-					documentation = {
-						border = "rounded",
-						scrollbar = "║",
-					},
-				},
-				-- formatting = {
-				-- 	format = require("lspkind").cmp_format({
-				-- 		mode = "symbol", -- show only symbol annotations
-				-- 		maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-				-- 		-- can also be a function to dynamically calculate max width such as
-				-- 		-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-				-- 		show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-				-- 	}),
+				-- window = {
+				-- 	completion = {
+				-- 		border = "rounded",
+				-- 		scrollbar = "║",
+				-- 	},
+				-- 	documentation = {
+				-- 		border = "rounded",
+				-- 		scrollbar = "║",
+				-- 	},
 				-- },
+				formatting = {
+					format = require("lspkind").cmp_format({
+						mode = "symbol", -- show only symbol annotations
+						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+						-- can also be a function to dynamically calculate max width such as
+						-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+					}),
+				},
 			})
 			-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 			cmp.setup.cmdline({ "/", "?" }, {

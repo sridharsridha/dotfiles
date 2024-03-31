@@ -4,10 +4,10 @@ local map = vim.keymap.set
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+-- map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+-- map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+-- map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+-- map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 map("n", "<C-t>", ":Term<CR>", { noremap = true, desc = "Enter termial mode" }) -- open
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
@@ -35,20 +35,9 @@ map("c", "<C-l>", "<End>")
 map("c", "<C-f>", "<Right>")
 map("c", "<C-b>", "<Left>")
 
--- map("x", "<", "<gv")
--- map("x", ">", ">gv|")
--- map("n", "<Tab>", ">>_")
--- map("n", "<S-Tab>", "<<_")
--- map("v", "<Tab>", ">gv")
--- map("v", "<S-Tab>", "<gv")
-
 map("n", "<Enter>", "o<ESC>")
 map("n", "q", ":q<CR>")
 map("n", "<C-q>", ":q!<CR>")
-
--- Package-manager
-map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy UI" })
-map("n", "<leader>mx", "<cmd>LazyExtras<CR>", { desc = "Open Plugin Extras" })
 
 -- Toggle fold or select option from popup menu
 map("n", "<CR>", function()
@@ -133,20 +122,3 @@ map("n", "sv", "<cmd>vsplit<CR>", { desc = "Split window vertically" })
 map("n", "st", "<cmd>tabnew<CR>", { desc = "New tab" })
 map("n", "so", "<cmd>only<CR>", { desc = "Close other windows" })
 map("n", "sq", "<cmd>quit<CR>", { desc = "Quit" })
--- Empty buffer but leave window
-map("n", "sr", function()
-	require("mini.bufremove").delete(0, false)
-	vim.cmd.enew()
-end, { desc = "Delete buffer and open new" })
--- Toggle window zoom
-map("n", "sz", function()
-	local width = vim.o.columns - 15
-	local height = vim.o.lines - 5
-	if vim.api.nvim_win_get_width(0) >= width then
-		vim.cmd.wincmd("=")
-	else
-		vim.cmd("vertical resize " .. width)
-		vim.cmd("resize " .. height)
-		vim.cmd("normal! ze")
-	end
-end, { desc = "Maximize window" })

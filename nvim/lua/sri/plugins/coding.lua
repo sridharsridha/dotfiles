@@ -10,23 +10,17 @@ return {
 	},
 
 	{
-		-- Fast and feature-rich surround actions
-		-- Add/delete/replace surroundings (brackets, quotes, etc.)
-		-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-		-- - sd'   - [S]urround [D]elete [']quotes
-		-- - sr)'  - [S]urround [R]eplace [)] [']
-		"echasnovski/mini.surround",
+		-- 	     Old text               Command            New text
+		--     surr*ound_words             ysiw)           (surround_words)
+		--     *make strings               ys$"            "make strings"
+		--     [delete ar*ound me!]        ds]             delete around me!
+		--     remove <b>HTML t*ags</b>    dst             remove HTML tags
+		--     'change quot*es'            cs'"            "change quotes"
+		--     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+		--     delete(functi*on calls)     dsf             function calls
+		"kylechui/nvim-surround",
 		event = "InsertEnter",
 		opts = {},
-	},
-
-	{
-		-- Set the commentstring based on the cursor location
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		opts = {
-			enable = true,
-			enable_autocmd = false,
-		},
 	},
 
 	{
@@ -34,15 +28,7 @@ return {
 		"echasnovski/mini.comment",
 		event = { "InsertEnter" },
 		keys = { { "gc", mode = { "n", "v" } }, { "gb", mode = { "n", "v" } } },
-		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
-		opts = {
-			options = {
-				custom_commentstring = function()
-					return require("ts_context_commentstring.internal").calculate_commentstring()
-						or vim.bo.commentstring
-				end,
-			},
-		},
+		opts = {},
 	},
 
 	{
@@ -81,13 +67,13 @@ return {
 		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		keys = {
 			{
-				"sj",
+				"<leader>cj",
 				"<cmd>lua MiniSplitjoin.join()<CR>",
 				mode = { "n", "x" },
 				desc = "Join arguments",
 			},
 			{
-				"sk",
+				"<leader>ck",
 				"<cmd>lua MiniSplitjoin.split()<CR>",
 				mode = { "n", "x" },
 				desc = "Split arguments",
