@@ -1,0 +1,5 @@
+highlight SignColumn guibg=NONE
+highlight link DiagnosticSignError GruvboxRed
+highlight link DiagnosticSignWarn GruvboxYellow
+highlight link DiagnosticSignInfo GruvboxBlue
+

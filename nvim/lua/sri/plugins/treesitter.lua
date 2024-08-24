@@ -2,7 +2,7 @@ return {
 	{ "MTDL9/vim-log-highlighting", ft = "log" },
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
+		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		build = ":TSUpdate",
 		dependencies = {
@@ -21,6 +21,16 @@ return {
 			require("nvim-treesitter.query_predicates")
 		end,
 		config = function()
+			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+			parser_config.tac = {
+				install_info = {
+					url = "~/tree-sitter-tac",
+					files = { "src/scanner.cc", "src/parser.c" },
+					generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+					requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+				},
+				filetype = "tac",
+			}
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"bash",
@@ -35,7 +45,7 @@ return {
 					"tmux",
 					"cpp",
 				},
-				auto_install = true,
+				auto_install = false,
 				highlight = {
 					enable = true,
 					disable = function(_, bufnr)
@@ -46,6 +56,15 @@ return {
 				refactor = {
 					highlight_definitions = { enable = true },
 					highlight_current_scope = { enable = true },
+				},
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<CR>",
+						scope_incremental = "<CR>",
+						node_incremental = "<TAB>",
+						node_decremental = "<S-TAB>",
+					},
 				},
 				textobjects = {
 					select = {
@@ -113,14 +132,14 @@ return {
 		end,
 	},
 
-	-- {
-	-- 	"nvim-treesitter/nvim-treesitter-context",
-	-- 	event = { "BufRead" },
-	-- 	config = function()
-	-- 		require("treesitter-context").setup({
-	-- 			mode = "cursor",
-	-- 			max_lines = 3,
-	-- 		})
-	-- 	end,
-	-- },
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		event = { "BufRead" },
+		config = function()
+			require("treesitter-context").setup({
+				mode = "cursor",
+				max_lines = 3,
+			})
+		end,
+	},
 }

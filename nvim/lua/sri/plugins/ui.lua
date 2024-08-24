@@ -1,23 +1,13 @@
 return {
-	{ "nvim-tree/nvim-web-devicons", lazy = false },
+	{ "echasnovski/mini.tabline", opts = {} },
 
-	{
-		"echasnovski/mini.tabline",
-		opts = {},
-	},
-
-	{
-		"echasnovski/mini.statusline",
-		opts = {},
-	},
+	{ "echasnovski/mini.statusline", opts = { use_icons = false } },
 
 	{
 		"echasnovski/mini.indentscope",
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
+		keys = { "j", "k" },
 		opts = function(_, opts)
-			opts.options = { try_as_border = true }
 			opts.draw = {
-				delay = 0,
 				animation = require("mini.indentscope").gen_animation.none(),
 			}
 		end,
@@ -44,82 +34,6 @@ return {
 			})
 		end,
 	},
-	-- -- -- Visually display indent levels
-	-- {
-	-- 	"lukas-reineke/indent-blankline.nvim",
-	-- 	main = "ibl",
-	-- 	event = { "BufRead", "BufWinEnter", "BufNewFile" },
-	-- 	keys = {
-	-- 		{ "<Leader>ue", "<cmd>IBLToggle<CR>", desc = "Toggle indent-lines" },
-	-- 	},
-	-- 	opts = {
-	-- 		indent = {
-	-- 			-- See more characters at :h ibl.config.indent.char
-	-- 			char = "│", -- ▏│
-	-- 			tab_char = "│",
-	-- 			-- priority = 100, -- Display over folded lines
-	-- 		},
-	-- 		scope = { enabled = false },
-	-- 		exclude = {
-	-- 			filetypes = {
-	-- 				"alpha",
-	-- 				"checkhealth",
-	-- 				"dashboard",
-	-- 				"git",
-	-- 				"gitcommit",
-	-- 				"help",
-	-- 				"lazy",
-	-- 				"lazyterm",
-	-- 				"lspinfo",
-	-- 				"man",
-	-- 				"mason",
-	-- 				"neo-tree",
-	-- 				"notify",
-	-- 				"Outline",
-	-- 				"TelescopePrompt",
-	-- 				"TelescopeResults",
-	-- 				"terminal",
-	-- 				"toggleterm",
-	-- 				"Trouble",
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
-
-	-- {
-	-- 	"johnfrankmorgan/whitespace.nvim",
-	-- 	opts = {
-	-- 		-- `ignored_filetypes` configures which filetypes to ignore when
-	-- 		-- displaying trailing whitespace
-	-- 		ignored_filetypes = {
-	-- 			"TelescopePrompt",
-	-- 			"lazy",
-	-- 			"Trouble",
-	-- 			"help",
-	-- 			"toggleterm",
-	-- 			"log",
-	-- 			"nofile",
-	-- 			"lspinfo",
-	-- 			"lazyterm",
-	-- 			"man",
-	-- 			"mason",
-	-- 			"Outline",
-	-- 		},
-	-- 	},
-	-- },
-
-	-- Highlight words quickly
-	{
-		"t9md/vim-quickhl",
-		keys = {
-			{
-				"<leader>mt",
-				"<Plug>(quickhl-manual-this)",
-				mode = { "n", "x" },
-				desc = "Highlight word",
-			},
-		},
-	},
 
 	-- Better quickfix window in Neovim
 	{
@@ -131,8 +45,8 @@ return {
 			auto_resize_height = false,
 			func_map = {
 				tab = "st",
-				split = "sv",
-				vsplit = "sg",
+				split = "sh",
+				vsplit = "sv",
 
 				stoggleup = "K",
 				stoggledown = "J",
@@ -165,22 +79,6 @@ return {
 		},
 	},
 
-	-- Super powerful color picker/colorizer plugin
-	{
-		"uga-rosa/ccc.nvim",
-		ft = { "tmux", "markdown", "lua" },
-		event = "FileType",
-		keys = {
-			{ "<Leader>mc", "<cmd>CccPick<CR>", desc = "Color-picker" },
-		},
-		opts = {
-			highlighter = {
-				auto_enable = true,
-				lsp = true,
-				excludes = { "lazy", "mason", "help", "neo-tree" },
-			},
-		},
-	},
 	{
 		"kevinhwang91/nvim-hlslens",
 		opts = {
@@ -211,51 +109,35 @@ return {
 			{ "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
 		},
 	},
-	{
-		"nvim-zh/colorful-winsep.nvim",
-		config = true,
-		event = { "WinNew" },
-	},
-	{
-		"jinh0/eyeliner.nvim",
-		opts = {
-			highlight_on_key = true, -- show highlights only after keypress
-			dim = false, -- dim all other characters if set to true (recommended!)
-		},
-	},
-	{
-		"max397574/better-escape.nvim",
-		opts = {
-			mapping = { "jk", "kj" },
-			keys = function()
-				return vim.api.nvim_win_get_cursor(0)[2] > 1 and "<esc>l" or "<esc>"
-			end,
-		},
-	},
+
+	{ "max397574/better-escape.nvim", opts = {
+		timeout = vim.o.timeoutlen,
+		default_mappings = true,
+	} },
+
 	{
 		"nacro90/numb.nvim",
+		event = { "CmdlineEnter" },
 		config = function()
 			require("numb").setup()
 		end,
-		event = "CmdlineEnter",
 	},
-	{ "winston0410/range-highlight.nvim", dependencies = { "winston0410/cmd-parser.nvim" }, config = true },
-	{ "Aasim-A/scrollEOF.nvim", config = false },
+
+	{
+		"winston0410/range-highlight.nvim",
+		dependencies = { "winston0410/cmd-parser.nvim" },
+		config = true,
+	},
+
 	{
 		"kawre/neotab.nvim",
 		event = "InsertEnter",
-		opts = {
-			-- FYI: getting tab to work requires extra configuration
-			tabkey = "<C-f>",
-			-- act_as_tab = false, -- Having this produce a tab might be a useful side-effect
-			smart_punctuators = {
-				enabled = false,
-			},
-		},
+		opts = {},
 	},
+
 	{
 		"AckslD/muren.nvim",
-		event = "VeryLazy",
+		cmd = { "MurenOpen", "MurenClose", "MurenToggle" },
 		config = true,
 	},
 }

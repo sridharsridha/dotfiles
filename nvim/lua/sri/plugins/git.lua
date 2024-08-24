@@ -10,9 +10,15 @@ return {
 					change = { text = "~" },
 					delete = { text = "_" },
 					topdelete = { text = "‾" },
-					changedelete = { text = "~" },
+					changedelete = { text = "│" },
+				},
+				current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+				current_line_blame_opts = {
+					virt_text = true,
 				},
 			})
 		end,
 	},
+	{ "akinsho/git-conflict.nvim", version = "*", config = true },
+	{ "sindrets/diffview.nvim", opts = {} },
 }

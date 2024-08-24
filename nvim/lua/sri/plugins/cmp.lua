@@ -7,12 +7,6 @@ return {
 			{
 				"L3MON4D3/LuaSnip",
 				build = (function()
-					-- Build Step is needed for regex support in snippets
-					-- This step is not supported in many windows environments
-					-- Remove the below condition to re-enable on windows
-					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-						return
-					end
 					return "make install_jsregexp"
 				end)(),
 			},
@@ -21,24 +15,30 @@ return {
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
+			"dmitmel/cmp-cmdline-history",
 			"andersevenrud/cmp-tmux",
 			"hrsh7th/cmp-buffer",
-			"onsails/lspkind.nvim",
 			"rafamadriz/friendly-snippets",
 		},
 		config = function()
 			-- See `:help cmp`
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
-			luasnip.config.setup({})
+			local neogen = require("neogen")
+
+			require("luasnip.loaders.from_vscode").lazy_load()
+			luasnip.config.setup({
+				region_check_events = "CursorMoved",
+				delete_check_events = "TextChanged",
+			})
 
 			cmp.setup({
+				ghost_text = { enabled = true },
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
 					end,
 				},
-				completion = { completeopt = "menu,menuone,noinsert" },
 
 				sources = cmp.config.sources({
 					{ name = "luasnip" },
@@ -50,82 +50,77 @@ return {
 					{ name = "tmux" },
 				}),
 
-				-- For an understanding of why these mappings were
-				-- chosen, you will need to read `:help ins-completion`
-				-- No, but seriously. Please read `:help ins-completion`, it is really good!
 				mapping = cmp.mapping.preset.insert({
-					-- Select the [n]ext item
-					["<C-n>"] = cmp.mapping.select_next_item(),
-					-- Select the [p]revious item
-					["<C-p>"] = cmp.mapping.select_prev_item(),
-
-					-- Accept ([y]es) the completion.
-					--  This will auto-import if your LSP supports it.
-					--  This will expand snippets if the LSP sent a snippet.
-					["<C-y>"] = cmp.mapping.confirm({ select = true }),
-
-					-- Manually trigger a completion from nvim-cmp.
-					--  Generally you don't need this, because nvim-cmp will display
-					--  completions whenever it has completion options available.
-					["<C-k>"] = cmp.mapping.complete({}),
-
-					-- Think of <c-l> as moving to the right of your snippet expansion.
-					--  So if you have a snippet that's like:
-					--  function $name($args)
-					--    $body
-					--  end
-					--
-					-- <c-l> will move you to the right of each of the expansion locations.
-					-- <c-h> is similar, except moving you backwards.
-					["<C-l>"] = cmp.mapping(function()
+					["<Esc>"] = cmp.mapping.close(),
+					["<C-j>"] = cmp.mapping(
+						cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+						{ "i", "s", "c" }
+					),
+					["<C-k>"] = cmp.mapping(
+						cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+						{ "i", "s", "c" }
+					),
+					["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<c-e>"] = cmp.mapping.abort(),
+					["<cr>"] = cmp.mapping.confirm({ select = true }),
+					["<C-l>"] = cmp.mapping(function(fallback)
 						if luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
+						elseif neogen.jumpable() then
+							neogen.jump_next()
+						else
+							fallback()
 						end
 					end, { "i", "s" }),
-					["<C-h>"] = cmp.mapping(function()
+					["<C-h>"] = cmp.mapping(function(fallback)
 						if luasnip.locally_jumpable(-1) then
 							luasnip.jump(-1)
+						elseif neogen.jumpable(-1) then
+							neogen.jump_prev()
+						else
+							fallback()
 						end
 					end, { "i", "s" }),
 				}),
-				-- window = {
-				-- 	completion = {
-				-- 		border = "rounded",
-				-- 		scrollbar = "║",
-				-- 	},
-				-- 	documentation = {
-				-- 		border = "rounded",
-				-- 		scrollbar = "║",
-				-- 	},
-				-- },
-				formatting = {
-					format = require("lspkind").cmp_format({
-						mode = "symbol", -- show only symbol annotations
-						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-						-- can also be a function to dynamically calculate max width such as
-						-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-					}),
-				},
 			})
 			-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
-					{ name = "buffer" },
+					-- { name = "buffer" },
+					{ name = "cmdline_history" },
 				},
 			})
 
 			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources(
-					{
-						{ name = "path" },
-					}, -- group 1
-					{ { name = "cmdline" } } -- group 2, only use if nothing in group 1
-				),
+				sources = {
+					{ name = "path" },
+					{ name = "cmdline", keyword_length = 1 },
+					{ name = "cmdline_history", max_item_count = 1 },
+				},
 			})
+			vim.cmd([[
+			           highlight! link CmpItemMenu Comment
+			           " gray
+			           highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+			           " blue
+			           " highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+			           " highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+			           "" light blue
+			           "highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+			           "highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+			           "highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+			           " " pink
+			           " highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+			           " highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+			           " front
+			           highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+			           highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+			           highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+			         ]])
 		end,
 	},
 }

@@ -7,14 +7,6 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
-			{
-				"dgagn/diagflow.nvim",
-				event = "LspAttach",
-				opts = {
-					placement = "top",
-					show_borders = true,
-				},
-			},
 		},
 		config = function()
 			--    function will be executed to configure the current buffer
@@ -28,19 +20,19 @@ return {
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-T>.
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+					map("<leader>cd", require("telescope.builtin").lsp_definitions, "[C]ode [D]efinition")
 
 					-- Find references for the word under your cursor.
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+					map("<leader>cr", require("telescope.builtin").lsp_references, "[C]ode [R]eferences")
 
 					-- Jump to the implementation of the word under your cursor.
 					--  Useful when your language has ways of declaring types without an actual implementation.
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+					map("<leader>ci", require("telescope.builtin").lsp_implementations, "[C]ode [I]mplementation")
 
 					-- Jump to the type of the word under your cursor.
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+					map("<leader>ct", require("telescope.builtin").lsp_type_definitions, "[C]ode [T]ype Definition")
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
@@ -68,7 +60,7 @@ return {
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header
-					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					map("<leader>cD", vim.lsp.buf.declaration, "[C]ode [D]eclaration")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.

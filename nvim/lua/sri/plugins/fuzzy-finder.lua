@@ -14,58 +14,8 @@ return {
 		},
 		cmd = "Telescope",
 		init = function()
-			vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>", { desc = "[S]earch [F]iles" })
-		end,
-		opts = function()
-			local actions = require("telescope.actions")
-			return {
-				defaults = {
-					prompt_prefix = "❯ ",
-					selection_caret = "❯ ",
-					file_ignore_patterns = { "\\.git/", "node_modules/", ".venv/" },
-					path_display = { "truncate" },
-					sorting_strategy = "ascending",
-					layout_config = {
-						horizontal = { prompt_position = "top", preview_width = 0.55 },
-						vertical = { mirror = false },
-						width = 0.87,
-						height = 0.80,
-						preview_cutoff = 120,
-					},
-					mappings = {
-						i = {
-							["<C-n>"] = actions.cycle_history_next,
-							["<C-p>"] = actions.cycle_history_prev,
-							["<C-j>"] = actions.move_selection_next,
-							["<C-k>"] = actions.move_selection_previous,
-							["<C-u>"] = false,
-							["<C-d>"] = false,
-						},
-						n = {
-							q = actions.close,
-						},
-					},
-				},
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
-				extensions = {
-					fzf = {
-						fuzzy = true, -- false will only do exact matching
-						override_generic_sorter = true, -- override the generic sorter
-						override_file_sorter = true, -- override the file sorter
-						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-						-- the default case_mode is "smart_case"
-					},
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown(),
-					},
-					live_grep_args = {
-						auto_quoting = true, -- If the prompt value does not begin with ', " or - the entire prompt is treated as a single argument
-					},
-				},
-			}
+			vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>", { desc = "Open file picker" })
+			vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "Open file picker" })
 		end,
 		config = function()
 			local telescope = require("telescope")
@@ -73,43 +23,32 @@ return {
 			local actions = require("telescope.actions")
 			telescope.setup({
 				defaults = {
-					prompt_prefix = "❯ ",
-					selection_caret = "❯ ",
 					file_ignore_patterns = { "\\.git/", "node_modules/", ".venv/" },
-					path_display = { "truncate" },
-					sorting_strategy = "ascending",
-					layout_config = {
-						horizontal = { prompt_position = "top", preview_width = 0.55 },
-						vertical = { mirror = false },
-						width = 0.87,
-						height = 0.80,
-						preview_cutoff = 120,
-					},
 					mappings = {
 						i = {
-							["<C-n>"] = actions.cycle_history_next,
-							["<C-p>"] = actions.cycle_history_prev,
+							["<C-n>"] = actions.move_selection_next,
+							["<C-p>"] = actions.move_selection_previous,
 							["<C-j>"] = actions.move_selection_next,
 							["<C-k>"] = actions.move_selection_previous,
 							["<C-u>"] = false,
 							["<C-d>"] = false,
+							["jk"] = actions.close,
 						},
 						n = {
 							q = actions.close,
+							["jk"] = actions.close,
 						},
 					},
 				},
 				highlight = {
 					enable = true,
-					additional_vim_regex_highlighting = false,
+					additional_vim_regex_highlighting = true,
 				},
 				extensions = {
 					fzf = {
 						fuzzy = true, -- false will only do exact matching
 						override_generic_sorter = true, -- override the generic sorter
 						override_file_sorter = true, -- override the file sorter
-						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-						-- the default case_mode is "smart_case"
 					},
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
@@ -129,7 +68,7 @@ return {
 			-- Searching.
 			map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 			map("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-			map("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+			map("n", "<leader>f", builtin.find_files, { desc = "[S]earch [F]iles" })
 			map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 			map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })

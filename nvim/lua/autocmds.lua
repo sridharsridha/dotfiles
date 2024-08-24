@@ -11,7 +11,7 @@ autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = augroup("YankHighlight"),
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "1000" })
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "800" })
 	end,
 })
 
@@ -62,19 +62,6 @@ autocmd({ "FileType" }, {
 	end,
 })
 
--- Create directories when needed, when saving a file (except for URIs "://").
-autocmd("BufWritePre", {
-	group = augroup("auto_create_dir"),
-	callback = function(event)
-		if event.match:match("^%w%w+://") then
-			return
-		end
-		local file = vim.uv.fs_realpath(event.match) or event.match
-		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-	end,
-})
-
--- Disable swap/undo/backup files in temp directories or shm
 autocmd("BufWritePre", {
 	group = augroup("undo_disable"),
 	pattern = { "/tmp/*", "*.tmp", "*.bak", "COMMIT_EDITMSG", "MERGE_MSG" },
@@ -84,9 +71,9 @@ autocmd("BufWritePre", {
 			vim.opt_local.swapfile = false
 		end
 	end,
+	desc = "Disable swap/undo/backup files in temp directories or shm",
 })
 
--- Disable swap/undo/backup files in temp directories or shm
 autocmd({ "BufNewFile", "BufReadPre" }, {
 	group = augroup("secure"),
 	pattern = {
@@ -103,4 +90,5 @@ autocmd({ "BufNewFile", "BufReadPre" }, {
 		vim.opt_global.backup = false
 		vim.opt_global.writebackup = false
 	end,
+	desc = "Disable swap/undo/backup files in temp directories or shm",
 })

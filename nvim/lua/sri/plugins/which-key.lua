@@ -1,68 +1,36 @@
 return {
 	{ -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
-		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g", "z", "<", ">" },
+		keys = {
+			"<leader>",
+			"<localleader>",
+			"\\",
+			"<c-w>",
+			'"',
+			"'",
+			"`",
+			"c",
+			"v",
+			"g",
+			"z",
+			"<",
+			">",
+			"s",
+		},
 		cmd = "WhichKey",
 		config = function() -- This is the function that runs, AFTER loading
 			require("which-key").setup({
-				disable = {
-					buftypes = {},
-					filetypes = { "TelescopePrompt" },
+				preset = "helix",
+				win = {
+					border = "none",
+					padding = { 1, 2 },
 				},
-			})
-			-- Document existing key chains
-			require("which-key").register({
-				["<leader>b"] = { name = "[B]uffer", _ = "which_key_ignore" },
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-				["<leader>e"] = { name = "[E]rror", _ = "which_key_ignore" },
-				["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
-				["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
-				["<leader>p"] = { name = "[P]lugin", _ = "which_key_ignore" },
-			})
-
-			---@type table<string, string|table>
-			local i = {
-				[" "] = "Whitespace",
-				['"'] = 'Balanced "',
-				["'"] = "Balanced '",
-				["`"] = "Balanced `",
-				["("] = "Balanced (",
-				[")"] = "Balanced ) including white-space",
-				[">"] = "Balanced > including white-space",
-				["<lt>"] = "Balanced <",
-				["]"] = "Balanced ] including white-space",
-				["["] = "Balanced [",
-				["}"] = "Balanced } including white-space",
-				["{"] = "Balanced {",
-				["?"] = "User Prompt",
-				_ = "Underscore",
-				a = "Argument",
-				b = "Balanced ), ], }",
-				c = "Class",
-				f = "Function",
-				o = "Block, conditional, loop",
-				q = "Quote `, \", '",
-				t = "Tag",
-			}
-			local a = vim.deepcopy(i) --[[@as table]]
-			for k, v in pairs(a) do
-				a[k] = v:gsub(" including.*", "")
-			end
-
-			local ic = vim.deepcopy(i)
-			local ac = vim.deepcopy(a)
-			for key, name in pairs({ n = "Next", l = "Last" }) do
-				i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
-				a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
-			end
-			require("which-key").register({
-				mode = { "o", "x" },
-				i = i,
-				a = a,
+				icons = {
+					mappings = false,
+					rules = false,
+					colors = false,
+				},
+				show_help = false,
 			})
 		end,
 	},

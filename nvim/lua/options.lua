@@ -4,7 +4,7 @@ local opt = vim.opt
 
 opt.path:append("**")
 
-opt.lazyredraw = true
+opt.lazyredraw = false
 opt.termguicolors = true
 
 -- Make line numbers default
@@ -71,19 +71,25 @@ opt.hlsearch = true
 opt.textwidth = 85
 opt.colorcolumn = "+1"
 
-opt.spell = true -- Always on spell checking
+opt.spell = false -- Always on spell checking
 opt.title = true -- set terminal title to the filename and path
 
-opt.formatoptions = opt.formatoptions
-	- "a" -- Auto formatting is BAD.
-	- "t" -- Don't auto format my code. I got linters for that.
-	+ "c" -- In general, I like it when comments respect textwidth
-	+ "q" -- Allow formatting comments w/ gq
-	- "o" -- O and o, don't continue comments
-	- "r" -- Don't insert comment after <Enter>
-	+ "n" -- Indent past the formatlistpat, not underneath it.
-	+ "j" -- Auto-remove comments if possible.
-	- "2" -- I'm not in gradeschool anymore
+-- opt.formatoptions = opt.formatoptions
+-- 	- "a" -- Auto formatting is BAD.
+-- 	- "t" -- Don't auto format my code. I got linters for that.
+-- 	+ "c" -- In general, I like it when comments respect textwidth
+-- 	+ "q" -- Allow formatting comments w/ gq
+-- 	- "o" -- O and o, don't continue comments
+-- 	- "r" -- Don't insert comment after <Enter>
+-- 	+ "n" -- Indent past the formatlistpat, not underneath it.
+-- 	+ "j" -- Auto-remove comments if possible.
+-- 	- "2" -- I'm not in gradeschool anymore
+opt.formatoptions = "qcjl1"
+opt.virtualedit = "block" -- Allow going past the end of line in visual block mode
+opt.completeopt = "menuone,noinsert,noselect" -- Customize completions
+opt.ruler = false -- Don't show cursor position in command line
+opt.showmode = false -- Don't show mode in command line
+opt.wrap = false -- Display long lines as just one line
 
 -- -- Disable builtin plugins
 local disabled_built_ins = {

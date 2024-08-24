@@ -1,12 +1,11 @@
--- [[ Configure and install plugins ]]
---  To check the current status of your plugins, run
---    :Lazy
---  To update plugins, you can run
---    :Lazy update
 require("lazy").setup({
+
+	-- List of all plugins and thier configurations
 	require("sri/plugins/which-key"),
-	require("sri/plugins/editor"),
+	require("sri/plugins/toggleterm"),
 	require("sri/plugins/coding"),
+	require("sri/plugins/comment"),
+	require("sri/plugins/mini-ai"),
 	require("sri/plugins/git"),
 	require("sri/plugins/fuzzy-finder"),
 	require("sri/plugins/lspconfig"),
@@ -15,11 +14,17 @@ require("lazy").setup({
 	require("sri/plugins/treesitter"),
 	require("sri/plugins/ui"),
 
+	-- Tmux integration.
+	{ "aserowy/tmux.nvim", opts = {} },
 	-- Custom plugin directory
 	{ dir = "~/arista.nvim", lazy = false },
-
 	-- Themes
 	require("sri/plugins/colorscheme"),
+}, {
+	ui = {
+		icons = {},
+		custom_keys = {},
+	},
 })
 
 -- Configure key lazy.nvim bindings
