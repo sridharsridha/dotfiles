@@ -87,8 +87,11 @@ class TerminalSizer:
             self.process.setwinsize(*self.get_size())
 
 
-def get_workspaces(server):
-    cmd = f"ssh {server} a4c ps -N"
+def get_workspaces(server, port=None):
+    portCmd = ""
+    if port:
+        portCmd = f"-p {port}"
+    cmd = f"ssh {portCmd} {server} -t a4c ps -N"
     p = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
     (output, err) = p.communicate()
     p_status = p.wait()
@@ -133,7 +136,12 @@ def setupArguments():
         default="tmux a || tmux new -s DEFAULT",
         help="Command to run after logining into userserver or container",
     )
-
+    parser.add_argument(
+        "--remote-port",
+        "-p",
+        default=None,
+        help="Port to connect to on remote host",
+    )
     return parser.parse_args()
 
 
@@ -141,19 +149,19 @@ if __name__ == "__main__":
     args = setupArguments()
 
     # Get the list of all containers in the userserver.
-    all_workspaces = get_workspaces(args.server)
+    all_workspaces = get_workspaces(args.server, args.remote_port)
 
     # Use FZF to prompt to select a container or Ctrl+C to not select anything.
     # If none selected default to userserver.
     fzf = FzfPrompt()
     workspace = fzf.prompt(all_workspaces, args.fzf_options)
     cmd = f"{args.app} {args.server}"
+    child = pexpect.spawn(cmd)
     if workspace:
         # FZF return empty list when not selected or a list of selected entries.
         ws = workspace[0].split(" ")[0]
-        cmd = f"{args.app} {args.server} a4c shell {ws}"
-
-    child = pexpect.spawn(cmd)
+        cmd = f"a4c shell {ws}"
+        child.sendline(cmd)
     with TerminalSizer(child):
         # if we already inside a tmux session do not open a new one.
         if "TMUX" not in os.environ:

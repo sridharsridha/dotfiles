@@ -24,6 +24,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # Lead ZSH themes
 # antigen theme sindresorhus/pure marionebl/paternoster agnoster robbyrussell
 antigen theme robbyrussell
+# antigen theme darkblood
 
 # Tell antigen that you're done.
 antigen apply
