@@ -2,14 +2,15 @@ require("lazy").setup({
 
 	-- List of all plugins and thier configurations
 	require("sri/plugins/which-key"),
-	require("sri/plugins/toggleterm"),
+	require("sri/plugins/terminal"),
 	require("sri/plugins/coding"),
 	require("sri/plugins/comment"),
-	require("sri/plugins/mini-ai"),
 	require("sri/plugins/git"),
 	require("sri/plugins/fuzzy-finder"),
 	require("sri/plugins/lspconfig"),
 	require("sri/plugins/formatting"),
+	require("sri/plugins/linting"),
+	require("sri/plugins/debug"),
 	require("sri/plugins/cmp"),
 	require("sri/plugins/treesitter"),
 	require("sri/plugins/ui"),

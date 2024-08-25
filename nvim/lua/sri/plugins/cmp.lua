@@ -98,8 +98,8 @@ return {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
 					{ name = "path" },
-					{ name = "cmdline", keyword_length = 1 },
-					{ name = "cmdline_history", max_item_count = 1 },
+					{ name = "cmdline" },
+					{ name = "cmdline_history" },
 				},
 			})
 			vim.cmd([[

@@ -1,10 +1,42 @@
 return {
+	{
+		"williamboman/mason.nvim",
+		opts = {
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
+				},
+			},
+		},
+		cmd = "Mason",
+		event = "BufReadPre",
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		cmd = "MasonToolsUpdate",
+		event = "BufReadPre",
+		dependencies = "williamboman/mason.nvim",
+		opts = {
+			auto_update = true,
+			run_on_start = true,
+			ensure_installed = {
+				"impl",
+				"js-debug-adapter",
+				"go-debug-adapter",
+				"gomodifytags",
+				"iferr",
+				"gotests",
+			},
+		},
+	},
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
+			{ "williamboman/mason-lspconfig.nvim" },
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
@@ -22,6 +54,8 @@ return {
 					--  To jump back, press <C-T>.
 					map("<leader>cd", require("telescope.builtin").lsp_definitions, "[C]ode [D]efinition")
 
+					map("<leader>ce", require("telescope.builtin").diagnostics, "[C]ode diagnostics")
+
 					-- Find references for the word under your cursor.
 					map("<leader>cr", require("telescope.builtin").lsp_references, "[C]ode [R]eferences")
 
@@ -36,19 +70,19 @@ return {
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
-					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+					map("<leader>cs", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 
 					-- Fuzzy find all the symbols in your current workspace
 					--  Similar to document symbols, except searches over your whole project.
 					map(
-						"<leader>ws",
+						"<leader>cS",
 						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[W]orkspace [S]ymbols"
+						"[C]ode workspace symbols"
 					)
 
 					-- Rename the variable under your cursor
 					--  Most Language Servers support renaming across files, etc.
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+					map("<leader>cR", vim.lsp.buf.rename, "[C]ode [R]ename")
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
@@ -122,8 +156,6 @@ return {
 									"${3rd}/luv/library",
 									unpack(vim.api.nvim_get_runtime_file("", true)),
 								},
-								-- If lua_ls is really slow on your computer, you can try this instead:
-								-- library = { vim.env.VIMRUNTIME },
 							},
 							completion = {
 								callSnippet = "Replace",

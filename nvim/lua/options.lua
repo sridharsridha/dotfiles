@@ -33,7 +33,7 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- Keep signcolumn on by default
-opt.signcolumn = "yes"
+opt.signcolumn = "number"
 
 -- Decrease update time
 opt.updatetime = 500

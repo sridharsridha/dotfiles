@@ -9,15 +9,10 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 map("n", "<leader>E", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
--- map("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
 map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
--- map("i", "jk", "<ESC>", { silent = true })
--- map("i", "kj", "<ESC>", { silent = true })
 
 -- Move by visible lines. Notes:
 -- - Don't map in Operator-pending mode because it severely changes behavior:
@@ -112,31 +107,17 @@ map("c", "<C-h>", "<Home>")
 map("c", "<C-l>", "<End>")
 map("c", "<C-f>", "<Right>")
 map("c", "<C-b>", "<Left>")
+
 -- Switch history search pairs, matching my bash shell
 map("c", "<C-p>", function()
 	return vim.fn.pumvisible() == 1 and "<C-p>" or "<Up>"
 end, { expr = true })
-
 map("c", "<C-n>", function()
 	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Down>"
 end, { expr = true })
-map("c", "<Up>", "<C-p>")
-map("c", "<Down>", "<C-n>")
 
--- Allow misspellings
-local cabbrev = vim.cmd.cnoreabbrev
-cabbrev("qw", "wq")
-cabbrev("Wq", "wq")
-cabbrev("WQ", "wq")
-cabbrev("Qa", "qa")
-cabbrev("Bd", "bd")
-cabbrev("bD", "bd")
-
--- Switch with adjacent window
--- Alternative way to save and exit in Normal mode.
--- NOTE: Adding `redraw` helps with `cmdheight=0` if buffer is not modified
-map("n", "<C-s>", "<Cmd>silent! update | redraw<CR>", { desc = "Save" })
-map({ "i", "x" }, "<C-s>", "<Esc><Cmd>silent! update | redraw<CR>", { desc = "Save and go to Normal mode" })
+map("n", "<A-s>", "<Cmd>silent! update | redraw<CR>", { desc = "Save" })
+map({ "i", "x" }, "<A-s>", "<Esc><Cmd>silent! update | redraw<CR>", { desc = "Save and go to Normal mode" })
 
 map("n", "sx", "<C-w>x<C-w>w", { remap = true, desc = "Swap adjacent windows" })
 map("n", "ss", "<cmd>split<CR>", { desc = "Split window horizontally" })
@@ -145,7 +126,18 @@ map("n", "sv", "<cmd>vsplit<CR>", { desc = "Split window vertically" })
 Keymaps.toggle_diagnostic = function()
 	local new_buf_state = not vim.diagnostic.is_enabled()
 	vim.diagnostic.enable(new_buf_state)
-	return new_buf_state and "  diagnostic" or "nodiagnostic"
+	return new_buf_state and "diagnostic is on" or "diagnostic is off"
+end
+
+Keymaps.toggle_signcolumn = function()
+	vim.wo.signcolumn = vim.wo.signcolumn == "number" and "no" or "number"
+	return vim.wo.signcolumn == "number" and "signcolumn = number" or "signcolumn = no"
+end
+
+Keymaps.toggle_signnum = function()
+	Keymaps.toggle_signcolumn()
+	vim.cmd("setlocal number!")
+	vim.cmd("setlocal relativenumber!")
 end
 
 local toggle_prefix = [[\]]
@@ -159,15 +151,17 @@ map_toggle(
 )
 map_toggle("c", "<Cmd>setlocal cursorline! cursorline?<CR>", "Toggle 'cursorline'")
 map_toggle("C", "<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>", "Toggle 'cursorcolumn'")
-map_toggle("d", "<Cmd>lua print(Keymaps.toggle_diagnostic())<CR>", "Toggle diagnostic")
+map_toggle("d", "<Cmd>lua print(Keymaps.toggle_diagnostic())<CR>", "Toggle 'diagnostic'")
+map_toggle("s", "<Cmd>lua print(Keymaps.toggle_signcolumn())<CR>", "Toggle 'signcolumn'")
 map_toggle(
 	"h",
 	'<Cmd>let v:hlsearch = 1 - v:hlsearch | echo (v:hlsearch ? "  " : "no") . "hlsearch"<CR>',
-	"Toggle search highlight"
+	"Toggle 'search highlight'"
 )
 map_toggle("i", "<Cmd>setlocal ignorecase! ignorecase?<CR>", "Toggle 'ignorecase'")
 map_toggle("l", "<Cmd>setlocal list! list?<CR>", "Toggle 'list'")
-map_toggle("n", "<Cmd>setlocal number! number?<CR>", "Toggle 'number'")
+map_toggle("N", "<Cmd>setlocal number! number?<CR>", "Toggle 'number'")
 map_toggle("r", "<Cmd>setlocal relativenumber! relativenumber?<CR>", "Toggle 'relativenumber'")
-map_toggle("s", "<Cmd>setlocal spell! spell?<CR>", "Toggle 'spell'")
+map_toggle("S", "<Cmd>setlocal spell! spell?<CR>", "Toggle 'spell'")
 map_toggle("w", "<Cmd>setlocal wrap! wrap?<CR>", "Toggle 'wrap'")
+map_toggle("n", "<Cmd>lua Keymaps.toggle_signnum()<cr>", "Toggle 'signcolumn and numbers'")
