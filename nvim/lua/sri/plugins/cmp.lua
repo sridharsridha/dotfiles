@@ -4,12 +4,11 @@ return {
 		event = "InsertEnter",
 		dependencies = {
 			-- Snippet Engine & its associated nvim-cmp source
-			{
-				"L3MON4D3/LuaSnip",
-				build = (function()
-					return "make install_jsregexp"
-				end)(),
-			},
+			{ "L3MON4D3/LuaSnip", build = (function()
+				return "make install_jsregexp"
+			end)() },
+			"hrsh7th/cmp-nvim-lua",
+			"ray-x/cmp-treesitter",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
@@ -19,27 +18,41 @@ return {
 			"andersevenrud/cmp-tmux",
 			"hrsh7th/cmp-buffer",
 			"rafamadriz/friendly-snippets",
+      "onsails/lspkind.nvim",
+			"Exafunction/codeium.nvim",
+			{
+				"rcarriga/cmp-dap",
+				dependencies = "mfussenegger/nvim-dap",
+			},
 		},
 		config = function()
 			-- See `:help cmp`
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			local neogen = require("neogen")
+   local lspkind = require('lspkind')
 
 			require("luasnip.loaders.from_vscode").lazy_load()
 			luasnip.config.setup({
 				region_check_events = "CursorMoved",
 				delete_check_events = "TextChanged",
 			})
-
 			cmp.setup({
 				ghost_text = { enabled = true },
+				preselect = cmp.PreselectMode.Item,
+				keyword_length = 2,
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
 					end,
 				},
-
+				view = {
+					entries = {
+						name = "custom",
+						selection_order = "near_cursor",
+						follow_cursor = true,
+					},
+				},
 				sources = cmp.config.sources({
 					{ name = "luasnip" },
 					{ name = "nvim_lsp_signature_help" },
@@ -49,9 +62,7 @@ return {
 					{ name = "path" },
 					{ name = "tmux" },
 				}),
-
 				mapping = cmp.mapping.preset.insert({
-					["<Esc>"] = cmp.mapping.close(),
 					["<C-j>"] = cmp.mapping(
 						cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 						{ "i", "s", "c" }
@@ -63,7 +74,7 @@ return {
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<c-e>"] = cmp.mapping.abort(),
-					["<cr>"] = cmp.mapping.confirm({ select = true }),
+					["<c-y>"] = cmp.mapping.confirm({ select = true }),
 					["<C-l>"] = cmp.mapping(function(fallback)
 						if luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
@@ -88,7 +99,7 @@ return {
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
-					-- { name = "buffer" },
+					{ name = "buffer" },
 					{ name = "cmdline_history" },
 				},
 			})
@@ -98,24 +109,22 @@ return {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
 					{ name = "path" },
-					{ name = "cmdline" },
-					{ name = "cmdline_history" },
+					{ name = "cmdline", keyword_length = 3, max_item_count = 5 },
+					{ name = "cmdline_history", keyword_length = 3, max_item_count = 5 },
+				},
+			})
+
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+				sources = {
+					{ name = "dap" },
 				},
 			})
 			vim.cmd([[
 			           highlight! link CmpItemMenu Comment
 			           " gray
 			           highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-			           " blue
-			           " highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
-			           " highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
-			           "" light blue
-			           "highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
-			           "highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
-			           "highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
-			           " " pink
-			           " highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
-			           " highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
 			           " front
 			           highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
 			           highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4

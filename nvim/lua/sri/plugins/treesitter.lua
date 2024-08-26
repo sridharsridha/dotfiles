@@ -57,15 +57,15 @@ return {
 					highlight_definitions = { enable = true },
 					highlight_current_scope = { enable = true },
 				},
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<leader>I",
-						scope_incremental = "<leader>I",
-						node_incremental = "<leader>I",
-						node_decremental = "<leader>D",
-					},
-				},
+				-- incremental_selection = {
+				-- 	enable = true,
+				-- 	keymaps = {
+				-- 		init_selection = "<leader>I",
+				-- 		scope_incremental = "<leader>I",
+				-- 		node_incremental = "<leader>I",
+				-- 		node_decremental = "<leader>D",
+				-- 	},
+				-- },
 				textobjects = {
 					select = {
 						enable = true,

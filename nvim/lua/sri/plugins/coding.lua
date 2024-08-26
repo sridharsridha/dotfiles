@@ -1,8 +1,11 @@
 return {
 	{
-		"altermo/ultimate-autopair.nvim",
+		-- "altermo/ultimate-autopair.nvim",
+		"windwp/nvim-autopairs",
 		event = { "InsertEnter", "CmdlineEnter" },
-		opts = {},
+		opts = {
+			disable_filetype = { "TelescopePrompt" },
+		},
 	},
 
 	{
@@ -43,7 +46,7 @@ return {
 		"rgroli/other.nvim",
 		cmd = { "Other", "OtherSplit", "OtherVSplit" },
 		keys = {
-			{ "<leader>o", "<cmd>:Other<CR>", desc = "Other file" },
+			{ "<leader>oo", "<cmd>:Other<CR>", desc = "Other file" },
 			{ "<leader>os", "<cmd>:OtherSplit<CR>", desc = "Other file split" },
 			{ "<leader>ov", "<cmd>:OtherVSplit<CR>", desc = "Other file vsplit" },
 		},

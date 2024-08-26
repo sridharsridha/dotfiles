@@ -49,13 +49,14 @@ return {
 						fuzzy = true, -- false will only do exact matching
 						override_generic_sorter = true, -- override the generic sorter
 						override_file_sorter = true, -- override the file sorter
+						case_mode = "smart_case",
 					},
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
 					},
-					live_grep_args = {
-						auto_quoting = true, -- If the prompt value does not begin with ', " or - the entire prompt is treated as a single argument
-					},
+					-- live_grep_args = {
+					-- 	auto_quoting = false, -- If the prompt value does not begin with ', " or - the entire prompt is treated as a single argument
+					-- },
 				},
 			})
 
@@ -101,7 +102,15 @@ return {
 				end,
 				{ desc = "[S]earch [W]ord in files" }
 			)
-			map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch [G]rep live" })
+			map("n", "<leader>sG", builtin.live_grep, { desc = "[S]earch [G]rep live" })
+			map("n", "<leader>sg", function()
+				require("telescope.builtin").grep_string({
+					shorten_path = true,
+					word_match = "-w",
+					only_sort_text = true,
+					search = "",
+				})
+			end, { desc = "[S]earch [G]rep live" })
 			-- -- Buffer.
 			map("n", "<leader>bg", function()
 				builtin.live_grep({
