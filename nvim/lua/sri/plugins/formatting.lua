@@ -10,7 +10,7 @@ return {
 				function()
 					require("conform").format({ async = true })
 				end,
-				mode = "",
+				mode = { "n", "v" },
 				desc = "Format buffer",
 			},
 		},
@@ -25,10 +25,14 @@ return {
 				lua = { "stylua" },
 				bash = { "shfmt" },
 				cpp = { "clang-format" },
+				c = { "clang_format" },
 			},
 			formatters = {
 				shfmt = {
 					prepend_args = { "-i", "2" },
+				},
+				clang_format = {
+					prepend_args = { "--style=file", "--fallback-style=LLVM" },
 				},
 			},
 		},

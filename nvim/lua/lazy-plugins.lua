@@ -10,7 +10,7 @@ require("lazy").setup({
 	require("sri/plugins/lspconfig"),
 	require("sri/plugins/formatting"),
 	require("sri/plugins/linting"),
-	require("sri/plugins/debug"),
+	-- require("sri/plugins/debug"),
 	require("sri/plugins/cmp"),
 	require("sri/plugins/treesitter"),
 	require("sri/plugins/ui"),
