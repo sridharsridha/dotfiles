@@ -31,6 +31,7 @@ return {
          "williamboman/mason.nvim",
          { "williamboman/mason-lspconfig.nvim" },
          "WhoIsSethDaniel/mason-tool-installer.nvim",
+         -- "joechrisellis/lsp-format-modifications.nvim",
          { "j-hui/fidget.nvim",                opts = {} },
       },
       config = function()
@@ -219,23 +220,24 @@ return {
                })
             end,
          })
-         vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-            group = sri_custom_lsp_start,
-            pattern = "/src/**",
-            callback = function()
-               vim.lsp.start({
-                  name = "ar-formatdiff-ls",
-                  cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
-                  root_dir = "/src",
-                  settings = { debug = false },
-                  on_attach = function()
-                     vim.keymap.set("n", "<leader>cf", function()
-                        vim.lsp.buf.format({ timeout_ms = 5000 })
-                     end, { desc = "LSP: " .. "[C]ode [F]ormat" })
-                  end,
-               })
-            end,
-         })
+
+         -- vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+         --    group = sri_custom_lsp_start,
+         --    pattern = "/src/**",
+         --    callback = function()
+         --       vim.lsp.start({
+         --          name = "ar-formatdiff-ls",
+         --          cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
+         --          root_dir = "/src",
+         --          settings = { debug = false },
+         --          on_attach = function()
+         --             -- vim.keymap.set("n", "<leader>cf", function()
+         --             --    vim.lsp.buf.format({ timeout_ms = 50000 })
+         --             -- end, { desc = "LSP: " .. "[C]ode [F]ormat" })
+         --          end,
+         --       })
+         --    end,
+         -- })
 
          vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
             group = sri_custom_lsp_start,
@@ -249,17 +251,18 @@ return {
                })
             end,
          })
-         -- add somewhere in your config that runs on startup:
-         vim.diagnostic.config({
-            signs = {
-               text = {
-                  [vim.diagnostic.severity.ERROR] = '', -- or other icon of your choice here, this is just what my config has:
-                  [vim.diagnostic.severity.WARN] = '',
-                  [vim.diagnostic.severity.INFO] = '',
-                  [vim.diagnostic.severity.HINT] = '󰌵',
-               },
-            },
-         })
+
+         -- -- add somewhere in your config that runs on startup:
+         -- vim.diagnostic.config({
+         --    signs = {
+         --       text = {
+         --          [vim.diagnostic.severity.ERROR] = '', -- or other icon of your choice here, this is just what my config has:
+         --          [vim.diagnostic.severity.WARN] = '',
+         --          [vim.diagnostic.severity.INFO] = '',
+         --          [vim.diagnostic.severity.HINT] = '󰌵',
+         --       },
+         --    },
+         -- })
       end,
    },
 }

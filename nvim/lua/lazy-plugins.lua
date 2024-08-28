@@ -1,31 +1,33 @@
 require("lazy").setup({
 
-	-- List of all plugins and thier configurations
-	require("sri/plugins/which-key"),
-	require("sri/plugins/terminal"),
-	require("sri/plugins/coding"),
-	require("sri/plugins/comment"),
-	require("sri/plugins/git"),
-	require("sri/plugins/fuzzy-finder"),
-	require("sri/plugins/lspconfig"),
-	require("sri/plugins/formatting"),
-	require("sri/plugins/linting"),
-	-- require("sri/plugins/debug"),
-	require("sri/plugins/cmp"),
-	require("sri/plugins/treesitter"),
-	require("sri/plugins/ui"),
+   -- List of all plugins and thier configurations
+   require("sri/plugins/which-key"),
+   require("sri/plugins/terminal"),
+   require("sri/plugins/coding"),
+   require("sri/plugins/comment"),
+   require("sri/plugins/git"),
+   require("sri/plugins/fuzzy-finder"),
+   require("sri/plugins/lspconfig"),
+   require("sri/plugins/formatting"),
+   require("sri/plugins/linting"),
+   -- require("sri/plugins/debug"),
+   require("sri/plugins/cmp"),
+   require("sri/plugins/treesitter"),
+   require("sri/plugins/ui"),
 
-	-- Tmux integration.
-	{ "aserowy/tmux.nvim", opts = {} },
-	-- Custom plugin directory
-	{ dir = "~/arista.nvim", lazy = false },
-	-- Themes
-	require("sri/plugins/colorscheme"),
+   -- Tmux integration.
+   { "aserowy/tmux.nvim",               opts = {} },
+   -- Custom plugin directory
+   { dir = "~/vim-plugins/arista.nvim", lazy = false },
+   { dir = "~/vim-plugins/mts.nvim",    lazy = false },
+   { dir = "~/vim-plugins/bug.nvim",    lazy = false },
+   -- Themes
+   require("sri/plugins/colorscheme"),
 }, {
-	ui = {
-		icons = {},
-		custom_keys = {},
-	},
+   ui = {
+      icons = {},
+      custom_keys = {},
+   },
 })
 
 -- Configure key lazy.nvim bindings
