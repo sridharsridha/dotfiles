@@ -32,7 +32,16 @@ return {
          { "williamboman/mason-lspconfig.nvim" },
          "WhoIsSethDaniel/mason-tool-installer.nvim",
          -- "joechrisellis/lsp-format-modifications.nvim",
-         { "j-hui/fidget.nvim",                opts = {} },
+         {
+            "j-hui/fidget.nvim",
+            opts = {
+               notification = {
+                  window = {
+                     winblend = 0,
+                  },
+               }
+            }
+         },
       },
       config = function()
          --    function will be executed to configure the current buffer
