@@ -43,6 +43,7 @@ return {
             }
          },
       },
+      opts = { inlay_hints = { enabled = false }, },
       config = function()
          --    function will be executed to configure the current buffer
          vim.api.nvim_create_autocmd("LspAttach", {

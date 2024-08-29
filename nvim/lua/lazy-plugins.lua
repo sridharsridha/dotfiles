@@ -10,19 +10,14 @@ require("lazy").setup({
    require("sri/plugins/lspconfig"),
    require("sri/plugins/formatting"),
    require("sri/plugins/linting"),
-   -- require("sri/plugins/debug"),
    require("sri/plugins/cmp"),
    require("sri/plugins/treesitter"),
    require("sri/plugins/ui"),
-
-   -- Tmux integration.
-   { "aserowy/tmux.nvim",               opts = {} },
+   require("sri/plugins/colorscheme"),
    -- Custom plugin directory
    { dir = "~/vim-plugins/arista.nvim", lazy = false },
-   { dir = "~/vim-plugins/mts.nvim",    lazy = false },
-   { dir = "~/vim-plugins/bug.nvim",    lazy = false },
-   -- Themes
-   require("sri/plugins/colorscheme"),
+   { dir = "~/vim-plugins/mts.nvim",    lazy = false, enabled = false },
+   { dir = "~/vim-plugins/bug.nvim",    lazy = false, enabled = false },
 }, {
    ui = {
       icons = {},

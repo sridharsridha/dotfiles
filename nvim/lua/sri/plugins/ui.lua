@@ -1,11 +1,9 @@
 return {
    { "echasnovski/mini.tabline",    opts = {} },
-
    { "echasnovski/mini.statusline", opts = { use_icons = false } },
-
    {
       "echasnovski/mini.indentscope",
-      keys = { "j", "k" },
+      event = "BufReadPre",
       opts = function(_, opts)
          opts.draw = {
             animation = require("mini.indentscope").gen_animation.none(),
@@ -34,7 +32,6 @@ return {
          })
       end,
    },
-
    -- Better quickfix window in Neovim
    {
       "kevinhwang91/nvim-bqf",
@@ -78,7 +75,6 @@ return {
          },
       },
    },
-
    {
       "yorickpeterse/nvim-pqf",
       ft = "qf",
@@ -95,36 +91,36 @@ return {
       end,
    },
 
-   {
-      "kevinhwang91/nvim-hlslens",
-      opts = {
-         calm_down = true,
-      },
-      keys = {
-         -- FYI: debug mapping with `:map ...`
-         {
-            "n",
-            [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-            noremap = true,
-            silent = true,
-            desc = "Next Match",
-         },
-         {
-            "N",
-            [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-            noremap = true,
-            silent = true,
-            desc = "Previous Match",
-         },
-
-         -- TODO: Respect smartcase with:
-         --  https://github.com/olimorris/dotfiles-1/blob/0a3168e068e21fd9f51be27fe7bdb72ef2643d88/.config/nvim/lua/plugins/hlslens.lua#L11-L31
-         { "*",  [[*<Cmd>lua require('hlslens').start()<CR>]],  noremap = true, silent = true, desc = "Match Word" },
-         { "#",  [[#<Cmd>lua require('hlslens').start()<CR>]],  noremap = true, silent = true, desc = "Match Word" },
-         { "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
-         { "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
-      },
-   },
+   -- {
+   --    "kevinhwang91/nvim-hlslens",
+   --    opts = {
+   --       calm_down = true,
+   --    },
+   --    keys = {
+   --       -- FYI: debug mapping with `:map ...`
+   --       {
+   --          "n",
+   --          [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+   --          noremap = true,
+   --          silent = true,
+   --          desc = "Next Match",
+   --       },
+   --       {
+   --          "N",
+   --          [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+   --          noremap = true,
+   --          silent = true,
+   --          desc = "Previous Match",
+   --       },
+   --
+   --       -- TODO: Respect smartcase with:
+   --       --  https://github.com/olimorris/dotfiles-1/blob/0a3168e068e21fd9f51be27fe7bdb72ef2643d88/.config/nvim/lua/plugins/hlslens.lua#L11-L31
+   --       { "*",  [[*<Cmd>lua require('hlslens').start()<CR>]],  noremap = true, silent = true, desc = "Match Word" },
+   --       { "#",  [[#<Cmd>lua require('hlslens').start()<CR>]],  noremap = true, silent = true, desc = "Match Word" },
+   --       { "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
+   --       { "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], noremap = true, silent = true, desc = "Match Word" },
+   --    },
+   -- },
 
    {
       "max397574/better-escape.nvim",
@@ -142,21 +138,12 @@ return {
       end,
    },
 
-   -- {
-   -- 	"winston0410/range-highlight.nvim",
-   -- 	dependencies = { "winston0410/cmd-parser.nvim" },
-   -- 	config = true,
-   -- },
-
    {
       "kawre/neotab.nvim",
       event = "InsertEnter",
       opts = {},
    },
 
-   {
-      "AckslD/muren.nvim",
-      cmd = { "MurenOpen", "MurenClose", "MurenToggle" },
-      config = true,
-   },
+   -- Tmux integration.
+   { "aserowy/tmux.nvim", opts = {} },
 }
