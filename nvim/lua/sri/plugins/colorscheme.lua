@@ -27,7 +27,7 @@ return {
                treesitter = true,
                mini = {
                   enabled = true,
-                  indentscope_color = "",
+                  -- indentscope_color = "",
                },
                diffview = true,
                fidget = true,

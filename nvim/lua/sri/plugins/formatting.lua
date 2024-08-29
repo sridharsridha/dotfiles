@@ -45,6 +45,12 @@ return {
       },
       opts = {
          notify_on_error = true,
+         default_format_opts = {
+            timeout_ms = 3000,
+            async = false,           -- not recommended to change
+            quiet = false,           -- not recommended to change
+            lsp_format = "fallback", -- not recommended to change
+         },
          format_on_save = {
             lsp_fallback = true,
          },
@@ -52,6 +58,7 @@ return {
             python = { "a" },
             cpp = { "a" },
             tac = { "a" },
+            lua = { "stylua" },
          },
          formatters = {
             a = {

@@ -85,7 +85,7 @@ return {
          { "<leader>sM", "<cmd>Telescope man_pages<cr>",   desc = "Man Pages" },
          { "<leader>sm", "<cmd>Telescope marks<cr>",       desc = "Jump to Mark" },
          { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-         { "<leader>sr", "<cmd>Telescope resume<cr>",      desc = "Resume" },
+         { "<leader>sR", "<cmd>Telescope resume<cr>",      desc = "Resume" },
          { "<leader>sq", "<cmd>Telescope quickfix<cr>",    desc = "Quickfix List" },
          { "<leader>uc", "<cmd>Telescope colorscheme<cr>", desc = "Search Colorscheme" },
          -- -- Buffer.
