@@ -7690,15 +7690,15 @@
 			<key>Foreground Color (Dark)</key>
 			<dict>
 				<key>Alpha Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.95686274509803926</real>
+				<real>0.73947149515151978</real>
 				<key>Color Space</key>
-				<string>sRGB</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.83921568627450982</real>
+				<real>0.73947149515151978</real>
 				<key>Red Component</key>
-				<real>0.80392156862745101</real>
+				<real>0.73947137594223022</real>
 			</dict>
 			<key>Foreground Color (Light)</key>
 			<dict>
@@ -8556,6 +8556,8 @@
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
+	<key>kCPKUseSystemColorPicker</key>
 	<false/>
 </dict>
 </plist>

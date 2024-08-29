@@ -129,7 +129,7 @@ return {
       end,
    },
 
-   { "axelf4/vim-strip-trailing-whitespace", event = "VeryLazy" },
+   { "axelf4/vim-strip-trailing-whitespace" },
    {
       -- Better Around/Inside textobjects
       --
