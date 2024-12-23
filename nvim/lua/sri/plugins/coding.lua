@@ -31,6 +31,7 @@ return {
    {
       -- Split and join arguments
       "echasnovski/mini.splitjoin",
+      enabled = false,
       event = "InsertEnter",
       opts = {
          mappings = {
@@ -129,7 +130,7 @@ return {
       end,
    },
 
-   { "axelf4/vim-strip-trailing-whitespace" },
+   { "axelf4/vim-strip-trailing-whitespace", enabled = false },
    {
       -- Better Around/Inside textobjects
       --
@@ -138,6 +139,7 @@ return {
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
       "echasnovski/mini.ai",
+      enabled = false,
       event = { "InsertEnter" },
       opts = function()
          local ai = require("mini.ai")

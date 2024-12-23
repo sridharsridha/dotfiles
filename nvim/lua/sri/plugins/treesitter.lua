@@ -68,8 +68,8 @@ return {
             -- },
             textobjects = {
                select = {
-                  enable = true,
-                  lookahead = true,
+                  enable = false,
+                  lookahead = false,
                   keymaps = {
                      -- You can use the capture groups defined in textobjects.scm
                      ["ak"] = { query = "@block.outer", desc = "around block" },
@@ -87,8 +87,8 @@ return {
                   },
                },
                move = {
-                  enable = true,
-                  set_jumps = true,
+                  enable = false,
+                  set_jumps = false,
                   goto_next_start = {
                      ["]k"] = { query = "@block.outer", desc = "Next block start" },
                      ["]f"] = { query = "@function.outer", desc = "Next function start" },
@@ -115,7 +115,7 @@ return {
                   },
                },
                swap = {
-                  enable = true,
+                  enable = false,
                   swap_next = {
                      [">K"] = { query = "@block.outer", desc = "Swap next block" },
                      [">F"] = { query = "@function.outer", desc = "Swap next function" },

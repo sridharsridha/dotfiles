@@ -21,7 +21,7 @@ autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = augroup("YankHighlight"),
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "800" })
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "100" })
 	end,
 })
 
@@ -84,51 +84,51 @@ autocmd("FileType", {
 })
 
 -- wrap and check for spell in text filetypes
-autocmd("FileType", {
-	group = augroup("wrap_spell"),
-	pattern = { "gitcommit", "text", "plaintex", "typst", "markdown" },
-	callback = function()
-		vim.opt_local.wrap = true
-		vim.opt_local.spell = true
-	end,
-})
+-- autocmd("FileType", {
+-- 	group = augroup("wrap_spell"),
+-- 	pattern = { "gitcommit", "text", "plaintex", "typst", "markdown" },
+-- 	callback = function()
+-- 		vim.opt_local.wrap = true
+-- 		vim.opt_local.spell = true
+-- 	end,
+-- })
 
 -- Fix conceallevel for json files
-autocmd({ "FileType" }, {
-	group = augroup("json_conceal"),
-	pattern = { "json", "jsonc", "json5" },
-	callback = function()
-		vim.opt_local.conceallevel = 0
-	end,
-})
+-- autocmd({ "FileType" }, {
+-- 	group = augroup("json_conceal"),
+-- 	pattern = { "json", "jsonc", "json5" },
+-- 	callback = function()
+-- 		vim.opt_local.conceallevel = 0
+-- 	end,
+-- })
 
-autocmd("BufWritePre", {
-	group = augroup("undo_disable"),
-	pattern = { "/tmp/*", "*.tmp", "*.bak", "COMMIT_EDITMSG", "MERGE_MSG" },
-	callback = function(event)
-		vim.opt_local.undofile = false
-		if event.file == "COMMIT_EDITMSG" or event.file == "MERGE_MSG" then
-			vim.opt_local.swapfile = false
-		end
-	end,
-	desc = "Disable swap/undo/backup files in temp directories or shm",
-})
+-- autocmd("BufWritePre", {
+-- 	group = augroup("undo_disable"),
+-- 	pattern = { "/tmp/*", "*.tmp", "*.bak", "COMMIT_EDITMSG", "MERGE_MSG" },
+-- 	callback = function(event)
+-- 		vim.opt_local.undofile = false
+-- 		if event.file == "COMMIT_EDITMSG" or event.file == "MERGE_MSG" then
+-- 			vim.opt_local.swapfile = false
+-- 		end
+-- 	end,
+-- 	desc = "Disable swap/undo/backup files in temp directories or shm",
+-- })
 
-autocmd({ "BufNewFile", "BufReadPre" }, {
-	group = augroup("secure"),
-	pattern = {
-		"/tmp/*",
-		"$TMPDIR/*",
-		"$TMP/*",
-		"$TEMP/*",
-		"*/shm/*",
-		"/private/var/*",
-	},
-	callback = function()
-		vim.opt_local.undofile = false
-		vim.opt_local.swapfile = false
-		vim.opt_global.backup = false
-		vim.opt_global.writebackup = false
-	end,
-	desc = "Disable swap/undo/backup files in temp directories or shm",
-})
+-- autocmd({ "BufNewFile", "BufReadPre" }, {
+-- 	group = augroup("secure"),
+-- 	pattern = {
+-- 		"/tmp/*",
+-- 		"$TMPDIR/*",
+-- 		"$TMP/*",
+-- 		"$TEMP/*",
+-- 		"*/shm/*",
+-- 		"/private/var/*",
+-- 	},
+-- 	callback = function()
+-- 		vim.opt_local.undofile = false
+-- 		vim.opt_local.swapfile = false
+-- 		vim.opt_global.backup = false
+-- 		vim.opt_global.writebackup = false
+-- 	end,
+-- 	desc = "Disable swap/undo/backup files in temp directories or shm",
+-- })

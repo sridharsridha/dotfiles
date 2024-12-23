@@ -67,3 +67,6 @@
 	process = git-lfs filter-process
 [core]
 	excludesFile = ~/.gitignore
+[oh-my-zsh]
+	hide-dirty = 1
+	hide-status = 1

@@ -12,15 +12,16 @@ return {
                topdelete = { text = "‾" },
                changedelete = { text = "│" },
             },
-            current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+            current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
             current_line_blame_opts = {
-               virt_text = true,
+               virt_text = false,
             },
          })
       end,
    },
    {
       "akinsho/git-conflict.nvim",
+      enabled = false,
       event = { "BufReadPre" },
       opt = {
          default_mappings = true,     -- disable buffer local mapping created by this plugin
