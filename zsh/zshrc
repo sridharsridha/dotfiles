@@ -1,28 +1,45 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
- #  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+
+# fzf oh-my-zsh plugin needs fzf to be installed already.
+# FZF installation
+export FZF_BASE=$HOME/.fzf
+if [ ! -d "$FZF_BASE" ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git $FZF_BASE
+  $FZF_BASE/install --all
 fi
 
-# [[ -z "$PS1" ]] && return
-export FZF_BASE=$HOME/.zsh/fzf
+# Antigen installation
+[ ! -f ~/.antigen.zsh ] && curl -L git.io/antigen > ~/.antigen.zsh
+source ~/.antigen.zsh
 
-# Load Antigen
-source ~/.zsh/antigen.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/aliases.zsh
 source ~/.zsh/exports.zsh
 source ~/.zsh/bindings.zsh
+source ~/.zsh/history.zsh
+source ~/.zsh/hooks.zsh
 
-# FZF installation
-[ ! -f ~/.fzf.zsh ] && $FZF_BASE/install --all
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
 
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle command-not-found
+antigen bundle fzf
+antigen bundle djui/alias-tips
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+# antigen bundle zsh-users/zsh-history-substring-search
+
+# Load the theme.
+antigen theme robbyrussell
+
+# Tell Antigen that you're done.
+antigen apply
+
+source ~/.fzf.zsh
 # Local configuration
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 

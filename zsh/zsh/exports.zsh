@@ -37,13 +37,3 @@ generic_paths=(
 # Enable default exports
 export PATH=$PATH:$(IFS=:; echo "${generic_paths[*]}")
 
-# Colourize man output
-export LESS_TERMCAP_mb=$(printf "\e[1;37m")
-export LESS_TERMCAP_md=$(printf "\e[1;37m")
-export LESS_TERMCAP_me=$(printf "\e[0m")
-export LESS_TERMCAP_se=$(printf "\e[0m")
-export LESS_TERMCAP_so=$(printf "\e[1;47;30m")
-export LESS_TERMCAP_ue=$(printf "\e[0m")
-export LESS_TERMCAP_us=$(printf "\e[0;36m")
-export LESS=-iRX
-

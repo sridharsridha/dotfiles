@@ -18,9 +18,6 @@ opt.relativenumber = false
 -- Enable mouse mode, can be useful for resizing splits for example!
 opt.mouse = "a"
 
--- Don't show the mode, since it's already in status line
--- opt.showmode = false
-
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
@@ -36,7 +33,7 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- Keep signcolumn on by default
-opt.signcolumn = "number"
+opt.signcolumn = "auto"
 
 -- Decrease update time
 opt.updatetime = 500
@@ -92,7 +89,7 @@ opt.title = false -- set terminal title to the filename and path
 -- opt.completeopt = "menuone,noinsert,noselect" -- Customize completions
 opt.ruler = true -- Don't show cursor position in command line
 opt.wrap = true -- Display long lines as just one line
-opt.shadafile = "NONE"
+-- opt.shadafile = "NONE"
 
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do

@@ -56,6 +56,6 @@ add-zsh-hook preexec zlong_alert_pre
 add-zsh-hook precmd zlong_alert_post
 
 # Automatically list directory contents on `cd`.
-# auto-ls () { ls -FG; }
-# chpwd_functions=( auto-ls $chpwd_functions )
+auto-ls () { ls -FG; }
+chpwd_functions=( auto-ls $chpwd_functions )
 

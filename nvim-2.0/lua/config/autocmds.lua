@@ -57,7 +57,6 @@ autocmd("BufReadPost", {
 autocmd("FileType", {
 	group = augroup("close_with_q"),
 	pattern = {
-		"PlenaryTestPopup",
 		"grug-far",
 		"help",
 		"lspinfo",
@@ -66,11 +65,7 @@ autocmd("FileType", {
 		"spectre_panel",
 		"startuptime",
 		"tsplayground",
-		"neotest-output",
 		"checkhealth",
-		"neotest-summary",
-		"neotest-output-panel",
-		"dbout",
 		"gitsigns.blame",
 	},
 	callback = function(event)
@@ -102,33 +97,16 @@ autocmd("FileType", {
 -- 	end,
 -- })
 
--- autocmd("BufWritePre", {
--- 	group = augroup("undo_disable"),
--- 	pattern = { "/tmp/*", "*.tmp", "*.bak", "COMMIT_EDITMSG", "MERGE_MSG" },
--- 	callback = function(event)
--- 		vim.opt_local.undofile = false
--- 		if event.file == "COMMIT_EDITMSG" or event.file == "MERGE_MSG" then
--- 			vim.opt_local.swapfile = false
--- 		end
--- 	end,
--- 	desc = "Disable swap/undo/backup files in temp directories or shm",
--- })
-
--- autocmd({ "BufNewFile", "BufReadPre" }, {
--- 	group = augroup("secure"),
--- 	pattern = {
--- 		"/tmp/*",
--- 		"$TMPDIR/*",
--- 		"$TMP/*",
--- 		"$TEMP/*",
--- 		"*/shm/*",
--- 		"/private/var/*",
--- 	},
--- 	callback = function()
--- 		vim.opt_local.undofile = false
--- 		vim.opt_local.swapfile = false
--- 		vim.opt_global.backup = false
--- 		vim.opt_global.writebackup = false
--- 	end,
--- 	desc = "Disable swap/undo/backup files in temp directories or shm",
--- })
+autocmd({ "BufNewFile", "BufReadPre" }, {
+	group = augroup("secure"),
+	pattern = {
+      "/tmp/*", "*.tmp", "*.bak", "COMMIT_EDITMSG", "MERGE_MSG", "*/shm/*",
+	},
+	callback = function()
+		vim.opt_local.undofile = false
+		vim.opt_local.swapfile = false
+		vim.opt_global.backup = false
+		vim.opt_global.writebackup = false
+	end,
+	desc = "Disable swap/undo/backup files in temp directories or shm",
+})
