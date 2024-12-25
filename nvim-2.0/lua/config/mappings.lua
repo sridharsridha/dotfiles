@@ -76,7 +76,7 @@ map("n", "gh", "g^", { desc = "Jump to first screen character" })
 map("n", "gl", "g$", { desc = "Jump to last screen character" })
 
 -- new file
-map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<leader>bn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- quit
 map("n", "q", ":q<CR>")

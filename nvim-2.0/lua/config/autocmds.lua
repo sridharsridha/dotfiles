@@ -57,6 +57,7 @@ autocmd("BufReadPost", {
 autocmd("FileType", {
 	group = augroup("close_with_q"),
 	pattern = {
+		"PlenaryTestPopup",
 		"grug-far",
 		"help",
 		"lspinfo",
@@ -65,7 +66,11 @@ autocmd("FileType", {
 		"spectre_panel",
 		"startuptime",
 		"tsplayground",
+		"neotest-output",
 		"checkhealth",
+		"neotest-summary",
+		"neotest-output-panel",
+		"dbout",
 		"gitsigns.blame",
 	},
 	callback = function(event)
@@ -79,23 +84,23 @@ autocmd("FileType", {
 })
 
 -- wrap and check for spell in text filetypes
--- autocmd("FileType", {
--- 	group = augroup("wrap_spell"),
--- 	pattern = { "gitcommit", "text", "plaintex", "typst", "markdown" },
--- 	callback = function()
--- 		vim.opt_local.wrap = true
--- 		vim.opt_local.spell = true
--- 	end,
--- })
+autocmd("FileType", {
+	group = augroup("wrap_spell"),
+	pattern = { "gitcommit", "text", "plaintex", "typst", "markdown" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
+})
 
 -- Fix conceallevel for json files
--- autocmd({ "FileType" }, {
--- 	group = augroup("json_conceal"),
--- 	pattern = { "json", "jsonc", "json5" },
--- 	callback = function()
--- 		vim.opt_local.conceallevel = 0
--- 	end,
--- })
+autocmd({ "FileType" }, {
+	group = augroup("json_conceal"),
+	pattern = { "json", "jsonc", "json5" },
+	callback = function()
+		vim.opt_local.conceallevel = 0
+	end,
+})
 
 autocmd({ "BufNewFile", "BufReadPre" }, {
 	group = augroup("secure"),

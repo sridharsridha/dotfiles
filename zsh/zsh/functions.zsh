@@ -217,7 +217,7 @@ function frg() {
    fi
 }
 
-timezsh() {
+function timezsh() {
   shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+  for i in $(seq 1 10); do time $shell -i -c exit; done
 }

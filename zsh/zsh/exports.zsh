@@ -12,6 +12,13 @@ export LESS='--ignore-case --raw-control-chars'
 export VISUAL='nvim'
 export TZ="Asia/Kolkata"
 
+# zsh history substring search.
+export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+# https://man.archlinux.org/man/zshzle.1#CHARACTER_HIGHLIGHTING
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=green,standout' # bold
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,underline'
+export HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
+
 # Paths {{{
 ###########
 paths=( \

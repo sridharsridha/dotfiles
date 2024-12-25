@@ -1,25 +1,19 @@
 
 # When I type a directory path, just cd to it.
 setopt auto_cd
-
 # ZSH notification for long commands.
 # Source: <https://github.com/kevinywlui/zlong_alert.zsh/blob/master/zlong_alert.zsh>
 # Use zsh/datetime for $EPOCHSECONDS
 zmodload zsh/datetime || return
-
 # Be sure we can actually set hooks
 autoload -Uz add-zsh-hook || return
-
 # Set commands to ignore if needed
 zlong_ignore_cmds='vim ssh mo mongo man watch crontab pgcli tmux'
-
 # Set as true to ignore commands starting with a space
 zlong_ignorespace=true
-
 # Need to set an initial timestamps otherwise, we'll be comparing an empty
 # string with an integer.
 zlong_timestamp=$EPOCHSECONDS
-
 # Define the alerting function, do the text processing here
 zlong_alert_func() {
 	local cmd=$1
@@ -54,8 +48,4 @@ zlong_alert_post() {
 
 add-zsh-hook preexec zlong_alert_pre
 add-zsh-hook precmd zlong_alert_post
-
-# Automatically list directory contents on `cd`.
-auto-ls () { ls -FG; }
-chpwd_functions=( auto-ls $chpwd_functions )
 

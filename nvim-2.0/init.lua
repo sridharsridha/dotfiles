@@ -1,4 +1,4 @@
-require("config/autocmds")
+-- require("config/autocmds")
 require("config/options")
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -30,40 +30,28 @@ require("lazy").setup({
 	ui = {
 		border = "single",
 	},
+   rocks = {
+      enabled = false,
+   },
    performance = {
       rtp = {
          disabled_plugins = {
             "2html_plugin",
             "spellfile",
-            "man",
-            "matchparen",
-            "editorconfig",
-            "osc52",
             "bugreport",
             "compiler",
-            "ftplugin",
             "getscript",
             "getscriptPlugin",
-            "gzip",
-            "logipat",
-            "matchit",
             "optwin",
             "rplugin",
             "rrhelper",
             "spellfile_plugin",
             "synmenu",
-            "tar",
-            "tarPlugin",
             "tutor",
             "vimball",
             "vimballPlugin",
             "zip",
             "zipPlugin",
-            "netrw",
-            "netrwFileHandlers",
-            "netrwPlugin",
-            "netrwSettings",
-            "syntax",
             "tohtml",
          },
       },

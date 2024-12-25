@@ -14,13 +14,10 @@ opt.termguicolors = true
 -- Make line numbers default
 opt.number = true
 opt.relativenumber = false
+opt.clipboard = "unnamed"
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 opt.mouse = "a"
-
--- only set clipboard if not in ssh, to make sure the OSC 52
--- integration works automatically. Requires Neovim >= 0.10.0
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 
 -- Enable break indent
 opt.breakindent = true
@@ -54,7 +51,7 @@ opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.inccommand = "split"
 
 -- Show which line your cursor is on
-opt.cursorline = true
+-- opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 opt.scrolloff = 10

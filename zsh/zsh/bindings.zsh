@@ -1,18 +1,24 @@
 # vim like shell
 # bindkey -v
 
-# Emac bindings
-bindkey -e
-
 # zsh autosuggestions bindings
-bindkey '^ ' autosuggest-accept
+bindkey '^Y' autosuggest-accept
 
-# bindkey '^P' up-history
-# bindkey '^N' down-history
-# bindkey '^?' backward-delete-char
-# bindkey '^h' backward-delete-char
-# bindkey '^w' backward-kill-word
-# bindkey '^r' history-incremental-search-backward
+# zsh-history-substring-search configuration
+# Use cat -v to find codes.
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
 
-# bindkey -M emacs '^P' history-substring-search-up
-# bindkey -M emacs '^N' history-substring-search-down
+# C-z to toggle current process (background/foreground)
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
