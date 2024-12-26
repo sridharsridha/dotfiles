@@ -2,74 +2,87 @@ local opt = vim.opt
 ---@class vim.var_accessor
 local g = vim.g
 
-local indent = 3
-g.mapleader = " "
-g.maplocalleader = ","
+local opts = {}
 
-opt.path:append("**")
+opts.initial = function()
+	opt.laststatus = 3
+	-- opt.mouse = "a"
+	-- opt.path:append("**")
+	opt.clipboard = "unnamedplus"
+	opt.termguicolors = true
 
-opt.lazyredraw = false
-opt.termguicolors = true
+	opt.lazyredraw = false
+	opt.fillchars:append({ eob = " " })
+	opt.shortmess:append("aIF")
+	opt.cursorline = true
+	opt.cursorlineopt = "number"
+	opt.ruler = true
+	opt.textwidth = 85
+	opt.colorcolumn = "+1"
+	opt.number = true
+	opt.relativenumber = false
+	opt.breakindent = true
+	opt.linebreak = true
+	opt.swapfile = false
+	opt.undofile = true
+	opt.cmdheight = 0
 
--- Make line numbers default
-opt.number = true
-opt.relativenumber = false
-opt.clipboard = "unnamed"
+	g.border_style = "single" ---@type "single"|"double"|"rounded"
+	g.winblend = 0
+	g.mapleader = " "
+	g.maplocalleader = ","
 
--- Enable mouse mode, can be useful for resizing splits for example!
-opt.mouse = "a"
+	-- Disable providers
+	g.loaded_node_provider = 0
+	g.loaded_python3_provider = 0
+	g.loaded_perl_provider = 0
+	g.loaded_ruby_provider = 0
+end
 
--- Enable break indent
-opt.breakindent = true
+opts.final = function()
+	opt.completeopt = { "menuone", "noselect", "noinsert" }
+	opt.wildmenu = true
+	opt.pumheight = 10
+	opt.ignorecase = true
+	opt.smartcase = true
+	opt.timeout = false
+	opt.updatetime = 400
+	opt.confirm = false
+	opt.equalalways = false
+	opt.splitbelow = true
+	opt.splitright = true
+	opt.scrolloff = 2
 
--- Save undo history
-opt.undofile = true
+	-- Indenting
+	local indent = 3
+	opt.shiftwidth = indent
+	opt.smartindent = true
+	opt.tabstop = indent
+	opt.expandtab = true
+	opt.softtabstop = indent
+	opt.sidescrolloff = indent
 
--- Case-insensitive searching UNLESS \C or capital in search
-opt.ignorecase = true
-opt.smartcase = true
+	-- opt.signcolumn = "auto"
+
+	-- Statusline
+	local statusline_ascii = ""
+	opt.statusline = "%#Normal#" .. statusline_ascii .. "%="
+end
 
 -- Keep signcolumn on by default
-opt.signcolumn = "auto"
 
 -- Decrease update time
-opt.updatetime = 500
-opt.timeoutlen = 300
-opt.ttimeoutlen = 50
-
--- Configure how new splits should be opened
-opt.splitright = true
-opt.splitbelow = true
-
--- Sets how neovim will display certain whitespace in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-opt.list = false
-opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- opt.timeoutlen = 300
+-- opt.ttimeoutlen = 50
 
 -- Preview substitutions live, as you type!
-opt.inccommand = "split"
-
--- Show which line your cursor is on
--- opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-opt.scrolloff = 10
-
-opt.tabstop = indent
-opt.shiftwidth = indent
-opt.softtabstop = -1
-opt.expandtab = true
-opt.smarttab = true
+-- opt.inccommand = "split"
 
 -- Set highlight on search
-opt.hlsearch = true
+-- opt.hlsearch = true
 
-opt.textwidth = 85
-opt.colorcolumn = "+1"
-
-opt.spell = false -- Always on spell checking
-opt.title = false -- set terminal title to the filename and path
+-- opt.spell = false -- Always on spell checking
+-- opt.title = false -- set terminal title to the filename and path
 
 -- opt.formatoptions = opt.formatoptions
 -- 	- "a" -- Auto formatting is BAD.
@@ -84,14 +97,8 @@ opt.title = false -- set terminal title to the filename and path
 -- opt.formatoptions = "qcjl1"
 -- opt.virtualedit = "block" -- Allow going past the end of line in visual block mode
 -- opt.completeopt = "menuone,noinsert,noselect" -- Customize completions
-opt.ruler = true -- Don't show cursor position in command line
 opt.wrap = true -- Display long lines as just one line
 -- opt.shadafile = "NONE"
-
--- disable some default providers
-for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
-	g["loaded_" .. provider .. "_provider"] = 0
-end
 
 -- -- Disable builtin plugins
 -- local disabled_built_ins = {
@@ -116,14 +123,48 @@ end
 -- 	"vimballPlugin",
 -- 	"zip",
 -- 	"zipPlugin",
---    "netrw",
---    "netrwFileHandlers",
---    "netrwPlugin",
---    "netrwSettings",
---    "syntax",
---    "tohtml",
+-- 	"netrw",
+-- 	"netrwFileHandlers",
+-- 	"netrwPlugin",
+-- 	"netrwSettings",
+-- 	"syntax",
+-- 	"tohtml",
 -- }
 --
 -- for _, plugin in pairs(disabled_built_ins) do
 -- 	g["loaded_" .. plugin] = 1
 -- end
+
+--- Load shada after ui-enter
+local shada = vim.o.shada
+vim.o.shada = ""
+vim.api.nvim_create_autocmd("User", {
+	pattern = "VeryLazy",
+	callback = function()
+		vim.o.shada = shada
+		pcall(vim.cmd.rshada, { bang = true })
+	end,
+})
+
+vim.diagnostic.config({
+	virtual_text = {
+		prefix = "",
+		suffix = "",
+		format = function(diagnostic)
+			return " " .. diagnostic.message .. " "
+		end,
+	},
+	underline = {
+		severity = { min = vim.diagnostic.severity.WARN },
+	},
+	signs = {
+		text = {
+			[vim.diagnostic.severity.HINT] = "*",
+			[vim.diagnostic.severity.ERROR] = "✘",
+			[vim.diagnostic.severity.INFO] = "◉",
+			[vim.diagnostic.severity.WARN] = "!",
+		},
+	},
+})
+
+return opts

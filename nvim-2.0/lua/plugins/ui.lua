@@ -1,19 +1,17 @@
 return {
 	{ "echasnovski/mini.tabline",
-      lazy = true,
-      event = "BufReadPre",
       opts = {
          show_icons = false
       },
-      enabled = true
    },
+
 	{ "echasnovski/mini.statusline",
-      lazy = true,
-      event = "BufReadPre",
-      opts = { use_icons = false }, enabled = true },
+      opts = { use_icons = false 
+      },
+   },
+
 	{ "echasnovski/mini.indentscope",
       lazy = true,
-		enabled = true,
 		event = "BufReadPre",
 		opts = function(_, opts)
 			opts.draw = {
@@ -43,4 +41,17 @@ return {
 			})
 		end,
 	},
+
+   { "nvim-tree/nvim-web-devicons", lazy = true },
+
+   -- Tmux integration.
+   {
+      "aserowy/tmux.nvim",
+      opts = {
+         copy_sync = {
+            -- redirect_to_clipboard = true,
+            enable = false,
+         },
+      },
+   }, 
 }

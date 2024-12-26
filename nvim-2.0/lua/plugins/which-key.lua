@@ -4,6 +4,7 @@ return {
    {
       "folke/which-key.nvim",
       event = "VeryLazy",
+      lazy = true,
       opts_extend = { "spec" },
       opts = {
          preset = "helix",
@@ -28,6 +29,7 @@ return {
                { "<leader>u",  group = "ui" },
                { "<leader>p",  group = "plugin" },
                { "<leader>x",  group = "diagnostics/quickfix" },
+               { "<leader>q",  group = "quit" },
                { "[",          group = "prev" },
                { "]",          group = "next" },
                { "g",          group = "goto" },

@@ -33,12 +33,16 @@ antigen bundle command-not-found
 antigen bundle fzf
 antigen bundle djui/alias-tips
 antigen bundle colored-man-pages
+antigen bundle you-should-use
+antigen bundle zsh-bat
+antigen bundle hlissner/zsh-autopair
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 
 # Below should be at the end
+# antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zdharma-continuum/fast-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 

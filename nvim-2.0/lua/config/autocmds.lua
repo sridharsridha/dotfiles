@@ -3,7 +3,7 @@
 -- Define autocommands with Lua APIs
 -- See: h:api-autocmd, h:augroup
 local function augroup(name)
-	return vim.api.nvim_create_augroup("sri_" .. name, {})
+	return vim.api.nvim_create_augroup("custom_" .. name, {})
 end
 local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 
@@ -54,34 +54,34 @@ autocmd("BufReadPost", {
 })
 
 -- close some filetypes with <q>
-autocmd("FileType", {
-	group = augroup("close_with_q"),
-	pattern = {
-		"PlenaryTestPopup",
-		"grug-far",
-		"help",
-		"lspinfo",
-		"notify",
-		"qf",
-		"spectre_panel",
-		"startuptime",
-		"tsplayground",
-		"neotest-output",
-		"checkhealth",
-		"neotest-summary",
-		"neotest-output-panel",
-		"dbout",
-		"gitsigns.blame",
-	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		vim.keymap.set("n", "q", "<cmd>close<cr>", {
-			buffer = event.buf,
-			silent = true,
-			desc = "Quit buffer",
-		})
-	end,
-})
+-- autocmd("FileType", {
+-- 	group = augroup("close_with_q"),
+-- 	pattern = {
+-- 		"PlenaryTestPopup",
+-- 		"grug-far",
+-- 		"help",
+-- 		"lspinfo",
+-- 		"notify",
+-- 		"qf",
+-- 		"spectre_panel",
+-- 		"startuptime",
+-- 		"tsplayground",
+-- 		"neotest-output",
+-- 		"checkhealth",
+-- 		"neotest-summary",
+-- 		"neotest-output-panel",
+-- 		"dbout",
+-- 		"gitsigns.blame",
+-- 	},
+-- 	callback = function(event)
+-- 		vim.bo[event.buf].buflisted = false
+-- 		vim.keymap.set("n", "q", "<cmd>close<cr>", {
+-- 			buffer = event.buf,
+-- 			silent = true,
+-- 			desc = "Quit buffer",
+-- 		})
+-- 	end,
+-- })
 
 -- wrap and check for spell in text filetypes
 autocmd("FileType", {
