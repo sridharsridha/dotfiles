@@ -15,7 +15,13 @@ require("lazy").setup({
 	require("sri/plugins/ui"),
 	require("sri/plugins/colorscheme"),
 	-- Custom plugin directory
-	{ dir = "~/vim-plugins/arista.nvim", lazy = false },
+	{
+		dir = "~/vim-plugins/arista.nvim",
+		lazy = false,
+		enabled = function()
+			return (vim.uv or vim.loop).fs_stat("~/vim-plugins/arista.nvim")
+		end,
+	},
 	-- { dir = "~/vim-plugins/mts.nvim", lazy = false, enabled = false },
 	-- { dir = "~/vim-plugins/bug.nvim", lazy = false, enabled = false },
 }, {

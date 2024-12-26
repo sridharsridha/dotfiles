@@ -7690,15 +7690,15 @@
 			<key>Foreground Color (Dark)</key>
 			<dict>
 				<key>Alpha Component</key>
-				<real>1</real>
+				<integer>1</integer>
 				<key>Blue Component</key>
-				<real>0.73947149515151978</real>
+				<real>0.95686274509803926</real>
 				<key>Color Space</key>
-				<string>P3</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.73947149515151978</real>
+				<real>0.83921568627450982</real>
 				<key>Red Component</key>
-				<real>0.73947137594223022</real>
+				<real>0.80392156862745101</real>
 			</dict>
 			<key>Foreground Color (Light)</key>
 			<dict>
@@ -8520,9 +8520,9 @@
 	<key>Print In Black And White</key>
 	<true/>
 	<key>SavePasteHistory</key>
-	<true/>
-	<key>SeparateWindowTitlePerTab</key>
 	<false/>
+	<key>SeparateWindowTitlePerTab</key>
+	<true/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
 	<key>ShowNewOutputIndicator</key>
@@ -8539,6 +8539,8 @@
 	<integer>0</integer>
 	<key>TabsHaveCloseButton</key>
 	<true/>
+	<key>TmuxSyncClipboard</key>
+	<false/>
 	<key>TmuxUsesDedicatedProfile</key>
 	<false/>
 	<key>TmuxWarnBeforePausing</key>
@@ -8546,7 +8548,7 @@
 	<key>UseBorder</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
-	<false/>
+	<true/>
 	<key>UseTmuxStatusBar</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
@@ -8558,6 +8560,8 @@
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
 	<false/>
 	<key>kCPKUseSystemColorPicker</key>
+	<false/>
+	<key>metalMaximizeThroughput</key>
 	<false/>
 </dict>
 </plist>

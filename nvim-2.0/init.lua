@@ -1,5 +1,4 @@
-require("options").initial()
-require("config/autocmds")
--- require("config/options")
-require("config/mappings")
+require("config/options").initial()
+require("config/autocmds").initial()
+require("config/mappings").initial()
 require("config/lazy")
