@@ -1,6 +1,6 @@
 return {
 	{ "nvim-tree/nvim-web-devicons" },
-	{ "echasnovski/mini.icons" },
+	{ "echasnovski/mini.icons", lazy = false },
 	{
 		"echasnovski/mini.tabline",
 		enabled = false,
@@ -49,21 +49,21 @@ return {
 				function()
 					require("dropbar.api").pick(vim.v.count ~= 0 and vim.v.count)
 				end,
-				{ expr = true, desc = "Pick symbols in winbar" },
+				desc = "pick symbols in winbar",
 			},
 			{
 				"[;",
 				function()
 					require("dropbar.api").goto_context_start()
 				end,
-				{ expr = true, desc = "Start of winbar current context" },
+				desc = "start of winbar current context",
 			},
 			{
 				"];",
 				function()
 					require("dropbar.api").select_next_context()
 				end,
-				{ expr = true, desc = "Select winbar next context" },
+				desc = "Select winbar next context",
 			},
 		},
 	},
@@ -87,7 +87,49 @@ return {
 			words = { enabled = true },
 			styles = {
 				notification = {
-					-- wo = { wrap = true } -- Wrap notifications
+					wo = { wrap = true }, -- Wrap notifications
+				},
+			},
+			toggle = {
+				enabled = true,
+				which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
+				notify = true, -- show a notification when toggling
+				-- icons for enabled/disabled states
+				icon = {
+					enabled = " ",
+					disabled = " ",
+				},
+			},
+			terminal = {
+				keys = {
+					q = "hide",
+					gf = function(self)
+						local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
+						if f == "" then
+							Snacks.notify.warn("No file under cursor")
+						else
+							self:hide()
+							vim.schedule(function()
+								vim.cmd("e " .. f)
+							end)
+						end
+					end,
+					term_normal = {
+						"<esc>",
+						function(self)
+							self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+							if self.esc_timer:is_active() then
+								self.esc_timer:stop()
+								vim.cmd("stopinsert")
+							else
+								self.esc_timer:start(300, 0, function() end)
+								return "<esc>"
+							end
+						end,
+						mode = "t",
+						expr = true,
+						desc = "Double escape to normal mode",
+					},
 				},
 			},
 		},
@@ -187,7 +229,7 @@ return {
 			{
 				"<c-/>",
 				function()
-					Snacks.terminal()
+					Snacks.terminal().toggle()
 				end,
 				desc = "Toggle Terminal",
 			},
@@ -266,9 +308,76 @@ return {
 			})
 		end,
 	},
+
+	-- better diagnostics list and others
+	{
+		"folke/trouble.nvim",
+		cmd = { "Trouble" },
+		opts = {
+			modes = {
+				lsp = {
+					win = { position = "right" },
+				},
+			},
+		},
+		keys = {
+			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+			{ "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+			{
+				"<leader>cS",
+				"<cmd>Trouble lsp toggle<cr>",
+				desc = "LSP references/definitions/... (Trouble)",
+			},
+			{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+			{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+			{
+				"[q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").prev({ skip_groups = true, jump = true })
+					else
+						local ok, err = pcall(vim.cmd.cprev)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
+					end
+				end,
+				desc = "Previous Trouble/Quickfix Item",
+			},
+			{
+				"]q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").next({ skip_groups = true, jump = true })
+					else
+						local ok, err = pcall(vim.cmd.cnext)
+						if not ok then
+							vim.notify(err, vim.log.levels.ERROR)
+						end
+					end
+				end,
+				desc = "Next Trouble/Quickfix Item",
+			},
+		},
+	},
+	{
+		"leath-dub/snipe.nvim",
+		lazy = true,
+		keys = {
+      -- stylua: ignore start
+      { "<leader><tab>", function() require("snipe").open_buffer_menu() end, desc = "snipe buffer" },
+			-- stylua: ignore end
+		},
+		opts = {},
+	},
 	{
 		"aserowy/tmux.nvim",
 		lazy = false,
-		opts = {},
+		opts = {
+			copy_sync = {
+				sync_registers = false,
+			},
+		},
 	},
 }

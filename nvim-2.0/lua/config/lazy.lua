@@ -31,8 +31,6 @@ require("lazy").setup({
 	dev = {
 		path = vim.env.NVIM_DEV,
 	},
-	-- automatically check for plugin updates
-	checker = { enabled = true },
 	performance = {
 		cache = {
 			enabled = true,
@@ -63,4 +61,12 @@ require("lazy").setup({
 		title = "lazy.nvim",
 		size = { width = 0.9, height = 0.9 },
 	},
+    checker = {
+    enabled = false,
+    notify = false,
+    frequency = 1800,
+  },
+  change_detection = {
+    enabled = false,
+  },
 })

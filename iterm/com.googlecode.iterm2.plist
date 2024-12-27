@@ -6754,7 +6754,7 @@
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTab</key>
-	<false/>
+	<true/>
 	<key>HideTabNumber</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
@@ -8532,7 +8532,7 @@
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
 	<key>StretchTabsToFillBar</key>
-	<true/>
+	<false/>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>6</integer>
 	<key>TabViewType</key>

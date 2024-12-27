@@ -123,6 +123,15 @@ return {
 	},
 	{ "axelf4/vim-strip-trailing-whitespace", enabled = false },
 	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {},
+		event = "BufRead",
+		keys = {
+			{ "<leader>fc", "<cmd>Trouble todo<cr>", desc = "todo comments" },
+		},
+	},
+	{
 		-- Better Around/Inside textobjects
 		--
 		-- Examples:

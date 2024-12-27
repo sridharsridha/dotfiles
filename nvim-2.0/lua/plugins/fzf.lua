@@ -13,8 +13,8 @@ return {
       -- stylua: ignore end
     },
     config = function()
-       require("fzf-lua").setup({'max-perf'})
-       -- require("fzf-lua").setup()
+       -- require("fzf-lua").setup({'max-perf'})
+       require("fzf-lua").setup()
     end
 }
 }
