@@ -55,13 +55,13 @@ opts.final = function()
 
 	-- Indenting
 	local indent = 3
+	opt.tabstop = indent
 	opt.shiftwidth = indent
 	opt.smartindent = true
-	opt.tabstop = indent
 	opt.expandtab = true
-	opt.softtabstop = indent
-	opt.sidescrolloff = indent
+	opt.softtabstop = -1
 
+	opt.sidescrolloff = indent
 	-- opt.signcolumn = "auto"
 
 	-- Statusline

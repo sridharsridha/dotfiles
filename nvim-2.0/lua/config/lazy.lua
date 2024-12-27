@@ -32,7 +32,7 @@ require("lazy").setup({
 		path = vim.env.NVIM_DEV,
 	},
 	-- automatically check for plugin updates
-	-- checker = { enabled = true },
+	checker = { enabled = true },
 	performance = {
 		cache = {
 			enabled = true,
