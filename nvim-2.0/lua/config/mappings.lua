@@ -1,6 +1,6 @@
 local map = vim.keymap.set
 local keymaps = {}
-_G.KeymapFunctions = {}
+_G.KeymapFunctions = keymaps
 
 keymaps.blockwise_force = function(key)
 	local c_v = vim.api.nvim_replace_termcodes("<C-v>", true, false, true)
@@ -106,27 +106,12 @@ keymaps.initial = function()
 	map("x", ">", ">gv|", { desc = "Indent Right and Re-select" })
 
 	-- Better block-wise operations on selected area
-	map(
-		"x",
-		"I",
-		"<cmd>require('config/mappings').blockwise_force('I')<cr>",
-		{ noremap = true, desc = "Blockwise Insert" }
-	)
-	map(
-		"x",
-		"gI",
-		"<cmd>require('config/mappings')..blockwise_force('gI')<cr>",
-		{ noremap = true, desc = "Blockwise Insert" }
-	)
-	map(
-		"x",
-		"A",
-		"<cmd>require('config/mappings').blockwise_force('A')<cr>",
-		{ noremap = true, desc = "Blockwise Append" }
-	)
+	map("x", "I", "v:lua.KeymapFunctions.blockwise_force('I')", { noremap = true, desc = "Blockwise Insert" })
+	map("x", "gI", "v:lua.KeymapFunctions.blockwise_force('gI')", { noremap = true, desc = "Blockwise Insert" })
+	map("x", "A", "v:lua.KeymapFunctions.blockwise_force('A')", { noremap = true, desc = "Blockwise Append" })
 
-	map("n", "gO", "<cmd>require('config/mappings').put_empty_line(v:true)<cr>", { desc = "Put empty line above" })
-	map("n", "go", "<cmd>require('config/mappings').put_empty_line(v:false)<cr>", { desc = "Put empty line below" })
+	map("n", "gO", "v:lua.KeymapFunctions.put_empty_line(v:true)", { desc = "Put empty line above" })
+	map("n", "go", "v:lua.KeymapFunctions.put_empty_line(v:false)", { desc = "Put empty line below" })
 
 	-- Switch */g* and #/g#
 	map("n", "*", "g*")

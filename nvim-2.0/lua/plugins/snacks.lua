@@ -1,88 +1,21 @@
 return {
-	{ "nvim-tree/nvim-web-devicons" },
-	{ "echasnovski/mini.icons", lazy = false },
-	{
-		"echasnovski/mini.tabline",
-		enabled = false,
-		lazy = false,
-		opts = {
-			-- show_icons = false,
-		},
-	},
-	{
-		"echasnovski/mini.statusline",
-		lazy = false,
-		opts = {},
-	},
-	{
-		"echasnovski/mini.indentscope",
-		enabled = false,
-		event = "BufReadPre",
-		opts = function(_, opts)
-			opts.draw = {
-				animation = require("mini.indentscope").gen_animation.none(),
-			}
-		end,
-		init = function()
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = {
-					"help",
-					"lazy",
-					"mason",
-					"neo-tree",
-					"Trouble",
-					"lspinfo",
-				},
-				callback = function()
-					vim.b["miniindentscope_disable"] = true
-				end,
-			})
-		end,
-	},
-	{
-		"Bekaboo/dropbar.nvim",
-		name = "dropbar",
-		event = { "BufReadPost", "BufNewFile" },
-		keys = {
-			{
-				"<leader>;",
-				function()
-					require("dropbar.api").pick(vim.v.count ~= 0 and vim.v.count)
-				end,
-				desc = "pick symbols in winbar",
-			},
-			{
-				"[;",
-				function()
-					require("dropbar.api").goto_context_start()
-				end,
-				desc = "start of winbar current context",
-			},
-			{
-				"];",
-				function()
-					require("dropbar.api").select_next_context()
-				end,
-				desc = "Select winbar next context",
-			},
-		},
-	},
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
+		enabled = false,
 		lazy = false,
 		---@type snacks.Config
 		opts = {
 			bigfile = { enabled = true },
 			dashboard = { enabled = true },
-			indent = { enabled = true },
+			indent = { enabled = false },
 			input = { enabled = true },
 			notifier = {
 				enabled = true,
 				timeout = 3000,
 			},
 			quickfile = { enabled = true },
-			scroll = { enabled = true },
+			scroll = { enabled = false },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 			styles = {
@@ -134,6 +67,13 @@ return {
 			},
 		},
 		keys = {
+			{
+				"<leader>ps",
+				function()
+					Snacks.profiler.scratch()
+				end,
+				desc = "Profiler Scratch Bufer",
+			},
 			{
 				"<leader>z",
 				function()
@@ -304,80 +244,12 @@ return {
 					Snacks.toggle.inlay_hints():map("<leader>uh")
 					Snacks.toggle.indent():map("<leader>ug")
 					Snacks.toggle.dim():map("<leader>uD")
+					-- Toggle the profiler
+					Snacks.toggle.profiler():map("<leader>pp")
+					-- Toggle the profiler highlights
+					Snacks.toggle.profiler_highlights():map("<leader>ph")
 				end,
 			})
 		end,
-	},
-
-	-- better diagnostics list and others
-	{
-		"folke/trouble.nvim",
-		cmd = { "Trouble" },
-		opts = {
-			modes = {
-				lsp = {
-					win = { position = "right" },
-				},
-			},
-		},
-		keys = {
-			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-			{ "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
-			{
-				"<leader>cS",
-				"<cmd>Trouble lsp toggle<cr>",
-				desc = "LSP references/definitions/... (Trouble)",
-			},
-			{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
-			{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
-			{
-				"[q",
-				function()
-					if require("trouble").is_open() then
-						require("trouble").prev({ skip_groups = true, jump = true })
-					else
-						local ok, err = pcall(vim.cmd.cprev)
-						if not ok then
-							vim.notify(err, vim.log.levels.ERROR)
-						end
-					end
-				end,
-				desc = "Previous Trouble/Quickfix Item",
-			},
-			{
-				"]q",
-				function()
-					if require("trouble").is_open() then
-						require("trouble").next({ skip_groups = true, jump = true })
-					else
-						local ok, err = pcall(vim.cmd.cnext)
-						if not ok then
-							vim.notify(err, vim.log.levels.ERROR)
-						end
-					end
-				end,
-				desc = "Next Trouble/Quickfix Item",
-			},
-		},
-	},
-	{
-		"leath-dub/snipe.nvim",
-		lazy = true,
-		keys = {
-      -- stylua: ignore start
-      { "<leader><tab>", function() require("snipe").open_buffer_menu() end, desc = "snipe buffer" },
-			-- stylua: ignore end
-		},
-		opts = {},
-	},
-	{
-		"aserowy/tmux.nvim",
-		lazy = false,
-		opts = {
-			copy_sync = {
-				sync_registers = false,
-			},
-		},
 	},
 }

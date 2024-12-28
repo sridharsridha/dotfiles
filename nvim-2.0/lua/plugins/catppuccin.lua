@@ -18,6 +18,7 @@ return {
 				treesitter = true,
 				mason = true,
 				fidget = true,
+				which_key = true,
 				native_lsp = {
 					enabled = true,
 					virtual_text = {
@@ -35,29 +36,10 @@ return {
 				},
 				mini = {
 					enabled = true,
-					indentscope_color = "",
 				},
+				-- For more plugins integrations please scroll down
+				-- (https://github.com/catppuccin/nvim#integrations)
 			},
 		},
-		-- config = function()
-		-- 	require("catppuccin").setup({
-		-- 		flavour = "mocha", -- latte, frappe, macchiato, mocha
-		-- 		integrations = {
-		-- 			treesitter = true,
-		-- 			mini = {
-		-- 				enabled = true,
-		-- 			},
-		-- 			diffview = true,
-		-- 			fidget = true,
-		-- 			mason = true,
-		-- 			which_key = true,
-		-- 			-- telescope = {
-		-- 			-- 	enabled = true,
-		-- 			-- 	style = "nvchad",
-		-- 			-- },
-		-- 			-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-		-- 		},
-		-- 	})
-		-- end,
 	},
 }

@@ -10,15 +10,14 @@ return {
 			spec = {
 				{
 					mode = { "n", "v" },
-					{ "<leader>c", group = "code" },
-					{ "<leader>f", group = "file/find" },
-					{ "<leader>g", group = "git" },
-					{ "<leader>t", group = "terminal" },
-					{ "<leader>o", group = "otherfile" },
-					{ "<leader>u", group = "toggles" },
-					{ "<leader>p", group = "performace" },
-					{ "<leader>x", group = "diagnostics/quickfix" },
-					{ "<leader>q", group = "quit" },
+					{ "<leader>c", group = "Code" },
+					{ "<leader>co", group = "Alternate files" },
+					{ "<leader>f", group = "Files" },
+					{ "<leader>g", group = "Git" },
+					{ "<leader>u", group = "UI" },
+					{ "<leader>p", group = "Profile" },
+					{ "<leader>x", group = "Diagnostics" },
+					{ "<leader>q", group = "Quit" },
 					{ "[", group = "prev" },
 					{ "]", group = "next" },
 					{ "g", group = "goto" },
@@ -26,14 +25,14 @@ return {
 					{ "z", group = "fold" },
 					{
 						"<leader>b",
-						group = "buffer",
+						group = "Buffer",
 						expand = function()
 							return require("which-key.extras").expand.buf()
 						end,
 					},
 					{
 						"<leader>w",
-						group = "windows",
+						group = "Windows",
 						proxy = "<c-w>",
 						expand = function()
 							return require("which-key.extras").expand.win()

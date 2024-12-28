@@ -6,11 +6,8 @@ local opts = {}
 
 opts.initial = function()
 	opt.laststatus = 3
-	-- opt.mouse = "a"
-	-- opt.path:append("**")
-	opt.clipboard = "unnamedplus"
+	opt.clipboard = "unnamed,unnamedplus"
 	opt.termguicolors = true
-
 	opt.lazyredraw = false
 	opt.fillchars:append({ eob = " " })
 	opt.shortmess:append("aIF")
@@ -26,12 +23,10 @@ opts.initial = function()
 	opt.swapfile = false
 	opt.undofile = true
 	opt.cmdheight = 0
-
 	g.border_style = "single" ---@type "single"|"double"|"rounded"
 	g.winblend = 0
 	g.mapleader = " "
 	g.maplocalleader = ","
-
 	-- Disable providers
 	g.loaded_node_provider = 0
 	g.loaded_python3_provider = 0
@@ -40,6 +35,7 @@ opts.initial = function()
 end
 
 opts.final = function()
+	opt.wrap = false
 	opt.completeopt = { "menuone", "noselect", "noinsert" }
 	opt.wildmenu = true
 	opt.pumheight = 10
@@ -52,7 +48,6 @@ opts.final = function()
 	opt.splitbelow = true
 	opt.splitright = true
 	opt.scrolloff = 2
-
 	-- Indenting
 	local indent = 3
 	opt.tabstop = indent
@@ -60,13 +55,7 @@ opts.final = function()
 	opt.smartindent = true
 	opt.expandtab = true
 	opt.softtabstop = -1
-
 	opt.sidescrolloff = indent
-	-- opt.signcolumn = "auto"
-
-	-- Statusline
-	local statusline_ascii = ""
-	opt.statusline = "%#Normal#" .. statusline_ascii .. "%="
 end
 
 --- Load shada after ui-enter
