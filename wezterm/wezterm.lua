@@ -13,7 +13,7 @@ config.font = wezterm.font_with_fallback({
 	{ family = "SauceCodePro Nerd Font", weight = "DemiBold" },
 	{ family = "JetBrains Mono", weight = "Medium" },
 })
-config.font_size = 14
+config.font_size = 13
 
 -- Window
 config.window_decorations = "RESIZE"
