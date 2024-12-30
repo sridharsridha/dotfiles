@@ -32,10 +32,10 @@ antigen bundle git
 antigen bundle command-not-found
 antigen bundle fzf
 antigen bundle djui/alias-tips
-antigen bundle colored-man-pages
-antigen bundle you-should-use
+# antigen bundle colored-man-pages
+# antigen bundle you-should-use
 antigen bundle zsh-bat
-antigen bundle hlissner/zsh-autopair
+# antigen bundle hlissner/zsh-autopair
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-completions
@@ -52,9 +52,9 @@ antigen apply
 source ~/.zsh/functions.zsh
 source ~/.zsh/aliases.zsh
 source ~/.zsh/exports.zsh
-source ~/.zsh/bindings.zsh
 source ~/.zsh/history.zsh
 source ~/.zsh/hooks.zsh
+source ~/.zsh/bindings.zsh
 
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
