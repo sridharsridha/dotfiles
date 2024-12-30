@@ -3,6 +3,11 @@ return {
 		"Bekaboo/dropbar.nvim",
 		name = "dropbar",
 		event = { "BufReadPost", "BufNewFile" },
+		opts = {
+			icons = {
+				enable = false,
+			},
+		},
 		keys = {
 			{
 				"<leader>;",

@@ -1,6 +1,7 @@
 return {
 	{
 		"dstein64/vim-startuptime",
+		enabled = false,
 		lazy = true,
 		-- lazy-load on a command
 		cmd = "StartupTime",

@@ -2,9 +2,8 @@ return {
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
-		enabled = false,
+		enabled = true,
 		lazy = false,
-		---@type snacks.Config
 		opts = {
 			bigfile = { enabled = true },
 			dashboard = { enabled = true },
@@ -28,10 +27,10 @@ return {
 				which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
 				notify = true, -- show a notification when toggling
 				-- icons for enabled/disabled states
-				icon = {
-					enabled = " ",
-					disabled = " ",
-				},
+				-- icon = {
+				-- 	enabled = " ",
+				-- 	disabled = " ",
+				-- },
 			},
 			terminal = {
 				keys = {

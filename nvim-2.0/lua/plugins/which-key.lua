@@ -7,6 +7,12 @@ return {
 		opts = {
 			preset = "helix",
 			show_help = false,
+			icons = {
+				mappings = false,
+			},
+			win = {
+				border = "none",
+			},
 			spec = {
 				{
 					mode = { "n", "v" },

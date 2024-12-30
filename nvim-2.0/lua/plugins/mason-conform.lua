@@ -1,6 +1,7 @@
 return {
 	{
 		"zapling/mason-conform.nvim",
+		enabled = false,
 		event = "BufReadPre",
 		config = true,
 		dependencies = {
