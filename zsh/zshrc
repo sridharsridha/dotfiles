@@ -59,7 +59,8 @@ source ~/.zsh/bindings.zsh
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[[ ! -f ~/.zsh/p10k-robbyrussell.zsh ]] || source ~/.zsh/p10k-robbyrussell.zsh
+# [[ ! -f ~/.zsh/p10k-robbyrussell.zsh ]] || source ~/.zsh/p10k-robbyrussell.zsh
+[[ ! -f ~/.antigen/bundles/romkatv/powerlevel10k/config/p10k-pure.zsh ]] || source ~/.antigen/bundles/romkatv/powerlevel10k/config/p10k-pure.zsh
 # Local configuration
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
