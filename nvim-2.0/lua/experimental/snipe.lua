@@ -1,6 +1,7 @@
 return {
 	{
 		"leath-dub/snipe.nvim",
+		enabled = false,
 		lazy = true,
 		keys = {
       -- stylua: ignore start

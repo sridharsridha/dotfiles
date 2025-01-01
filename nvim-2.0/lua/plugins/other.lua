@@ -2,7 +2,6 @@ return {
 	-- Code jump
 	{
 		"rgroli/other.nvim",
-		cmd = { "Other", "OtherSplit", "OtherVSplit" },
 		keys = {
 			{ "<leader>coo", "<cmd>:Other<CR>", desc = "Other file" },
 			{ "<leader>cos", "<cmd>:OtherSplit<CR>", desc = "Other file split" },

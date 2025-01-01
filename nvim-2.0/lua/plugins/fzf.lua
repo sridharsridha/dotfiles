@@ -1,7 +1,9 @@
 return {
 	{
 		"ibhagwan/fzf-lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			"folke/trouble.nvim",
+		},
 		keys = {
 			{
 				"<C-p>",
@@ -128,6 +130,9 @@ return {
 		},
 		config = function()
 			require("fzf-lua").setup({ "max-perf" })
+			local config = require("fzf-lua.config")
+			local actions = require("trouble.sources.fzf").actions
+			config.defaults.actions.files["ctrl-t"] = actions.open
 		end,
 	},
 }

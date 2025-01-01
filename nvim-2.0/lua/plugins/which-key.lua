@@ -6,8 +6,10 @@ return {
 		opts_extend = { "spec" },
 		opts = {
 			preset = "helix",
+			delay = 400,
 			show_help = false,
 			icons = {
+				separator = "",
 				mappings = false,
 			},
 			win = {
@@ -63,9 +65,9 @@ return {
 				desc = "Window Hydra Mode (which-key)",
 			},
 		},
-		config = function(_, opts)
-			local wk = require("which-key")
-			wk.setup(opts)
-		end,
+		-- config = function(_, opts)
+		-- 	local wk = require("which-key")
+		-- 	wk.setup(opts)
+		-- end,
 	},
 }

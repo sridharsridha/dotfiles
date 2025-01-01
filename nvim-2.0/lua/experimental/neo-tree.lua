@@ -2,6 +2,7 @@ return {
 	-- file explorer
 	{
 		"nvim-neo-tree/neo-tree.nvim",
+		enabled = false,
 		cmd = "Neotree",
 		dependencies = {
 			{ "MunifTanjim/nui.nvim", lazy = true },

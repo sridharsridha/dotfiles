@@ -2,13 +2,12 @@ return {
 	{
 		"saghen/blink.cmp",
 		version = "*",
-		event = { "InsertEnter", "LspAttach" },
-
+		event = { "InsertEnter" },
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },
 		},
 		opts = {
-			keymap = { preset = "enter" },
+			keymap = { preset = "default" },
 			-- Experimental signature help support
 			signature = { enabled = true },
 			sources = {

@@ -1,7 +1,7 @@
 return {
 	{
 		"danymat/neogen",
-		enabled = true,
+		enabled = false,
 		cmd = "Neogen",
 		keys = { { "gn", "<cmd>Neogen<cr>", desc = "Generate annotation" } },
 		config = function()

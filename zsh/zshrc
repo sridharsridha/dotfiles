@@ -4,9 +4,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # fzf oh-my-zsh plugin needs fzf to be installed already.
 # FZF installation
@@ -24,8 +24,8 @@ source ~/.antigen.zsh
 antigen use oh-my-zsh
 
 # Load the theme.
-# antigen theme robbyrussell
-antigen theme romkatv/powerlevel10k
+antigen theme robbyrussell
+# antigen theme romkatv/powerlevel10k
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
@@ -57,10 +57,12 @@ source ~/.zsh/hooks.zsh
 source ~/.zsh/bindings.zsh
 
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[[ ! -f ~/.zsh/p10k-robbyrussell.zsh ]] || source ~/.zsh/p10k-robbyrussell.zsh
+# [[ ! -f ~/.zsh/p10k-robbyrussell.zsh ]] || source ~/.zsh/p10k-robbyrussell.zsh
 # [[ ! -f ~/.antigen/bundles/romkatv/powerlevel10k/config/p10k-pure.zsh ]] || source ~/.antigen/bundles/romkatv/powerlevel10k/config/p10k-pure.zsh
+
 # Local configuration
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 

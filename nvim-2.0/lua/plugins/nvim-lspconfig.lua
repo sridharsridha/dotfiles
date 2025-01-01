@@ -6,7 +6,7 @@ return {
 			"williamboman/mason.nvim",
 			"j-hui/fidget.nvim",
 		},
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "InsertEnter" },
 		opts = {
 			servers = {
 				clangd = {

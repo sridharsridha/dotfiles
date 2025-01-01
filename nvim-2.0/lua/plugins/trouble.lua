@@ -2,6 +2,7 @@ return {
 	-- better diagnostics list and others
 	{
 		"folke/trouble.nvim",
+		event = { "QuickFixCmdPost" },
 		cmd = { "Trouble" },
 		opts = {
 			modes = {
@@ -13,9 +14,9 @@ return {
 		keys = {
 			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
 			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-			{ "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+			{ "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
 			{
-				"<leader>cS",
+				"<leader>xS",
 				"<cmd>Trouble lsp toggle<cr>",
 				desc = "LSP references/definitions/... (Trouble)",
 			},
@@ -50,5 +51,12 @@ return {
 				desc = "Next Trouble/Quickfix Item",
 			},
 		},
+		init = function()
+			vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+				callback = function()
+					vim.cmd([[Trouble qflist open]])
+				end,
+			})
+		end,
 	},
 }

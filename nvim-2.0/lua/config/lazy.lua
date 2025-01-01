@@ -16,57 +16,65 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
-require("lazy").setup({
-	spec = {
-		-- import your plugins
-		{ import = "plugins" },
-	},
-	concurrency = 4,
+require("lazy").setup("plugins", {
+	concurrency = 8,
 	defaults = {
 		lazy = true,
 	},
 	install = {
 		colorscheme = { "catppuccin" },
 	},
-	dev = {
-		path = vim.env.NVIM_DEV,
-	},
 	performance = {
 		cache = {
 			enabled = true,
 		},
-		reset_packpath = true,
 		rtp = {
 			disabled_plugins = {
-				"osc52",
 				"parser",
 				"gzip",
-				"netrwPlugin",
 				"health",
 				"man",
-				"matchit",
 				"rplugin",
-				"tarPlugin",
 				"tohtml",
-				"tutor",
-				"zipPlugin",
-				"shadafile",
 				"spellfile",
 				"editorconfig",
+				"fileExplorer",
+				"2html_plugin",
+				"getscript",
+				"getscriptPlugin",
+				"logipat",
+				"matchit",
+				"tar",
+				"tarPlugin",
+				"rrhelper",
+				"spellfile_plugin",
+				"vimball",
+				"vimballPlugin",
+				"zip",
+				"zipPlugin",
+				"tutor",
+				"synmenu",
+				"optwin",
+				"compiler",
+				"bugreport",
+				"ftplugin",
 			},
 		},
+	},
+	rocks = {
+		enabled = false,
 	},
 	ui = {
 		border = "solid",
 		title = "lazy.nvim",
 		size = { width = 0.9, height = 0.9 },
 	},
-    checker = {
-    enabled = false,
-    notify = false,
-    frequency = 1800,
-  },
-  change_detection = {
-    enabled = false,
-  },
+	checker = {
+		enabled = false,
+		notify = false,
+		frequency = 1800,
+	},
+	change_detection = {
+		enabled = false,
+	},
 })

@@ -1,6 +1,7 @@
 return {
 	{
 		"echasnovski/mini.indentscope",
+		enabled = false,
 		event = "BufReadPre",
 		opts = function(_, opts)
 			opts.draw = {

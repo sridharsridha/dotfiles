@@ -7,7 +7,6 @@ return {
 		--  - yinq - [Y]ank [I]nside [N]ext [']quote
 		--  - ci'  - [C]hange [I]nside [']quote
 		"echasnovski/mini.ai",
-		enabled = false,
 		event = { "InsertEnter" },
 		opts = function()
 			local ai = require("mini.ai")

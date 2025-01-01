@@ -3,7 +3,6 @@ return {
 	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
-		cmd = "BqfAutoToggle",
 		event = "QuickFixCmdPost",
 		opts = {
 			auto_resize_height = false,
