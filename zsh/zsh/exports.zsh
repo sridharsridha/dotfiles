@@ -6,8 +6,11 @@ export KEYTIMEOUT=1
 # export LC_CTYPE="en_US.UTF-8"
 # export LANG="en_US.UTF-8"
 #
-# export LC_ALL=en_US.UTF-8
-# export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+    export TERM=screen-256color
+fi
 
 export EDITOR='nvim'
 export PAGER='less'
