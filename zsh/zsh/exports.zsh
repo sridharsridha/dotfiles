@@ -8,8 +8,9 @@ export KEYTIMEOUT=1
 #
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
 if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
-    export TERM=screen-256color
+    export TERM=xterm-256color
 fi
 
 export EDITOR='nvim'
