@@ -22,7 +22,7 @@ require("lazy").setup("plugins", {
 		lazy = true,
 	},
 	install = {
-		colorscheme = { "catppuccin" },
+		colorscheme = { "rose-pine", "catppuccin" },
 	},
 	performance = {
 		cache = {
@@ -78,3 +78,10 @@ require("lazy").setup("plugins", {
 		enabled = false,
 	},
 })
+vim.cmd([[
+augroup TransparentBackground
+autocmd!
+autocmd ColorScheme * highlight Normal ctermbg=none guibg=none
+autocmd ColorScheme * highlight NonText ctermbg=none guibg=none
+augroup END
+]])
