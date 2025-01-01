@@ -64,24 +64,24 @@ require("lazy").setup("plugins", {
 	rocks = {
 		enabled = false,
 	},
-	ui = {
-		border = "solid",
-		title = "lazy.nvim",
-		size = { width = 0.9, height = 0.9 },
-	},
-	checker = {
-		enabled = false,
-		notify = false,
-		frequency = 1800,
-	},
-	change_detection = {
-		enabled = false,
-	},
+	-- ui = {
+	-- 	border = "solid",
+	-- 	title = "lazy.nvim",
+	-- 	size = { width = 0.9, height = 0.9 },
+	-- },
+	-- checker = {
+	-- 	enabled = false,
+	-- 	notify = false,
+	-- 	frequency = 1800,
+	-- },
+	-- change_detection = {
+	-- 	enabled = false,
+	-- },
 })
-vim.cmd([[
-augroup TransparentBackground
-autocmd!
-autocmd ColorScheme * highlight Normal ctermbg=none guibg=none
-autocmd ColorScheme * highlight NonText ctermbg=none guibg=none
-augroup END
-]])
+-- vim.cmd([[
+-- augroup TransparentBackground
+-- autocmd!
+-- autocmd ColorScheme * highlight Normal ctermbg=none guibg=none
+-- autocmd ColorScheme * highlight NonText ctermbg=none guibg=none
+-- augroup END
+-- ]])

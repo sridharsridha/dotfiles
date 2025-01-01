@@ -1,10 +1,8 @@
 return {
 	{
 		"Exafunction/codeium.nvim",
-		enabled = false,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"saghen/blink.cmp",
 		},
 		build = ":Codeium Auth",
 		config = function()

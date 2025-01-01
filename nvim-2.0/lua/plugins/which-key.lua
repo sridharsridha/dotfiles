@@ -8,13 +8,6 @@ return {
 			preset = "helix",
 			delay = 400,
 			show_help = false,
-			icons = {
-				separator = "",
-				mappings = false,
-			},
-			win = {
-				border = "none",
-			},
 			spec = {
 				{
 					mode = { "n", "v" },
@@ -65,9 +58,5 @@ return {
 				desc = "Window Hydra Mode (which-key)",
 			},
 		},
-		-- config = function(_, opts)
-		-- 	local wk = require("which-key")
-		-- 	wk.setup(opts)
-		-- end,
 	},
 }
