@@ -15,6 +15,10 @@ return {
 			italic = true,
 			transparency = true,
 		},
+		highlight_groups = {
+			["@statement"] = { link = "Statement" },
+			["@structure"] = { link = "Structure" },
+		},
 	},
 	config = function()
 		vim.cmd("colorscheme rose-pine")

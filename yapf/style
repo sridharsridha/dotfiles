@@ -1,0 +1,8 @@
+[style]
+based_on_style=pep8
+column_limit=85
+continuation_indent_width=3
+indent_width=3
+space_inside_brackets=True
+spaces_around_subscript_colon=True
+blank_lines_around_top_level_definition=1
