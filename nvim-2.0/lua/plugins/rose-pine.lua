@@ -18,8 +18,6 @@ return {
 			italic = true,
 			transparency = true,
 		},
-		-- highlight_groups = {
-		-- },
 		groups = {
 			border = "muted",
 			link = "iris",
