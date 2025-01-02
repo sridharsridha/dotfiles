@@ -2,7 +2,16 @@ font-family = SauceCodePro NFM SemiBold
 font-size = 13
 
 theme = rose-pine
-background-opacity = 0.95
+background-opacity = 0.90
 background-blur-radius = 20
 
-fullscreen = true
+cursor-style = block
+cursor-style-blink = true
+cursor-opacity = 0.80
+selection-invert-fg-bg = true
+cursor-invert-fg-bg = true
+auto-update = download
+# fullscreen = true
+window-padding-x = 4
+window-padding-y = 4
+window-padding-balance = true

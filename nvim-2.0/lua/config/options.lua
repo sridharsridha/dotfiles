@@ -6,6 +6,7 @@ local opts = {}
 
 opts.initial = function()
 	opt.path:append("**")
+	opt.pumblend = 0
 	-- opt.laststatus = 3
 	opt.showmode = false
 	opt.lazyredraw = false
