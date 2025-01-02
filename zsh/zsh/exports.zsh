@@ -12,6 +12,7 @@ export LANG=en_US.UTF-8
 if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
     export TERM=xterm-256color
 fi
+export EZA_COLORS="di=1;36"
 
 export EDITOR='nvim'
 export PAGER='less'

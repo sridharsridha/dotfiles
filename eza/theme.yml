@@ -108,3 +108,4 @@ filenames:
 extensions:
   # Custom extension-based overrides
   # rs: {filename: {foreground: Red}, icon: {glyph: 🦀}}
+
