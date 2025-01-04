@@ -2,8 +2,9 @@ font-family = SauceCodePro NFM SemiBold
 font-size = 13
 auto-update = check
 
-theme = rose-pine
-background-opacity = 0.55
+# theme = rose-pine
+theme = catppuccin-mocha
+background-opacity = 0.85
 background-blur-radius = 20
 
 cursor-style = block
