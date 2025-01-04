@@ -51,6 +51,7 @@ opts.initial = function()
 	g.mapleader = " "
 	g.maplocalleader = ","
 	g.netrw_silent = 1
+	g.disable_autoformat = false
 	-- Disable providers
 	g.loaded_node_provider = 0
 	g.loaded_python3_provider = 0

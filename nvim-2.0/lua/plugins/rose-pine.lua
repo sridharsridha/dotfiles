@@ -1,5 +1,6 @@
 return {
 	"rose-pine/neovim",
+	enabled = false,
 	lazy = false,
 	name = "rose-pine",
 	priority = 1000,
@@ -7,11 +8,12 @@ return {
 		variant = "auto",
 		dark_variant = "main", -- main, moon, or dawn
 		dim_inactive_windows = false,
-		extend_background_behind_borders = false,
+		extend_background_behind_borders = true,
 		enable = {
 			terminal = true,
 			legacy_highlights = true,
 			migrations = true,
+			transparency = true,
 		},
 		styles = {
 			bold = true,
@@ -50,8 +52,6 @@ return {
 		},
 
 		highlight_groups = {
-			-- Comment = { fg = "foam" },
-			-- VertSplit = { fg = "muted", bg = "muted" },
 			NormalFloat = { bg = "none" },
 			["@statement"] = { link = "Statement" },
 			["@structure"] = { link = "Structure" },

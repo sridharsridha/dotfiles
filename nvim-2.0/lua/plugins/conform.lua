@@ -6,7 +6,7 @@ local function format_hunks()
 		return
 	end
 	-- Logic to format only the hunks in the file
-	local lines = vim.fn.system("git diff --unified=0"):gmatch("[^\n\r]+")
+	local lines = vim.fn.system("git diff --unified=0 " .. vim.api.nvim_buf_get_name(0)):gmatch("[^\n\r]+")
 	local ranges = {}
 	for line in lines do
 		if line:find("^@@") then
@@ -27,14 +27,29 @@ local function format_hunks()
 		end
 	end
 	for _, range in pairs(ranges) do
-		format({ range = range, lsp_fallback = true })
+		format({ range = range })
 	end
 end
 return {
 	{ -- Autoformat
 		"stevearc/conform.nvim",
-		event = { "InsertEnter", "BufWritePre" },
+		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
+		init = function()
+			-- If you want the formatexpr, here is the place to set it
+			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+			vim.api.nvim_create_user_command("FormatDisable", function(args)
+				vim.g.disable_autoformat = true
+			end, {
+				desc = "Disable autoformat-on-save",
+				bang = false,
+			})
+			vim.api.nvim_create_user_command("FormatEnable", function()
+				vim.g.disable_autoformat = false
+			end, {
+				desc = "Re-enable autoformat-on-save",
+			})
+		end,
 		keys = {
 			{
 				"<leader>cf",
@@ -44,21 +59,30 @@ return {
 				mode = { "n", "v" },
 				desc = "Format buffer",
 			},
+			{
+				"<leader>cF",
+				function()
+					format_hunks()
+				end,
+				mode = { "n", "v" },
+				desc = "Format buffer diff",
+			},
 		},
 		opts = {
 			notify_on_error = true,
 			default_format_opts = {
-				timeout_ms = 3000,
-				async = false, -- not recommended to change
-				quiet = false, -- not recommended to change
 				lsp_format = "fallback", -- not recommended to change
 			},
 			format_on_save = function()
+				-- Disable with a global or buffer-local variable
+				if vim.g.disable_autoformat then
+					return
+				end
 				-- Prefer to format git hunks instead of the entire file
 				format_hunks()
 			end,
 			formatters_by_ft = {
-				python = { "yapf", "a" },
+				python = { "yapf" },
 				cpp = { "a" },
 				tac = { "a" },
 				lua = { "stylua" },
