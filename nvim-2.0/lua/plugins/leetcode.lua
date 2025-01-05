@@ -5,14 +5,15 @@ return {
 	build = ":TSUpdate html",
 	opts = {
 		arg = leet_arg,
-		lang = "golang",
+		lang = "cpp",
 		plugins = {
 			non_standalone = false,
 		},
 		injector = {
-			golang = {
-				before = { "package main" },
-			},
+			-- cpp = {
+			-- 	before = { "#include <bits/stdc++.h>", "using namespace std;" },
+			-- 	after = "int main() {}",
+			-- },
 		},
 		keys = {
 			toggle = { "q" },
