@@ -20,8 +20,8 @@ return {
 				highlight = { enable = true },
 				indent = { enable = true },
 				refactor = {
-					highlight_definitions = { enable = true },
-					highlight_current_scope = { enable = true },
+					highlight_definitions = { enable = false },
+					highlight_current_scope = { enable = false },
 				},
 				matchup = {
 					enable = true,

@@ -3,9 +3,9 @@ return {
 	{
 		"rgroli/other.nvim",
 		keys = {
-			{ "<leader>coo", "<cmd>:Other<CR>", desc = "Other file" },
-			{ "<leader>cos", "<cmd>:OtherSplit<CR>", desc = "Other file split" },
-			{ "<leader>cov", "<cmd>:OtherVSplit<CR>", desc = "Other file vsplit" },
+			{ "<leader>oo", "<cmd>:Other<CR>", desc = "Other file" },
+			{ "<leader>os", "<cmd>:OtherSplit<CR>", desc = "Other file split" },
+			{ "<leader>ov", "<cmd>:OtherVSplit<CR>", desc = "Other file vsplit" },
 		},
 		config = function()
 			require("other-nvim").setup({

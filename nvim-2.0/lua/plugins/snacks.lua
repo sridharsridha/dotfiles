@@ -3,9 +3,10 @@ return {
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
+		enabled = false,
 		opts = {
 			bigfile = { enabled = true },
-			dashboard = { enabled = true },
+			dashboard = { enabled = false },
 			indent = { enabled = false },
 			input = { enabled = true },
 			notifier = {
@@ -26,38 +27,39 @@ return {
 				which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
 				notify = true, -- show a notification when toggling
 			},
-			terminal = {
-				keys = {
-					q = "hide",
-					gf = function(self)
-						local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
-						if f == "" then
-							Snacks.notify.warn("No file under cursor")
-						else
-							self:hide()
-							vim.schedule(function()
-								vim.cmd("e " .. f)
-							end)
-						end
-					end,
-					term_normal = {
-						"<esc>",
-						function(self)
-							self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
-							if self.esc_timer:is_active() then
-								self.esc_timer:stop()
-								vim.cmd("stopinsert")
-							else
-								self.esc_timer:start(300, 0, function() end)
-								return "<esc>"
-							end
-						end,
-						mode = "t",
-						expr = true,
-						desc = "Double escape to normal mode",
-					},
-				},
-			},
+			-- terminal = {
+			-- 	enabled = false,
+			-- 	keys = {
+			-- 		q = "hide",
+			-- 		gf = function(self)
+			-- 			local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
+			-- 			if f == "" then
+			-- 				Snacks.notify.warn("No file under cursor")
+			-- 			else
+			-- 				self:hide()
+			-- 				vim.schedule(function()
+			-- 					vim.cmd("e " .. f)
+			-- 				end)
+			-- 			end
+			-- 		end,
+			-- 		term_normal = {
+			-- 			"<esc>",
+			-- 			function(self)
+			-- 				self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+			-- 				if self.esc_timer:is_active() then
+			-- 					self.esc_timer:stop()
+			-- 					vim.cmd("stopinsert")
+			-- 				else
+			-- 					self.esc_timer:start(300, 0, function() end)
+			-- 					return "<esc>"
+			-- 				end
+			-- 			end,
+			-- 			mode = "t",
+			-- 			expr = true,
+			-- 			desc = "Double escape to normal mode",
+			-- 		},
+			-- 	},
+			-- },
 		},
 		keys = {
 			{
@@ -159,20 +161,20 @@ return {
 				end,
 				desc = "Dismiss All Notifications",
 			},
-			{
-				"<c-/>",
-				function()
-					Snacks.terminal().toggle()
-				end,
-				desc = "Toggle Terminal",
-			},
-			{
-				"<c-_>",
-				function()
-					Snacks.terminal()
-				end,
-				desc = "which_key_ignore",
-			},
+			-- {
+			-- 	"<c-/>",
+			-- 	function()
+			-- 		Snacks.terminal().toggle()
+			-- 	end,
+			-- 	desc = "Toggle Terminal",
+			-- },
+			-- {
+			-- 	"<c-_>",
+			-- 	function()
+			-- 		Snacks.terminal()
+			-- 	end,
+			-- 	desc = "which_key_ignore",
+			-- },
 			{
 				"]]",
 				function()

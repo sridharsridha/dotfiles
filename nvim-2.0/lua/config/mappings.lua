@@ -46,12 +46,6 @@ keymaps.initial = function()
 	map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 	map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
-	-- better up/down
-	map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-	map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-	map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-	map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-
 	-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 	map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 	map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
