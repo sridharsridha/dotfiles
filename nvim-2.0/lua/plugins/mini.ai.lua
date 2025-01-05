@@ -21,6 +21,15 @@ return {
 					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
 					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
 				},
+				search_method = "cover_or_next",
+				mappings = {
+					around_next = "",
+					inside_next = "",
+					around_last = "",
+					inside_last = "",
+					goto_left = "",
+					goto_right = "",
+				},
 			}
 		end,
 		config = function(_, opts)

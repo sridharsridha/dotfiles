@@ -144,6 +144,8 @@ keymaps.initial = function()
 	map("n", "<leader>wv", "<cmd>vsplit<CR>", { desc = "Split window vertically" })
 end
 
-keymaps.final = function() end
+keymaps.final = function()
+	map("n", "<leader>pl", "<cmd>Lazy<cr>", { desc = "Show Lazy" })
+end
 
 return keymaps

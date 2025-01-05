@@ -52,6 +52,7 @@ opts.initial = function()
 	g.maplocalleader = ","
 	g.netrw_silent = 1
 	g.disable_autoformat = false
+	g.use_icons = true
 	-- Disable providers
 	g.loaded_node_provider = 0
 	g.loaded_python3_provider = 0
@@ -84,15 +85,15 @@ end
 opts.final = function() end
 
 --- Load shada after ui-enter
--- local shada = vim.o.shada
--- vim.o.shada = ""
--- vim.api.nvim_create_autocmd("User", {
--- 	pattern = "VeryLazy",
--- 	callback = function()
--- 		vim.o.shada = shada
--- 		pcall(vim.cmd.rshada, { bang = true })
--- 	end,
--- })
+local shada = vim.o.shada
+vim.o.shada = ""
+vim.api.nvim_create_autocmd("User", {
+	pattern = "VeryLazy",
+	callback = function()
+		vim.o.shada = shada
+		pcall(vim.cmd.rshada, { bang = true })
+	end,
+})
 
 vim.diagnostic.config({
 	virtual_text = {
@@ -107,10 +108,10 @@ vim.diagnostic.config({
 	},
 	signs = {
 		text = {
-			[vim.diagnostic.severity.HINT] = "*",
-			[vim.diagnostic.severity.ERROR] = "✘",
-			[vim.diagnostic.severity.INFO] = "◉",
-			[vim.diagnostic.severity.WARN] = "!",
+			[vim.diagnostic.severity.HINT] = "",
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.INFO] = "",
+			[vim.diagnostic.severity.WARN] = "",
 		},
 	},
 })

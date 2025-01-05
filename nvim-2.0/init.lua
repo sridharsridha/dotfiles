@@ -1,3 +1,4 @@
+-- Snacks profiler code. Trigger profiling using "PROF=1 nvim"
 if vim.env.PROF then
 	-- example for lazy.nvim
 	-- change this to the correct path for your plugin manager
@@ -6,8 +7,6 @@ if vim.env.PROF then
 	require("snacks.profiler").startup({
 		startup = {
 			event = "VimEnter", -- stop profiler on this event. Defaults to `VimEnter`
-			-- event = "UIEnter",
-			-- event = "VeryLazy",
 		},
 	})
 end

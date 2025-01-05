@@ -5,15 +5,15 @@ return {
 		event = { "InsertEnter" },
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },
-			{ "Exafunction/codeium.nvim" },
+			-- { "Exafunction/codeium.nvim" },
 			-- add blink.compat
-			{
-				"saghen/blink.compat",
-				-- use the latest release, via version = '*', if you also use the latest release for blink.cmp
-				version = "*",
-				-- make sure to set opts so that lazy.nvim calls blink.compat's setup
-				opts = {},
-			},
+			-- {
+			-- 	"saghen/blink.compat",
+			-- 	-- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+			-- 	version = "*",
+			-- 	-- make sure to set opts so that lazy.nvim calls blink.compat's setup
+			-- 	opts = {},
+			-- },
 		},
 		opts = {
 			keymap = { preset = "default" },
@@ -64,12 +64,13 @@ return {
 			},
 			signature = { enabled = true, window = { border = "rounded" } },
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "codeium" },
+				default = { "lsp", "path", "snippets", "buffer" },
+				-- default = { "lsp", "path", "snippets", "buffer", "codeium" },
 				providers = {
-					codeium = {
-						name = "codeium",
-						module = "blink.compat.source",
-					},
+					-- codeium = {
+					-- 	name = "codeium",
+					-- 	module = "blink.compat.source",
+					-- },
 				},
 				cmdline = function()
 					local type = vim.fn.getcmdtype()

@@ -5,6 +5,7 @@ return {
 			"folke/trouble.nvim",
 		},
 		keys = {
+			{ "<leader><leader>", "<cmd>FzfLua resume<CR>", mode = "n", desc = "Resume Finder" },
 			{
 				"<C-p>",
 				function()
@@ -18,6 +19,21 @@ return {
 					require("fzf-lua").files()
 				end,
 				desc = "Find files",
+			},
+			{
+				"<leader>fl",
+				function()
+					require("fzf-lua").live_grep()
+				end,
+				desc = "Live grep",
+			},
+			{
+				"<leader>fl",
+				function()
+					require("fzf-lua").grep_visual()
+				end,
+				mode = "x",
+				desc = "Grep selection",
 			},
 			{
 				"<leader>/",
@@ -49,63 +65,63 @@ return {
 				desc = "Fzf builtin",
 			},
 			{
-				"<leader>ld",
+				"<leader>fd",
 				function()
 					require("fzf-lua").lsp_definitions()
 				end,
 				desc = "Definition",
 			},
 			{
-				"<leader>le",
+				"<leader>fx",
 				function()
 					require("fzf-lua").diagnostics()
 				end,
 				desc = "Diagnostics",
 			},
 			{
-				"<leader>lr",
+				"<leader>fr",
 				function()
 					require("fzf-lua").lsp_references()
 				end,
 				desc = "References",
 			},
 			{
-				"<leader>li",
+				"<leader>fi",
 				function()
 					require("fzf-lua").lsp_implementations()
 				end,
 				desc = "Implementation",
 			},
 			{
-				"<leader>lt",
+				"<leader>ft",
 				function()
 					require("fzf-lua").lsp_type_definitions()
 				end,
 				desc = "Type Definition",
 			},
 			{
-				"<leader>ls",
+				"<leader>fs",
 				function()
 					require("fzf-lua").lsp_document_symbols()
 				end,
 				desc = "Document Symbols",
 			},
 			{
-				"<leader>lS",
+				"<leader>fS",
 				function()
 					require("fzf-lua").lsp_dynamic_workspace_symbols()
 				end,
 				desc = "Workspace symbols",
 			},
 			{
-				"<leader>lR",
+				"<leader>fR",
 				function()
 					vim.lsp.buf.rename()
 				end,
 				desc = "Rename",
 			},
 			{
-				"<leader>la",
+				"<leader>fa",
 				function()
 					vim.lsp.buf.code_action()
 				end,
@@ -121,7 +137,7 @@ return {
 			-- WARN: This is not Goto Definition, this is Goto Declaration.
 			--  For example, in C this would take you to the header
 			{
-				"<leader>lD",
+				"<leader>fD",
 				function()
 					vim.lsp.buf.declaration()
 				end,
