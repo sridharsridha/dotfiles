@@ -7,6 +7,10 @@ M.mapleader = " "
 M.maplocalleader = ","
 M.netrw_silent = 1
 M.disable_autoformat = false
-M.use_icons = true
+M.use_icons = false
+M.border = "none"
+M.icons = {
+	seperator = "-",
+}
 
 return M

@@ -9,16 +9,16 @@ return {
 		opts = {
 			ensure_installed = {
 				"stylua",
-            "lua-language-server",
+				"lua-language-server",
 				"shfmt",
 			},
 			ui = {
-				border = "rounded",
-				-- icons = {
-				-- 	package_installed = "✓",
-				-- 	package_pending = "➜",
-				-- 	package_uninstalled = "✗",
-				-- },
+				border = "none",
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
+				},
 			},
 		},
 		---@param opts MasonSettings | {ensure_installed: string[]}

@@ -6,10 +6,10 @@ return {
 		opts = {
 			bigfile = { enabled = true },
 			dashboard = { enabled = true },
-			indent = { enabled = true },
+			indent = { enabled = false },
 			input = { enabled = true },
 			notifier = {
-				enabled = true,
+				enabled = false,
 				timeout = 3000,
 			},
 			quickfile = { enabled = true },
@@ -25,11 +25,6 @@ return {
 				enabled = true,
 				which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
 				notify = true, -- show a notification when toggling
-				-- icons for enabled/disabled states
-				icon = {
-					enabled = " ",
-					disabled = " ",
-				},
 			},
 			terminal = {
 				keys = {

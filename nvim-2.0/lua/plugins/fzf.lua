@@ -5,7 +5,7 @@ return {
 			"folke/trouble.nvim",
 		},
 		keys = {
-			{ "<leader><leader>", "<cmd>FzfLua resume<CR>", mode = "n", desc = "Resume Finder" },
+			{ "<leader>fc", "<cmd>FzfLua resume<CR>", mode = "n", desc = "Resume Finder" },
 			{
 				"<C-p>",
 				function()
@@ -145,9 +145,7 @@ return {
 			},
 		},
 		config = function()
-			require("fzf-lua").setup({
-				fzf_colors = { false, ["bg"] = { "" } },
-			})
+			require("fzf-lua").setup({ "max-perf" })
 			local config = require("fzf-lua.config")
 			local actions = require("trouble.sources.fzf").actions
 			config.defaults.actions.files["ctrl-t"] = actions.open

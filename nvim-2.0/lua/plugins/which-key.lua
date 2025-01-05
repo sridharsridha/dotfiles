@@ -1,3 +1,4 @@
+local go = require("config/global")
 return {
 	-- Useful plugin to show you pending keybinds.
 	{
@@ -7,7 +8,6 @@ return {
 		opts = {
 			preset = "helix",
 			delay = 400,
-			show_help = false,
 			spec = {
 				{
 					mode = { "n", "v" },
@@ -41,10 +41,18 @@ return {
 					},
 				},
 			},
+			show_help = false,
+			win = {
+				border = go.border,
+			},
+			icons = {
+				separator = go.icons.seperator,
+				mappings = go.use_icons,
+			},
 		},
 		keys = {
 			{
-				"<leader>?",
+				"<leader>b?",
 				function()
 					require("which-key").show({ global = false })
 				end,

@@ -1,3 +1,3 @@
 return {
-	{ "echasnovski/mini.icons" },
+	{ "echasnovski/mini.icons", enabled = require("config/global").use_icons },
 }
