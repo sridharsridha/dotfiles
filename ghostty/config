@@ -4,7 +4,7 @@ auto-update = check
 
 # theme = rose-pine
 theme = catppuccin-mocha
-background-opacity = 0.85
+background-opacity = 0.90
 background-blur-radius = 20
 
 cursor-style = block
