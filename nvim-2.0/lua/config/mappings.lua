@@ -1,35 +1,5 @@
 local map = vim.keymap.set
 local keymaps = {}
-_G.KeymapFunctions = keymaps
-
-keymaps.blockwise_force = function(key)
-	local c_v = vim.api.nvim_replace_termcodes("<C-v>", true, false, true)
-	local keyseq = {
-		I = { v = "<C-v>I", V = "<C-v>^o^I", [c_v] = "I" },
-		A = { v = "<C-v>A", V = "<C-v>0o$A", [c_v] = "A" },
-		gI = { v = "<C-v>0I", V = "<C-v>0o$I", [c_v] = "0I" },
-	}
-	return function()
-		return keyseq[key][vim.fn.mode()]
-	end
-end
-
--- Add empty lines before and after cursor line supporting dot-repeat
-keymaps.put_empty_line = function(put_above)
-	-- This has a typical workflow for enabling dot-repeat:
-	-- - On first call it sets `operatorfunc`, caches data, and calls
-	--   `operatorfunc` on current cursor position.
-	-- - On second call it performs task: puts `v:count1` empty lines
-	--   above/below current line.
-	if type(put_above) == "boolean" then
-		vim.o.operatorfunc = "v:lua.Keymaps.put_empty_line"
-		Keymaps.cache_empty_line = { put_above = put_above }
-		return "g@l"
-	end
-
-	local target_line = vim.fn.line(".") - (Keymaps.cache_empty_line.put_above and 1 or 0)
-	vim.fn.append(target_line, vim.fn["repeat"]({ "" }, vim.v.count1))
-end
 
 keymaps.initial = function()
 	map("i", "jk", "<Esc>")
@@ -98,14 +68,6 @@ keymaps.initial = function()
 	-- Re-select blocks after indenting in visual/select mode
 	map("x", "<", "<gv", { desc = "Indent Left and Re-select" })
 	map("x", ">", ">gv|", { desc = "Indent Right and Re-select" })
-
-	-- Better block-wise operations on selected area
-	map("x", "I", "v:lua.KeymapFunctions.blockwise_force('I')", { noremap = true, desc = "Blockwise Insert" })
-	map("x", "gI", "v:lua.KeymapFunctions.blockwise_force('gI')", { noremap = true, desc = "Blockwise Insert" })
-	map("x", "A", "v:lua.KeymapFunctions.blockwise_force('A')", { noremap = true, desc = "Blockwise Append" })
-
-	map("n", "gO", "v:lua.KeymapFunctions.put_empty_line(v:true)", { desc = "Put empty line above" })
-	map("n", "go", "v:lua.KeymapFunctions.put_empty_line(v:false)", { desc = "Put empty line below" })
 
 	-- Switch */g* and #/g#
 	map("n", "*", "g*")

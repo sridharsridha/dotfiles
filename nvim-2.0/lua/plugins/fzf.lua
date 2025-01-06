@@ -65,63 +65,63 @@ return {
 				desc = "Fzf builtin",
 			},
 			{
-				"<leader>fd",
+				"<leader>cd",
 				function()
 					require("fzf-lua").lsp_definitions()
 				end,
 				desc = "Definition",
 			},
 			{
-				"<leader>fx",
+				"<leader>cx",
 				function()
 					require("fzf-lua").diagnostics()
 				end,
 				desc = "Diagnostics",
 			},
 			{
-				"<leader>fr",
+				"<leader>cr",
 				function()
 					require("fzf-lua").lsp_references()
 				end,
 				desc = "References",
 			},
 			{
-				"<leader>fi",
+				"<leader>ci",
 				function()
 					require("fzf-lua").lsp_implementations()
 				end,
 				desc = "Implementation",
 			},
 			{
-				"<leader>ft",
+				"<leader>ct",
 				function()
 					require("fzf-lua").lsp_type_definitions()
 				end,
 				desc = "Type Definition",
 			},
 			{
-				"<leader>fs",
+				"<leader>cs",
 				function()
 					require("fzf-lua").lsp_document_symbols()
 				end,
 				desc = "Document Symbols",
 			},
 			{
-				"<leader>fS",
+				"<leader>cS",
 				function()
 					require("fzf-lua").lsp_dynamic_workspace_symbols()
 				end,
 				desc = "Workspace symbols",
 			},
 			{
-				"<leader>fR",
+				"<leader>cR",
 				function()
 					vim.lsp.buf.rename()
 				end,
 				desc = "Rename",
 			},
 			{
-				"<leader>fa",
+				"<leader>ca",
 				function()
 					vim.lsp.buf.code_action()
 				end,
@@ -137,7 +137,7 @@ return {
 			-- WARN: This is not Goto Definition, this is Goto Declaration.
 			--  For example, in C this would take you to the header
 			{
-				"<leader>fD",
+				"<leader>cD",
 				function()
 					vim.lsp.buf.declaration()
 				end,

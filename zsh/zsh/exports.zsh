@@ -28,13 +28,13 @@ export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,underline'
 export HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
 
 # Find if we are under mosh_server
-if [[ ! -v IS_MOSH ]]; then
-   local pid="$$"
-   local mosh_found=$( pstree -ps $pid | grep mosh-server )
-   if [[ ! -z "$mosh_found" ]]; then
-      export IS_MOSH=1
-   fi
-fi
+# if [[ ! -v IS_MOSH ]]; then
+#    local pid="$$"
+#    local mosh_found=$( pstree -ps $pid | grep mosh-server )
+#    if [[ ! -z "$mosh_found" ]]; then
+#       export IS_MOSH=1
+#    fi
+# fi
 
 # Paths {{{
 ###########
