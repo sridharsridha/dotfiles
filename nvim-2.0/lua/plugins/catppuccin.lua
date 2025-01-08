@@ -15,11 +15,17 @@ return {
 			flavour = "mocha",
 			integrations = {
 				snacks = true,
-				cmp = true,
+				blink_cmp = true,
 				treesitter = true,
 				mason = true,
 				fidget = true,
 				which_key = true,
+				flash = true,
+				fzf = true,
+				gitsigns = true,
+				grug_far = true,
+				neotree = true,
+				lsp_trouble = true,
 				native_lsp = {
 					enabled = true,
 					virtual_text = {
@@ -27,16 +33,22 @@ return {
 						hints = { "italic" },
 						warnings = { "italic" },
 						information = { "italic" },
+						ok = { "italic" },
 					},
 					underlines = {
-						errors = { "undercurl" },
-						hints = { "undercurl" },
-						warnings = { "undercurl" },
-						information = { "undercurl" },
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+						ok = { "underline" },
+					},
+					inlay_hints = {
+						background = true,
 					},
 				},
 				mini = {
 					enabled = true,
+					indentscope_color = "",
 				},
 				-- For more plugins integrations please scroll down
 				-- (https://github.com/catppuccin/nvim#integrations)
