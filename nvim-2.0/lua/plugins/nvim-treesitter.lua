@@ -17,8 +17,8 @@ return {
 			local config = require("nvim-treesitter.configs")
 			config.setup({
 				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
+				highlight = { enable = false },
+				indent = { enable = false },
 				refactor = {
 					highlight_definitions = { enable = false },
 					highlight_current_scope = { enable = false },

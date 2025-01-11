@@ -52,7 +52,7 @@ return {
 		end,
 		keys = {
 			{
-				"<leader>cf",
+				"<leader>cF",
 				function()
 					require("conform").format({ async = true, lsp_fallback = true })
 				end,
@@ -60,7 +60,7 @@ return {
 				desc = "Format buffer",
 			},
 			{
-				"<leader>cF",
+				"<leader>cf",
 				function()
 					format_hunks()
 				end,
