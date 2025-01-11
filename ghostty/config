@@ -4,16 +4,9 @@ auto-update = check
 
 # theme = rose-pine
 theme = catppuccin-mocha
-background-opacity = 0.90
+background-opacity = 0.95
 background-blur-radius = 20
 macos-option-as-alt = true
 
 cursor-style = block
 cursor-style-blink = true
-# cursor-opacity = 0.95
-# selection-invert-fg-bg = true
-# cursor-invert-fg-bg = true
-# fullscreen = true
-# window-padding-x = 0
-# window-padding-y = 4
-# window-padding-balance = true
