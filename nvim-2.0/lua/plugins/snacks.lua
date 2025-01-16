@@ -3,19 +3,18 @@ return {
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
-		enabled = false,
 		opts = {
 			bigfile = { enabled = true },
-			dashboard = { enabled = false },
+			dashboard = { enabled = true },
 			indent = { enabled = false },
 			input = { enabled = true },
 			notifier = {
-				enabled = false,
+				enabled = true,
 				timeout = 3000,
 			},
 			quickfile = { enabled = true },
 			scroll = { enabled = false },
-			statuscolumn = { enabled = false },
+			statuscolumn = { enabled = true },
 			words = { enabled = true },
 			styles = {
 				notification = {
@@ -27,39 +26,39 @@ return {
 				which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
 				notify = true, -- show a notification when toggling
 			},
-			-- terminal = {
-			-- 	enabled = false,
-			-- 	keys = {
-			-- 		q = "hide",
-			-- 		gf = function(self)
-			-- 			local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
-			-- 			if f == "" then
-			-- 				Snacks.notify.warn("No file under cursor")
-			-- 			else
-			-- 				self:hide()
-			-- 				vim.schedule(function()
-			-- 					vim.cmd("e " .. f)
-			-- 				end)
-			-- 			end
-			-- 		end,
-			-- 		term_normal = {
-			-- 			"<esc>",
-			-- 			function(self)
-			-- 				self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
-			-- 				if self.esc_timer:is_active() then
-			-- 					self.esc_timer:stop()
-			-- 					vim.cmd("stopinsert")
-			-- 				else
-			-- 					self.esc_timer:start(300, 0, function() end)
-			-- 					return "<esc>"
-			-- 				end
-			-- 			end,
-			-- 			mode = "t",
-			-- 			expr = true,
-			-- 			desc = "Double escape to normal mode",
-			-- 		},
-			-- 	},
-			-- },
+			terminal = {
+				enabled = false,
+				keys = {
+					q = "hide",
+					gf = function(self)
+						local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
+						if f == "" then
+							Snacks.notify.warn("No file under cursor")
+						else
+							self:hide()
+							vim.schedule(function()
+								vim.cmd("e " .. f)
+							end)
+						end
+					end,
+					term_normal = {
+						"<esc>",
+						function(self)
+							self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+							if self.esc_timer:is_active() then
+								self.esc_timer:stop()
+								vim.cmd("stopinsert")
+							else
+								self.esc_timer:start(300, 0, function() end)
+								return "<esc>"
+							end
+						end,
+						mode = "t",
+						expr = true,
+						desc = "Double escape to normal mode",
+					},
+				},
+			},
 		},
 		keys = {
 			{
@@ -70,14 +69,14 @@ return {
 				desc = "Profiler Scratch Bufer",
 			},
 			{
-				"<leader>z",
+				"<leader>Z",
 				function()
 					Snacks.zen()
 				end,
 				desc = "Toggle Zen Mode",
 			},
 			{
-				"<leader>Z",
+				"<leader>z",
 				function()
 					Snacks.zen.zoom()
 				end,
@@ -91,14 +90,14 @@ return {
 				desc = "Toggle Scratch Buffer",
 			},
 			{
-				"<leader>S",
+				"<leader>uS",
 				function()
 					Snacks.scratch.select()
 				end,
 				desc = "Select Scratch Buffer",
 			},
 			{
-				"<leader>n",
+				"<leader>uN",
 				function()
 					Snacks.notifier.show_history()
 				end,
@@ -161,20 +160,20 @@ return {
 				end,
 				desc = "Dismiss All Notifications",
 			},
-			-- {
-			-- 	"<c-/>",
-			-- 	function()
-			-- 		Snacks.terminal().toggle()
-			-- 	end,
-			-- 	desc = "Toggle Terminal",
-			-- },
-			-- {
-			-- 	"<c-_>",
-			-- 	function()
-			-- 		Snacks.terminal()
-			-- 	end,
-			-- 	desc = "which_key_ignore",
-			-- },
+			{
+				"<c-/>",
+				function()
+					Snacks.terminal().toggle()
+				end,
+				desc = "Toggle Terminal",
+			},
+			{
+				"<c-_>",
+				function()
+					Snacks.terminal()
+				end,
+				desc = "which_key_ignore",
+			},
 			{
 				"]]",
 				function()
@@ -239,9 +238,7 @@ return {
 					Snacks.toggle.inlay_hints():map("<leader>uh")
 					Snacks.toggle.indent():map("<leader>ug")
 					Snacks.toggle.dim():map("<leader>uD")
-					-- Toggle the profiler
 					Snacks.toggle.profiler():map("<leader>pp")
-					-- Toggle the profiler highlights
 					Snacks.toggle.profiler_highlights():map("<leader>ph")
 				end,
 			})

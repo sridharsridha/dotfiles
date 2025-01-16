@@ -23,7 +23,7 @@ opts.initial = function()
 	opt.title = true -- set terminal title to the filename and path
 	opt.colorcolumn = "+1"
 	opt.number = true
-	opt.relativenumber = false
+	opt.relativenumber = true
 	-- opt.formatoptions = opt.formatoptions
 	-- 	- "a" -- Auto formatting is BAD.
 	-- 	- "t" -- Don't auto format my code. I got linters for that.

@@ -9,7 +9,7 @@ opt.termguicolors = true
 
 -- Make line numbers default
 opt.number = true
-opt.relativenumber = false
+opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 opt.mouse = "a"
