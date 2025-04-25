@@ -12,5 +12,6 @@ M.border = "none"
 M.icons = {
 	seperator = "-",
 }
+M.indent = 3
 
 return M

@@ -1,9 +1,6 @@
 return {
 	{
 		"ibhagwan/fzf-lua",
-		dependencies = {
-			"folke/trouble.nvim",
-		},
 		keys = {
 			{ "<leader>fc", "<cmd>FzfLua resume<CR>", mode = "n", desc = "Resume Finder" },
 			{

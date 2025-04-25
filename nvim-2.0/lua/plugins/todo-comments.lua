@@ -5,7 +5,7 @@ return {
 		opts = {},
 		event = "BufRead",
 		keys = {
-			{ "<leader>ct", "<cmd>Trouble todo<cr>", desc = "todo comments" },
+			{ "<leader>xt", "<cmd>Trouble todo<cr>", desc = "todo comments" },
 		},
 	},
 }

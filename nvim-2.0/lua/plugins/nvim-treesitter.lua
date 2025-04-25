@@ -17,11 +17,11 @@ return {
 			local config = require("nvim-treesitter.configs")
 			config.setup({
 				auto_install = true,
-				highlight = { enable = false },
-				indent = { enable = false },
+				highlight = { enable = true },
+				indent = { enable = true },
 				refactor = {
-					highlight_definitions = { enable = false },
-					highlight_current_scope = { enable = false },
+					highlight_definitions = { enable = true },
+					highlight_current_scope = { enable = true },
 				},
 				matchup = {
 					enable = true,

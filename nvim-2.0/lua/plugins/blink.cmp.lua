@@ -22,10 +22,11 @@ return {
 					},
 				},
 				menu = {
+               scrollbar = false,
 					border = go.border,
 					draw = {
 						columns = {
-                     { 'kind_icon' },
+                     -- { 'kind_icon' },
 							{ "label", "label_description", gap = 1 },
 						},
 					},

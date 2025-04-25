@@ -39,27 +39,21 @@ return {
 								callSnippet = "Replace",
 							},
 							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							-- diagnostics = { disable = { 'missing-fields' } },
-							diagnostics = { globals = { "vim" } },
+							diagnostics = { globals = { "vim" }, disable = { 'missing-fields' } },
 						},
 					},
 				},
 			},
 			diagnostics = {
 				underline = true,
-				update_in_insert = false,
+				update_in_insert = true,
 				virtual_text = {
 					spacing = 4,
 					source = "if_many",
-					-- prefix = "●",
-					-- this will set set the prefix to a function that returns the
-					-- diagnostics icon based on the severity
-					-- this only works on a recent 0.10.0 build. Will be set to "●" when
-					-- not supported prefix = "icons",
 				},
 				severity_sort = true,
 			},
-			inlay_hints = { enabled = false },
+			inlay_hints = { enabled = true },
 		},
 		config = function(_, opts)
 			local lspconfig = require("lspconfig")
