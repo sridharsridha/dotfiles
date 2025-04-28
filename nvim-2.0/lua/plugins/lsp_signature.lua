@@ -10,7 +10,7 @@ return {
 			},
 			floating_window = true,
 			floating_window_above_cur_line = true,
-			hint_enable = false,
+			hint_enable = true,
 			-- highlight group used to highlight the current parameter
 			hi_parameter = "LspSignatureActiveParameter",
 			-- toggle signature on and off in insert mode

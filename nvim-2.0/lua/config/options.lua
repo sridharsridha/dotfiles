@@ -3,6 +3,7 @@ local opt = vim.opt
 local g = vim.g
 
 local opts = {}
+local gl = require("config/global")
 
 opts.initial = function()
 	opt.path:append("**")
@@ -34,20 +35,6 @@ opts.initial = function()
 	opt.undofile = true
 	opt.cmdheight = 1
 	g.winblend = 0
-
-	local gl = require("config/global")
-	g.mapleader = gl.mapleader
-	g.maplocalleader = gl.maplocalleader
-	g.netrw_silent = gl.netrw_silent
-	g.disable_autoformat = gl.disable_autoformat
-	g.use_icons = gl.use_icons
-
-	-- Disable providers
-	g.loaded_node_provider = 0
-	g.loaded_python3_provider = 0
-	g.loaded_perl_provider = 0
-	g.loaded_ruby_provider = 0
-
 	opt.wrap = true
 	opt.completeopt = { "menuone", "noselect", "noinsert" }
 	opt.wildmenu = true
@@ -60,11 +47,23 @@ opts.initial = function()
 	opt.splitbelow = true
 	opt.splitright = true
 	opt.scrolloff = 2
-	-- Indenting
 	opt.tabstop = gl.indent
 	opt.shiftwidth = gl.indent
 	opt.expandtab = true
 	opt.sidescrolloff = gl.indent
+
+	g.mapleader = gl.mapleader
+	g.maplocalleader = gl.maplocalleader
+	g.netrw_silent = gl.netrw_silent
+	g.disable_autoformat = gl.disable_autoformat
+	g.use_icons = gl.use_icons
+
+	-- Disable providers
+	g.loaded_node_provider = 0
+	g.loaded_python3_provider = 0
+	g.loaded_perl_provider = 0
+	g.loaded_ruby_provider = 0
+
 end
 
 opts.final = function() end

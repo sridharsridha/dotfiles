@@ -30,8 +30,9 @@ local function format_hunks()
 		format({ range = range })
 	end
 end
+
 return {
-	{ -- Autoformat
+	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },

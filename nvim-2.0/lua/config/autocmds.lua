@@ -59,56 +59,6 @@ autocmds.initial = function()
 		group = augroup("auto_hlsearch"),
 		command = "set nohlsearch",
 	})
-	autocmd("BufWritePost", {
-		pattern = "*.scm",
-		callback = function()
-			require("nvim-treesitter.query").invalidate_query_cache()
-		end,
-	})
-	autocmd("BufWinEnter", {
-		desc = "load cursor position, folds of current buffer",
-		pattern = "?*",
-		group = augroup("remember_folds"),
-		callback = function(e)
-			if not vim.b[e.buf].view_activated then
-				local filetype = vim.api.nvim_get_option_value("filetype", { buf = e.buf })
-				local buftype = vim.api.nvim_get_option_value("buftype", { buf = e.buf })
-				local ignore_filetypes = { "gitcommit", "gitrebase" }
-				if
-					buftype == ""
-					and filetype
-					and filetype ~= ""
-					and not vim.tbl_contains(ignore_filetypes, filetype)
-				then
-					vim.b[e.buf].view_activated = true
-					vim.cmd.loadview({ mods = { emsg_silent = true } })
-				end
-			end
-		end,
-	})
-	---@see https://www.reddit.com/r/neovim/comments/zy5s0l/you_dont_need_vimrooter
-	autocmd("BufEnter", {
-		desc = "Find root and change current directory",
-		group = augroup("change_root"),
-		callback = function(e)
-			RootCache = RootCache or {}
-			local root_patterns = require("config.global").root_patterns
-			local path = vim.api.nvim_buf_get_name(e.buf)
-			if path == "" then
-				return
-			end
-
-			local root = RootCache[vim.fs.dirname(path)]
-			if root == nil then
-				root = vim.fs.root(e.buf, root_patterns)
-				RootCache[path] = root
-			end
-
-			if root ~= nil and root ~= "" then
-				vim.fn.chdir(root)
-			end
-		end,
-	})
 end
 
 autocmds.final = function() end

@@ -2,8 +2,7 @@ return {
 	-- search/replace in multiple files
 	{
 		"MagicDuck/grug-far.nvim",
-		opts = {
-		},
+		opts = {},
 		cmd = "GrugFar",
 		keys = {
 			{
