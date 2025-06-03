@@ -5,4 +5,4 @@ bash/bash-it/
 bash/fzf/
 zsh/*.zwc
 *DS_Store
-
+*lazy-lock.json
