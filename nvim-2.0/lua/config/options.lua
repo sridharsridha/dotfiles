@@ -1,6 +1,7 @@
 local opt = vim.opt
 ---@class vim.var_accessor
 local g = vim.g
+local gl = require("config/global")
 
 local opts = {}
 local gl = require("config/global")
@@ -35,6 +36,19 @@ opts.initial = function()
 	opt.undofile = true
 	opt.cmdheight = 1
 	g.winblend = 0
+
+	g.mapleader = gl.mapleader
+	g.maplocalleader = gl.maplocalleader
+	g.netrw_silent = gl.netrw_silent
+	g.disable_autoformat = gl.disable_autoformat
+	g.use_icons = gl.use_icons
+
+	-- Disable providers
+	g.loaded_node_provider = 0
+	g.loaded_python3_provider = 0
+	g.loaded_perl_provider = 0
+	g.loaded_ruby_provider = 0
+
 	opt.wrap = true
 	opt.completeopt = { "menuone", "noselect", "noinsert" }
 	opt.wildmenu = true

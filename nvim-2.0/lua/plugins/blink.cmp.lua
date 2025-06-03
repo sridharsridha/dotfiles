@@ -2,8 +2,9 @@ local go = require("config/global")
 return {
 	{
 		"saghen/blink.cmp",
-		version = "*",
 		event = { "InsertEnter" },
+      -- Needed to download pre-build binary for fuzzy finding.
+      version = '1.*',
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },
 		},
@@ -12,7 +13,7 @@ return {
 			completion = {
 				ghost_text = { enabled = true },
 				list = {
-               selection = { preselect = true, auto_insert = true }
+					selection = { preselect = true, auto_insert = true },
 				},
 				documentation = {
 					auto_show = true,
@@ -22,7 +23,7 @@ return {
 					},
 				},
 				menu = {
-               scrollbar = false,
+					scrollbar = false,
 					border = go.border,
 					draw = {
 						columns = {
