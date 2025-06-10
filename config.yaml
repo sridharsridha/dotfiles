@@ -1,0 +1,157 @@
+# This file configures the applications and setup steps for the dotfiles installer.
+# Use the following placeholders for paths:
+#   $HOME: The user's home directory
+#   $CONFIG: The user's config directory (~/.config)
+#   $PWD: The current working directory (where the script is run)
+
+apps:
+  fonts:
+    check:
+      type: dir_exists
+      path: "$HOME/Library/Fonts"
+    install_steps:
+      - action: install_fonts
+    delete_steps:
+      - action: delete_fonts
+  zsh:
+    check:
+      type: cmd_exists
+      cmd: zsh
+    install_steps:
+      - action: symlink
+        source: "$PWD/zsh/zsh"
+        target: "$HOME/.zsh"
+      - action: symlink
+        source: "$PWD/zsh/zshrc"
+        target: "$HOME/.zshrc"
+    delete_steps:
+      - action: remove_symlink
+        target: "$HOME/.zsh"
+      - action: remove_symlink
+        target: "$HOME/.zshrc"
+  bash:
+    check:
+      type: cmd_exists
+      cmd: bash
+    install_steps:
+      - action: symlink
+        source: "$PWD/bash/bashrc"
+        target: "$HOME/.bashrc"
+      - action: symlink
+        source: "$PWD/bash/bash_profile"
+        target: "$HOME/.bash_profile"
+      - action: symlink
+        source: "$PWD/bash/inputrc"
+        target: "$HOME/.inputrc"
+    delete_steps:
+      - action: remove_symlink
+        target: "$HOME/.bashrc"
+      - action: remove_symlink
+        target: "$HOME/.bash_profile"
+      - action: remove_symlink
+        target: "$HOME/.inputrc"
+  tmux:
+    check:
+      type: cmd_exists
+      cmd: tmux
+    install_steps:
+      - action: ensure_dir
+        path: "$HOME/.tmux"
+      - action: symlink
+        source: "$PWD/tmux/tmux.conf"
+        target: "$HOME/.tmux.conf"
+    delete_steps:
+      - action: remove_symlink
+        target: "$HOME/.tmux.conf"
+  neovim:
+    check:
+      type: cmd_exists
+      cmd: nvim
+    install_steps:
+      - action: symlink
+        source: "$PWD/nvim"
+        target: "$CONFIG/nvim"
+    delete_steps:
+      - action: remove_symlink
+        target: "$CONFIG/nvim"
+  iterm2:
+    check:
+      type: dir_exists
+      path: "/Applications/iTerm.app"
+    install_steps:
+      - action: run_command
+        command: ["defaults", "write", "com.googlecode.iterm2.plist", "PrefsCustomFolder", "-string", "$PWD/iterm"]
+      - action: run_command
+        command: ["defaults", "write", "com.googlecode.iterm2.plist", "LoadPrefsFromCustomFolder", "-bool", "true"]
+    delete_steps:
+      - action: run_command
+        command: ["defaults", "delete", "com.googlecode.iterm2.plist", "PrefsCustomFolder"]
+      - action: run_command
+        command: ["defaults", "delete", "com.googlecode.iterm2.plist", "LoadPrefsFromCustomFolder"]
+  git:
+    check:
+      type: cmd_exists
+      cmd: git
+    install_steps:
+      - action: symlink
+        source: "$PWD/git/gitconfig"
+        target: "$HOME/.gitconfig"
+      - action: symlink
+        source: "$PWD/git/gitignore"
+        target: "$HOME/.gitignore"
+      - action: symlink
+        source: "$PWD/git/gitattributes"
+        target: "$HOME/.gitattributes"
+    delete_steps:
+      - action: remove_symlink
+        target: "$HOME/.gitconfig"
+      - action: remove_symlink
+        target: "$HOME/.gitignore"
+      - action: remove_symlink
+        target: "$HOME/.gitattributes"
+  yapf:
+    install_steps:
+      - action: symlink
+        source: "$PWD/yapf"
+        target: "$CONFIG/yapf"
+    delete_steps:
+      - action: remove_symlink
+        target: "$CONFIG/yapf"
+  bat:
+    install_steps:
+      - action: symlink
+        source: "$PWD/bat/config"
+        target: "$CONFIG/bat/config"
+    delete_steps:
+      - action: remove_symlink
+        target: "$CONFIG/bat/config"
+  wezterm:
+    install_steps:
+      - action: symlink
+        source: "$PWD/wezterm/wezterm.lua"
+        target: "$HOME/.wezterm.lua"
+    delete_steps:
+      - action: remove_symlink
+        target: "$HOME/.wezterm.lua"
+  ghostty:
+    install_steps:
+      - action: symlink
+        source: "$PWD/ghostty/config"
+        target: "$CONFIG/ghostty/config"
+    delete_steps:
+      - action: remove_symlink
+        target: "$CONFIG/ghostty/config"
+
+macos_setup:
+  brew_packages:
+    - tmux
+    - neovim
+    - mosh
+    - zsh
+    - node
+    - gh
+  cask_packages:
+    - visual-studio-code
+    - obsidian
+  npm_packages:
+    - vim-language-server
