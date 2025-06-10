@@ -5,10 +5,11 @@
 ssh-keygen -t ed25519 -C "sridha.in@gmail.com"
 eval "$(ssh-agent -s)"
 touch ~/.ssh/config
-echo "Host *
+echo "Host github.com
   AddKeysToAgent yes
+  UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519" >> ~/.ssh/config
-ssh-add -K ~/.ssh/id_ed25519
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
 # Install github CLI
 brew install gh
@@ -18,6 +19,8 @@ brew install gh
 # Make sure you have login to github in the default browser
 gh auth login
 # gh ssh-key add ~/.ssh/id_ed25519.pub --title "personal laptop"
+echo "TYPE YES, WHEN PROMPTED"
+ssh -T git@github.com
 
 # Install the dev tools
 brew install tmux
