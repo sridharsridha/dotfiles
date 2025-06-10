@@ -6,6 +6,7 @@ osx_paths=( \
 )
 custom_paths=( \
    ~/bin/
+   ~/dotfiles/scripts/
 )
 function workon_osx() {
    PATH=$PATH:$(IFS=:; echo "${custom_paths[*]}")

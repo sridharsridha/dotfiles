@@ -24,12 +24,12 @@ brew install tmux
 brew install neovim
 brew install mosh
 brew install zsh
-brew install zsh-completions
-brew install universal-ctags
-brew install git
-brew install cowsay
 brew install node
-brew install cscope
+
+brew install --cask visual-studio-code
+brew install --cask obsidian
+
+npm i -g vim-language-server
 
 # Install the dotfiles
 gh repo clone sridharsridha/dotfiles
