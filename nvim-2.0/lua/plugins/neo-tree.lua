@@ -60,9 +60,13 @@ return {
 				use_libuv_file_watcher = true,
 			},
 			window = {
+				width = 30,
 				mappings = {
 					["l"] = "open",
 					["h"] = "close_node",
+					["a"] = "add",
+					["d"] = "delete",
+					["r"] = "rename",
 					["<space>"] = "none",
 					["Y"] = {
 						function(state)

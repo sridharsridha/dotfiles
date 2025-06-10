@@ -69,7 +69,7 @@ apps:
       cmd: nvim
     install_steps:
       - action: symlink
-        source: "$PWD/nvim"
+        source: "$PWD/nvim-2.0"
         target: "$CONFIG/nvim"
     delete_steps:
       - action: remove_symlink
@@ -141,9 +141,18 @@ apps:
     delete_steps:
       - action: remove_symlink
         target: "$CONFIG/ghostty/config"
+  eza:
+    install_steps:
+      - action: symlink
+        source: "$PWD/eza"
+        target: "$CONFIG/eza"
+    delete_steps:
+      - action: remove_symlink
+        target: "$CONFIG/eza"
 
 macos_setup:
   brew_packages:
+    - eza
     - tmux
     - neovim
     - mosh

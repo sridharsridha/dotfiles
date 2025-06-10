@@ -4,7 +4,6 @@ local g = vim.g
 local gl = require("config/global")
 
 local opts = {}
-local gl = require("config/global")
 
 opts.initial = function()
 	opt.path:append("**")
@@ -13,74 +12,31 @@ opts.initial = function()
 	opt.lazyredraw = false
 	opt.clipboard = "unnamed,unnamedplus"
 	opt.termguicolors = true
-	opt.lazyredraw = false
-	opt.fillchars:append({ eob = " " })
+	opt.laststatus = 2
 	opt.shortmess:append("aoOt")
 	opt.cursorline = true
-	opt.cursorlineopt = "number"
-	opt.ruler = true
-	opt.textwidth = 85
-	opt.spell = false -- Always on spell checking
-	opt.title = true -- set terminal title to the filename and path
-	opt.colorcolumn = "+1"
 	opt.number = true
-	opt.relativenumber = true
-	opt.formatoptions = "2qcjl1o"
-	opt.virtualedit = "block"
-	opt.breakindent = true
-	opt.list = false
+	opt.relativenumber = false
 	opt.hlsearch = true
 	opt.inccommand = "split"
-	opt.linebreak = true
 	opt.swapfile = false
 	opt.undofile = true
+	opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 	opt.cmdheight = 1
-	g.winblend = 0
-
-	g.mapleader = gl.mapleader
-	g.maplocalleader = gl.maplocalleader
-	g.netrw_silent = gl.netrw_silent
-	g.disable_autoformat = gl.disable_autoformat
-	g.use_icons = gl.use_icons
-
-	-- Disable providers
-	g.loaded_node_provider = 0
-	g.loaded_python3_provider = 0
-	g.loaded_perl_provider = 0
-	g.loaded_ruby_provider = 0
-
-	opt.wrap = true
 	opt.completeopt = { "menuone", "noselect", "noinsert" }
-	opt.wildmenu = true
-	opt.pumheight = 10
 	opt.ignorecase = true
 	opt.smartcase = true
-	opt.timeout = false
+	opt.timeoutlen = 300
 	opt.updatetime = 400
-	opt.equalalways = false
 	opt.splitbelow = true
 	opt.splitright = true
-	opt.scrolloff = 2
+	opt.scrolloff = 8
+	opt.signcolumn = "yes"
 	opt.tabstop = gl.indent
 	opt.shiftwidth = gl.indent
 	opt.expandtab = true
-	opt.sidescrolloff = gl.indent
-
 	g.mapleader = gl.mapleader
-	g.maplocalleader = gl.maplocalleader
-	g.netrw_silent = gl.netrw_silent
-	g.disable_autoformat = gl.disable_autoformat
-	g.use_icons = gl.use_icons
-
-	-- Disable providers
-	g.loaded_node_provider = 0
-	g.loaded_python3_provider = 0
-	g.loaded_perl_provider = 0
-	g.loaded_ruby_provider = 0
-
 end
-
-opts.final = function() end
 
 --- Load shada after ui-enter
 local shada = vim.o.shada

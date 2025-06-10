@@ -1,29 +1,24 @@
-local go = require("config/global")
 return {
-	-- Useful plugin to show you pending keybinds.
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		opts_extend = { "spec" },
 		opts = {
 			preset = "helix",
 			delay = 400,
 			spec = {
 				{
 					mode = { "n", "v" },
+					-- Top-level groups
 					{ "<leader>c", group = "Code" },
-					{ "<leader>co", group = "Alternate files" },
 					{ "<leader>f", group = "Files" },
 					{ "<leader>g", group = "Git" },
-					{ "<leader>u", group = "UI" },
 					{ "<leader>p", group = "Profile" },
-					{ "<leader>x", group = "Diagnostics" },
 					{ "<leader>q", group = "Quit" },
-					{ "[", group = "prev" },
-					{ "]", group = "next" },
-					{ "g", group = "goto" },
-					{ "gs", group = "surround" },
-					{ "z", group = "fold" },
+					{ "<leader>s", group = "Save" },
+					{ "<leader>u", group = "UI" },
+					{ "<leader>x", group = "Diagnostics" },
+					{ "<leader>cw", group = "Workspace" },
+
 					{
 						"<leader>b",
 						group = "Buffer",
@@ -51,20 +46,34 @@ return {
 			},
 		},
 		keys = {
-			{
-				"<leader>b?",
-				function()
-					require("which-key").show({ global = false })
-				end,
-				desc = "Buffer Keymaps (which-key)",
-			},
-			{
-				"<c-w><space>",
-				function()
-					require("which-key").show({ keys = "<c-w>", loop = true })
-				end,
-				desc = "Window Hydra Mode (which-key)",
-			},
+			-- Buffer mappings
+			{ "<leader>bc", "<cmd>bclose<cr>", desc = "Close Buffer" },
+			{ "<leader>bn", "<cmd>enew<cr>", desc = "New Buffer" },
+			{ "<leader>bb", "<cmd>e #<cr>", desc = "Switch to Other Buffer" },
+			{ "<leader>b?", function() require("which-key").show({ global = false }) end, desc = "Buffer Keymaps" },
+
+			-- Quit mappings
+			{ "<leader>qq", "<cmd>qa<cr>", desc = "Quit All" },
+			{ "q", "<cmd>q<cr>", desc = "Quit" },
+
+			-- Save mapping
+			{ "<leader>s", "<Cmd>silent! update | redraw<CR>", desc = "Save" },
+
+			-- Window mappings
+			{ "<leader>wc", "<cmd>close<cr>", desc = "Close Window" },
+			{ "<leader>ws", "<cmd>split<CR>", desc = "Split Horizontal" },
+			{ "<leader>wv", "<cmd>vsplit<CR>", desc = "Split Vertical" },
+			{ "<leader>wx", "<C-w>x<C-w>w", remap = true, desc = "Swap Windows" },
+			{ "<leader>wh", "<C-w><C-h>", desc = "Window Left" },
+			{ "<leader>wl", "<C-w><C-l>", desc = "Window Right" },
+			{ "<leader>wj", "<C-w><C-j>", desc = "Window Down" },
+			{ "<leader>wk", "<C-w><C-k>", desc = "Window Up" },
+			{ "<c-w><space>", function() require("which-key").show({ keys = "<c-w>", loop = true }) end, desc = "Window Hydra" },
+
+			-- Diagnostic mappings
+			{ "<leader>xx", vim.diagnostic.open_float, desc = "Show Diagnostics" },
+			{ "[d", vim.diagnostic.goto_prev, desc = "Go to previous diagnostic" },
+			{ "]d", vim.diagnostic.goto_next, desc = "Go to next diagnostic" },
 		},
 	},
 }

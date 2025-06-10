@@ -20,7 +20,7 @@ return {
 					filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
 					capabilities = { offsetEncoding = "utf-8" },
 				},
-				-- pyright = {},
+				pyright = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -66,6 +66,7 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("sri-lsp-attach", { clear = true }),
 				callback = function(event)
+					local map = vim.keymap.set
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
 					--    See `:help CursorHold` for information about when this is executed
@@ -81,6 +82,23 @@ return {
 							callback = vim.lsp.buf.clear_references,
 						})
 					end
+
+					map("n", "<leader>cd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to Definition" })
+					map("n", "<leader>cD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "Go to Declaration" })
+					map("n", "<leader>ch", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover" })
+					map("n", "<leader>ci", vim.lsp.buf.implementation, { buffer = event.buf, desc = "Go to Implementation" })
+					map("n", "<leader>cs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature Help" })
+					map("n", "<leader>cwa", vim.lsp.buf.add_workspace_folder, { buffer = event.buf, desc = "Add Workspace Folder" })
+					map("n", "<leader>cwr", vim.lsp.buf.remove_workspace_folder, { buffer = event.buf, desc = "Remove Workspace Folder" })
+					map("n", "<leader>cwl", function()
+						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+					end, { buffer = event.buf, desc = "List Workspace Folders" })
+					map("n", "<leader>ct", vim.lsp.buf.type_definition, { buffer = event.buf, desc = "Go to Type Definition" })
+					map("n", "<leader>cr", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename" })
+					map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Code Action" })
+					map("n", "<leader>cf", function()
+						vim.lsp.buf.format({ async = true })
+					end, { buffer = event.buf, desc = "Format" })
 				end,
 			})
 

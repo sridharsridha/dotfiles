@@ -61,6 +61,4 @@ autocmds.initial = function()
 	})
 end
 
-autocmds.final = function() end
-
 return autocmds
