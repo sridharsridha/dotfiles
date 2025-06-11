@@ -13,7 +13,6 @@ alias search-txt='function _search(){find ./ -type f -exec grep --color=always -
 alias path='echo -e ${PATH//:/\\n}' # Formatted path
 
 alias mkdir='mkdir -pv' # Verbose & Parents mkdir flag
-alias md='mkdir'
 alias d='dirs -v | head -10'
 
 # Mosh.

@@ -2,10 +2,6 @@
 export CLICOLOR=1
 export KEYTIMEOUT=1
 
-# export LC_ALL="en_US.UTF-8"
-# export LC_CTYPE="en_US.UTF-8"
-# export LANG="en_US.UTF-8"
-#
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -26,15 +22,6 @@ export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=green,standout' # bold
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,underline'
 export HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
-
-# Find if we are under mosh_server
-# if [[ ! -v IS_MOSH ]]; then
-#    local pid="$$"
-#    local mosh_found=$( pstree -ps $pid | grep mosh-server )
-#    if [[ ! -z "$mosh_found" ]]; then
-#       export IS_MOSH=1
-#    fi
-# fi
 
 # Paths {{{
 ###########

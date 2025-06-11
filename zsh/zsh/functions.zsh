@@ -17,12 +17,6 @@ function ipath { # If directory exists, add it to path
 	fi
 }
 
-function = { # Simple Calculator
-	calc="${@//p/+}"
-	calc="${calc//x/*}"
-	bc -l <<<"scale=10;$calc"
-}
-
 function profVimStartUpTime() {
 	if [[ "$1" == "" ]]; then
 		cmd=nvim
@@ -161,11 +155,6 @@ function cscope_gen()
    rm -f cscope.files cscope.out cscope.po.out
    find `pwd` -name '[^.]*.[chlyCGHL]' -print | grep -v CVS > cscope.files
    cscope -buqk -F cscope.files
-}
-
-function image_clean(){
-   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
-   docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
 function splitPane() {

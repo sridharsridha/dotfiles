@@ -1,6 +1,3 @@
-# vim like shell
-# bindkey -v
-
 # zsh autosuggestions bindings
 bindkey '^Y' autosuggest-accept
 
