@@ -1,6 +1,5 @@
 return {
 	"ray-x/lsp_signature.nvim",
-	enabled = false,
 	event = "InsertEnter",
 	config = function()
 		require("lsp_signature").setup({

@@ -40,7 +40,7 @@ return {
 			vim.g.disable_autoformat = true
 			-- If you want the formatexpr, here is the place to set it
 			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-			vim.api.nvim_create_user_command("FormatDisable", function(args)
+			vim.api.nvim_create_user_command("FormatDisable", function()
 				vim.g.disable_autoformat = true
 			end, {
 				desc = "Disable autoformat-on-save",

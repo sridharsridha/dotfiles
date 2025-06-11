@@ -2,7 +2,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    dependencies = { "catppuccin", "nvim-tree/nvim-web-devicons" },
+    dependencies = { "catppuccin" },
     config = function()
       require("lualine").setup({
         options = {

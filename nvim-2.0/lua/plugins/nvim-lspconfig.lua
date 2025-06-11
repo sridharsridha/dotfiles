@@ -108,7 +108,7 @@ return {
 			-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 				group = sri_custom_lsp_start,
-				pattern = { "*.tac" },
+				pattern = { "/src/**/*.tac" },
 				callback = function()
 					vim.lsp.start({
 						name = "tacc",
@@ -120,7 +120,7 @@ return {
 			})
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 				group = sri_custom_lsp_start,
-				pattern = { "*.arx" },
+				pattern = { "/src/**/*.arx" },
 				callback = function()
 					vim.lsp.start({
 						name = "arex",
@@ -131,7 +131,7 @@ return {
 			})
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 				group = sri_custom_lsp_start,
-				pattern = { "*.py" },
+				pattern = { "/src/**/*.py" },
 				callback = function()
 					vim.lsp.start({
 						name = "ar-pylint-ls",

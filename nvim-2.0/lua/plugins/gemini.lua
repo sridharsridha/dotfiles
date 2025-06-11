@@ -1,7 +1,14 @@
 return {
-	{
-		"kiddos/gemini.nvim",
+   {
+      'kiddos/gemini.nvim',
+      dependencies = {
+         'MunifTanjim/nui.nvim',
+      },
       lazy = false,
-		opts = {},
-	},
+      config = function()
+         require('gemini').setup({
+            -- Your custom configuration goes here
+         })
+      end,
+   },
 }

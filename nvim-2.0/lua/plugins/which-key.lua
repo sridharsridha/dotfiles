@@ -13,6 +13,7 @@ return {
 					{ "<leader>c", group = "Code" },
 					{ "<leader>f", group = "Files" },
 					{ "<leader>g", group = "Git" },
+					{ "<leader>gh", group = "Git hunk" },
 					{ "<leader>p", group = "Profile" },
 					{ "<leader>q", group = "Quit" },
 					{ "<leader>s", group = "Save" },
@@ -73,8 +74,6 @@ return {
 
 			-- Diagnostic mappings
 			{ "<leader>xx", vim.diagnostic.open_float, desc = "Show Diagnostics" },
-			{ "[d", vim.diagnostic.goto_prev, desc = "Go to previous diagnostic" },
-			{ "]d", vim.diagnostic.goto_next, desc = "Go to next diagnostic" },
 		},
 	},
 }
