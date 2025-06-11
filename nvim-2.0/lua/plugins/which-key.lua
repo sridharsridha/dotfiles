@@ -1,3 +1,4 @@
+local go = require("config/global")
 return {
 	{
 		"folke/which-key.nvim",

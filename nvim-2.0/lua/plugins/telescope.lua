@@ -14,6 +14,30 @@ return {
       { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
       { "<leader>fq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix List" },
       { "<leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
+      { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+      { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+      { "<leader>fa", "<cmd>Telescope autocommands<cr>", desc = "Autocommands" },
+      { "<leader>f/", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Find in Current Buffer" },
+      { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Git Commits" },
+      { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
+      {
+        "<leader>f.",
+        function()
+          require("telescope.builtin").find_files({
+            cwd = vim.fn.stdpath("config"),
+          })
+        end,
+        desc = "Find in Dotfiles",
+      },
+      {
+        "<leader>f*",
+        function()
+          require("telescope.builtin").grep_string({
+            search = vim.fn.expand("<cword>"),
+          })
+        end,
+        desc = "Grep for Word Under Cursor",
+      },
       {
         "<leader>fo",
         function()
