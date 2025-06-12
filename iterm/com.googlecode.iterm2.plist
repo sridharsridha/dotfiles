@@ -6754,7 +6754,7 @@
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTab</key>
-	<false/>
+	<true/>
 	<key>HideTabNumber</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
@@ -6772,9 +6772,13 @@
 			<true/>
 			<key>ASCII Ligatures</key>
 			<true/>
+			<key>Allow Change Cursor Blink</key>
+			<false/>
 			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
+			<false/>
+			<key>Animate Movement</key>
 			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
@@ -7487,7 +7491,7 @@
 				<real>0.92929404973983765</real>
 			</dict>
 			<key>Blend</key>
-			<real>0.23343407846715328</real>
+			<real>0.0</real>
 			<key>Blink Allowed</key>
 			<true/>
 			<key>Blinking Cursor</key>
@@ -7495,7 +7499,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>5.1415122767857131</real>
+			<real>25.217237723214279</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -7674,8 +7678,10 @@
 			<string>No</string>
 			<key>Description</key>
 			<string>Default</string>
+			<key>Disable Printing</key>
+			<false/>
 			<key>Disable Window Resizing</key>
-			<true/>
+			<false/>
 			<key>Draw Powerline Glyphs</key>
 			<true/>
 			<key>Enable Triggers in Interactive Apps</key>
@@ -8110,7 +8116,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Menlo-Regular 14</string>
+			<string>SauceCodeProNF 13</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -8215,6 +8221,10 @@
 			<integer>2</integer>
 			<key>Shortcut</key>
 			<string></string>
+			<key>Show Mark Indicators</key>
+			<false/>
+			<key>Show Offscreen Command line</key>
+			<true/>
 			<key>Show Status Bar</key>
 			<false/>
 			<key>Show Timestamps</key>
@@ -8471,7 +8481,7 @@
 			<key>Thin Strokes</key>
 			<integer>0</integer>
 			<key>Transparency</key>
-			<real>0.15482700892857143</real>
+			<real>0.039190848214285715</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unicode Normalization</key>
@@ -8497,7 +8507,7 @@
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
-			<integer>15</integer>
+			<integer>1</integer>
 			<key>Working Directory</key>
 			<string>/Users/sridharn</string>
 		</dict>
