@@ -4,6 +4,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
+			'j-hui/fidget.nvim',
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
