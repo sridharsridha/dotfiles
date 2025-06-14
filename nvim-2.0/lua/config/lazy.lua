@@ -65,12 +65,12 @@ require("lazy").setup("plugins", {
 		enabled = false,
 	},
 	ui = {
-		border = "none",
+		-- border = "none",
 		title = "lazy.nvim",
 		size = { width = 0.9, height = 0.9 },
-		icons = {},
+		-- icons = {},
 	},
 	change_detection = {
-		enabled = false,
+		-- enabled = false,
 	},
 })

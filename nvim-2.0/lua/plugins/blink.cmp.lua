@@ -17,19 +17,19 @@ return {
 				},
 				documentation = {
 					auto_show = true,
-					auto_show_delay_ms = 200,
-					window = {
-						border = go.border,
-					},
+					-- auto_show_delay_ms = 200,
+					-- window = {
+					-- 	border = go.border,
+					-- },
 				},
 				menu = {
 					scrollbar = false,
-					border = go.border,
-					draw = {
-						columns = {
-							{ "label", "label_description", gap = 1 },
-						},
-					},
+					-- border = go.border,
+					-- draw = {
+					-- 	columns = {
+					-- 		{ "label", "label_description", gap = 1 },
+					-- 	},
+					-- },
 				},
 			},
 		},

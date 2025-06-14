@@ -1,3 +1,3 @@
 return {
-	{ "nvim-tree/nvim-web-devicons", enabled = require("config/global").use_icons }, lazy=false,
+	{ "nvim-tree/nvim-web-devicons", enabled = require("config/global").use_icons,  lazy=false },
 }
