@@ -74,7 +74,7 @@ return {
 			{ "<c-w><space>", function() require("which-key").show({ keys = "<c-w>", loop = true }) end, desc = "Window Hydra" },
 
 			-- Diagnostic mappings
-			{ "<leader>xx", vim.diagnostic.open_float, desc = "Show Diagnostics" },
+			{ "<leader>xs", vim.diagnostic.open_float, desc = "Show Diagnostics" },
 		},
 	},
 }
