@@ -55,7 +55,7 @@ return {
 			{ "<leader>b?", function() require("which-key").show({ global = false }) end, desc = "Buffer Keymaps" },
 
 			-- Quit mappings
-			{ "<leader>qq", "<cmd>qa<cr>", desc = "Quit All" },
+			{ "<leader>q", "<cmd>qa!<cr>", desc = "Quit All" },
 			{ "q", "<cmd>q<cr>", desc = "Quit" },
 
 			-- Save mapping
