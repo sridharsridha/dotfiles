@@ -13,7 +13,7 @@ return {
 				"shfmt",
 			},
 			ui = {
-				border = "none",
+				border = require("config/global").border,
 				icons = {
 					package_installed = "✓",
 					package_pending = "➜",

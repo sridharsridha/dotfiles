@@ -13,6 +13,7 @@ return {
 					{ "<leader>c", group = "Code" },
 					{ "<leader>f", group = "Files" },
 					{ "<leader>g", group = "Git" },
+					{ "<leader>d", group = "DiffView" },
 					{ "<leader>gh", group = "Git hunk" },
 					{ "<leader>p", group = "Profile" },
 					{ "<leader>q", group = "Quit" },
