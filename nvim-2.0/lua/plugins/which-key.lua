@@ -6,7 +6,6 @@ return {
 		opts = {
 			preset = "helix",
 			notify = true,
-
 			delay = 400,
 			spec = {
 				{
