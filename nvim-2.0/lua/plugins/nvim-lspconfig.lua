@@ -21,7 +21,6 @@ return {
 					filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
 					capabilities = { offsetEncoding = "utf-8" },
 				},
-				pyright = {},
 				lua_ls = {
 					settings = {
 						Lua = {
