@@ -2,7 +2,7 @@ alias c='clear'
 alias rm='rm -i'
 alias cp='cp -iv'                            # Preferred 'cp' implementation
 alias mv='mv -iv'                            # Preferred 'mv' implementation
-alias grep='grep -n --color=auto'
+alias grep='grep --color=auto'
 
 # I like verbose in chmod & chown
 alias chmod='chmod -v'
