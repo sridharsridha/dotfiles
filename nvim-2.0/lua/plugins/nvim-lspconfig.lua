@@ -4,7 +4,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
-			'j-hui/fidget.nvim',
+			"j-hui/fidget.nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
@@ -38,10 +38,11 @@ return {
 								callSnippet = "Replace",
 							},
 							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							diagnostics = { globals = { "vim" }, disable = { 'missing-fields' } },
+							diagnostics = { globals = { "vim" }, disable = { "missing-fields" } },
 						},
 					},
 				},
+            -- basedpyright = {},
 			},
 			diagnostics = {
 				underline = true,
@@ -55,13 +56,77 @@ return {
 			inlay_hints = { enabled = true },
 		},
 		config = function(_, opts)
+         local configs = require('lspconfig.configs')
 			local lspconfig = require("lspconfig")
+			configs.argrok = {
+				default_config = {
+					cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
+					root_dir = function(_)
+						return "/src"
+					end,
+					settings = { debug = false },
+				},
+			}
+         lspconfig.argrok.setup({})
+
+			configs.arformatdiff = {
+				default_config = {
+					cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
+					root_dir = function(_)
+						return "/src"
+					end,
+					settings = { debug = false },
+					on_attach = function()
+						-- vim.keymap.set("n", "<leader>cf", function()
+						--    vim.lsp.buf.format({ timeout_ms = 50000 })
+						-- end, { desc = "LSP: " .. "[C]ode [F]ormat" })
+					end,
+				},
+			}
+			lspconfig.arformatdiff.setup({})
+
+			configs.arpylint = {
+				default_config = {
+					cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
+					root_dir = function(_)
+						return "/src"
+					end,
+					settings = { debug = false },
+					filetypes = { "python" },
+				},
+			}
+			lspconfig.arpylint.setup({})
+
+			configs.arex = {
+				default_config = {
+					cmd = { "/usr/bin/arexlsp" },
+					root_dir = function(_)
+						return "/src"
+					end,
+					filetypes = { "arx" },
+				},
+			}
+			lspconfig.arex.setup({})
+
+			configs.tacc = {
+				default_config = {
+					cmd = { "/usr/bin/artaclsp", "-I", "/bld/" },
+					root_dir = function(_)
+						return "/src"
+					end,
+					filetypes = { "tac" },
+				},
+			}
+			lspconfig.tacc.setup({})
+
 			for server, config in pairs(opts.servers) do
 				-- passing config.capabilities to blink.cmp merges with the capabilities in your
 				-- `opts[server].capabilities, if you've defined it
 				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
 				lspconfig[server].setup(config)
 			end
+
+			lspconfig.argrok.setup({})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("sri-lsp-attach", { clear = true }),
@@ -86,90 +151,44 @@ return {
 					map("n", "<leader>cd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to Definition" })
 					map("n", "<leader>cD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "Go to Declaration" })
 					map("n", "<leader>ch", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover" })
-					map("n", "<leader>ci", vim.lsp.buf.implementation, { buffer = event.buf, desc = "Go to Implementation" })
+					map(
+						"n",
+						"<leader>ci",
+						vim.lsp.buf.implementation,
+						{ buffer = event.buf, desc = "Go to Implementation" }
+					)
 					map("n", "<leader>cs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature Help" })
-					map("n", "<leader>cwa", vim.lsp.buf.add_workspace_folder, { buffer = event.buf, desc = "Add Workspace Folder" })
-					map("n", "<leader>cwr", vim.lsp.buf.remove_workspace_folder, { buffer = event.buf, desc = "Remove Workspace Folder" })
+					map(
+						"n",
+						"<leader>cwa",
+						vim.lsp.buf.add_workspace_folder,
+						{ buffer = event.buf, desc = "Add Workspace Folder" }
+					)
+					map(
+						"n",
+						"<leader>cwr",
+						vim.lsp.buf.remove_workspace_folder,
+						{ buffer = event.buf, desc = "Remove Workspace Folder" }
+					)
 					map("n", "<leader>cwl", function()
 						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 					end, { buffer = event.buf, desc = "List Workspace Folders" })
-					map("n", "<leader>ct", vim.lsp.buf.type_definition, { buffer = event.buf, desc = "Go to Type Definition" })
+					map(
+						"n",
+						"<leader>ct",
+						vim.lsp.buf.type_definition,
+						{ buffer = event.buf, desc = "Go to Type Definition" }
+					)
 					map("n", "<leader>cr", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename" })
-					map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Code Action" })
+					map(
+						{ "n", "v" },
+						"<leader>ca",
+						vim.lsp.buf.code_action,
+						{ buffer = event.buf, desc = "Code Action" }
+					)
 					map("n", "<leader>cf", function()
 						vim.lsp.buf.format({ async = true })
 					end, { buffer = event.buf, desc = "Format" })
-				end,
-			})
-
-			local sri_custom_lsp_start = vim.api.nvim_create_augroup("sri-custom-lsp-start", { clear = true })
-			-- Setup custom LSP servers for different filetypes.
-			-- Take a look at server configuration in nvim-lspconfig
-			-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-				group = sri_custom_lsp_start,
-				pattern = { "/src/**/*.tac" },
-				callback = function()
-					vim.lsp.start({
-						name = "tacc",
-						cmd = { "/usr/bin/artaclsp" },
-						cmd_args = { "-I", "/bld/" },
-						root_dir = "/src",
-					})
-				end,
-			})
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-				group = sri_custom_lsp_start,
-				pattern = { "/src/**/*.arx" },
-				callback = function()
-					vim.lsp.start({
-						name = "arex",
-						cmd = { "/usr/bin/arexlsp" },
-						root_dir = "/src",
-					})
-				end,
-			})
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-				group = sri_custom_lsp_start,
-				pattern = { "/src/**/*.py" },
-				callback = function()
-					vim.lsp.start({
-						name = "ar-pylint-ls",
-						cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
-						root_dir = "/src",
-						settings = { debug = false },
-					})
-				end,
-			})
-
-			vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-				group = sri_custom_lsp_start,
-				pattern = "/src/**",
-				callback = function()
-					vim.lsp.start({
-						name = "ar-formatdiff-ls",
-						cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
-						root_dir = "/src",
-						settings = { debug = false },
-						on_attach = function()
-							-- vim.keymap.set("n", "<leader>cf", function()
-							--    vim.lsp.buf.format({ timeout_ms = 50000 })
-							-- end, { desc = "LSP: " .. "[C]ode [F]ormat" })
-						end,
-					})
-				end,
-			})
-
-			vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-				group = sri_custom_lsp_start,
-				pattern = "/src/**",
-				callback = function()
-					vim.lsp.start({
-						name = "ar-grok-ls",
-						cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
-						root_dir = "/src",
-						settings = { debug = false },
-					})
 				end,
 			})
 		end,
