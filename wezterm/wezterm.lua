@@ -19,6 +19,7 @@ config.font_size = 13
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.99
 config.macos_window_background_blur = 20
+config.native_macos_fullscreen_mode = true
 
 -- Tabs
 config.enable_tab_bar = true
