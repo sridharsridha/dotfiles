@@ -16,7 +16,7 @@ opts.initial = function()
 	opt.shortmess:append("aoOt")
 	opt.cursorline = true
 	opt.number = true
-	opt.relativenumber = true
+	opt.relativenumber = false
 	opt.hlsearch = true
 	opt.inccommand = "split"
 	opt.swapfile = false
