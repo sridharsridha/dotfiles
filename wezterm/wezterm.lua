@@ -16,16 +16,16 @@ config.font = wezterm.font_with_fallback({
 config.font_size = 13
 
 -- Window
-config.window_decorations = "RESIZE"
+-- config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.99
 config.macos_window_background_blur = 20
-config.native_macos_fullscreen_mode = true
+-- config.native_macos_fullscreen_mode = true
 
 -- Tabs
 config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
-config.show_tab_index_in_tab_bar = false
-config.use_fancy_tab_bar = false
+-- config.hide_tab_bar_if_only_one_tab = true
+-- config.show_tab_index_in_tab_bar = false
+config.use_fancy_tab_bar = true
 
 -- Keymaps
 config.mouse_bindings = {
