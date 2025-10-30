@@ -13,14 +13,25 @@ source ~/.antigen.zsh
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
+# Optimize git prompt for remote servers
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Only check git status every 60 seconds instead of every command
+export GIT_PROMPT_CACHE_TIMEOUT=60
+
 # Load the theme.
 antigen theme robbyrussell
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
-antigen bundle command-not-found
+# command-not-found can be slow on some systems, skip if SSH
+if [[ -z "$SSH_CONNECTION" ]]; then
+  antigen bundle command-not-found
+fi
 antigen bundle fzf
-antigen bundle djui/alias-tips
+# Skip alias-tips on remote servers (can slow down prompts)
+if [[ -z "$SSH_CONNECTION" ]]; then
+  antigen bundle djui/alias-tips
+fi
 antigen bundle zsh-bat
 
 # Syntax highlighting bundle.
@@ -41,6 +52,7 @@ source ~/.zsh/exports.zsh
 source ~/.zsh/history.zsh
 source ~/.zsh/hooks.zsh
 source ~/.zsh/bindings.zsh
+source ~/.zsh/mosh-fixes.zsh
 
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
@@ -48,6 +60,36 @@ source ~/.zsh/bindings.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.zshrc.secure ] && source ~/.zshrc.secure
 
+# Lazy load NVM for faster shell startup
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  # Add nvm to PATH without loading it
+  export PATH="$NVM_DIR/versions/node/$(cat $NVM_DIR/alias/default 2>/dev/null || echo 'system')/bin:$PATH"
+
+  # Lazy load nvm only when called
+  nvm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    nvm "$@"
+  }
+
+  # Lazy load node/npm/npx to trigger nvm load
+  node() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    node "$@"
+  }
+
+  npm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npm "$@"
+  }
+
+  npx() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npx "$@"
+  }
+fi

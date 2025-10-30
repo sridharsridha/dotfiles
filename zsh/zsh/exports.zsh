@@ -23,6 +23,30 @@ export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=green,standout' # bold
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,underline'
 export HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
 
+# Fix zsh-autosuggestions rendering with mosh
+# Mosh's prediction can interfere with autosuggestions
+if [[ -n "$SSH_CONNECTION" ]] || [[ -n "$MOSH_CONNECTION" ]]; then
+  # Use a more visible color for suggestions over mosh
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+
+  # Use async mode to prevent blocking
+  export ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+  # Clear suggestion when using mosh prediction
+  export ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
+    "expand-or-complete"
+    "accept-line"
+    "push-line"
+    "push-line-or-edit"
+  )
+
+  # Strategy: use history first, then completion
+  export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+  # Buffer max size to prevent slowdown
+  export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+fi
+
 # Paths {{{
 ###########
 paths=( \
