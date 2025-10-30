@@ -6,3 +6,4 @@ bash/fzf/
 zsh/*.zwc
 *DS_Store
 *lazy-lock.json
+.luarc.json
