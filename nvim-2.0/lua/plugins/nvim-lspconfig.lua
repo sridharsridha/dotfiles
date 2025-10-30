@@ -58,66 +58,82 @@ return {
 		config = function(_, opts)
          local configs = require('lspconfig.configs')
 			local lspconfig = require("lspconfig")
-			configs.argrok = {
-				default_config = {
-					cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					settings = { debug = false },
-				},
-			}
-         lspconfig.argrok.setup({})
 
-			configs.arformatdiff = {
-				default_config = {
-					cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					settings = { debug = false },
-					on_attach = function()
-						-- vim.keymap.set("n", "<leader>cf", function()
-						--    vim.lsp.buf.format({ timeout_ms = 50000 })
-						-- end, { desc = "LSP: " .. "[C]ode [F]ormat" })
-					end,
-				},
-			}
-			lspconfig.arformatdiff.setup({})
+			-- Only setup ar-grok-ls if executable exists
+			if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-grok-ls") == 1 then
+				configs.argrok = {
+					default_config = {
+						cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
+						root_dir = function(_)
+							return "/src"
+						end,
+						settings = { debug = false },
+					},
+				}
+				lspconfig.argrok.setup({})
+			end
 
-			configs.arpylint = {
-				default_config = {
-					cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					settings = { debug = false },
-					filetypes = { "python" },
-				},
-			}
-			lspconfig.arpylint.setup({})
+			-- Only setup ar-formatdiff-ls if executable exists
+			if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-formatdiff-ls") == 1 then
+				configs.arformatdiff = {
+					default_config = {
+						cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
+						root_dir = function(_)
+							return "/src"
+						end,
+						settings = { debug = false },
+						on_attach = function()
+							-- vim.keymap.set("n", "<leader>cf", function()
+							--    vim.lsp.buf.format({ timeout_ms = 50000 })
+							-- end, { desc = "LSP: " .. "[C]ode [F]ormat" })
+						end,
+					},
+				}
+				lspconfig.arformatdiff.setup({})
+			end
 
-			configs.arex = {
-				default_config = {
-					cmd = { "/usr/bin/arexlsp" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					filetypes = { "arx" },
-				},
-			}
-			lspconfig.arex.setup({})
+			-- Only setup ar-pylint-ls if executable exists
+			if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-pylint-ls") == 1 then
+				configs.arpylint = {
+					default_config = {
+						cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
+						root_dir = function(_)
+							return "/src"
+						end,
+						settings = { debug = false },
+						filetypes = { "python" },
+					},
+				}
+				lspconfig.arpylint.setup({})
+			end
 
-			configs.tacc = {
-				default_config = {
-					cmd = { "/usr/bin/artaclsp", "-I", "/bld/" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					filetypes = { "tac" },
-				},
-			}
-			lspconfig.tacc.setup({})
+			-- Only setup arexlsp if executable exists
+			if vim.fn.executable("/usr/bin/arexlsp") == 1 then
+				configs.arex = {
+					default_config = {
+						cmd = { "/usr/bin/arexlsp" },
+						root_dir = function(_)
+							return "/src"
+						end,
+						filetypes = { "arx" },
+					},
+				}
+				lspconfig.arex.setup({})
+			end
+
+			-- Only setup artaclsp if executable exists
+			if vim.fn.executable("/usr/bin/artaclsp") == 1 then
+				configs.tacc = {
+					default_config = {
+						cmd = { "/usr/bin/artaclsp", "-I", "/bld/" },
+						root_dir = function(_)
+							return "/src"
+						end,
+						filetypes = { "tac" },
+					},
+				}
+				lspconfig.tacc.setup({})
+			end
 
 			for server, config in pairs(opts.servers) do
 				-- passing config.capabilities to blink.cmp merges with the capabilities in your
@@ -125,8 +141,6 @@ return {
 				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
 				lspconfig[server].setup(config)
 			end
-
-			lspconfig.argrok.setup({})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("sri-lsp-attach", { clear = true }),
