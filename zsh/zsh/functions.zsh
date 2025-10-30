@@ -211,3 +211,13 @@ function timezsh() {
   for i in $(seq 1 10); do time $shell -i -c exit; done
 }
 
+function gcauth() {
+   gcloud auth application-default login
+   gcloud auth application-default set-quota-project ${GOOGLE_CLOUD_PROJECT}
+}
+
+function gcautht() {
+   gcloud auth application-default login --no-launch-browser
+   gcloud auth application-default set-quota-project ${GOOGLE_CLOUD_PROJECT}
+}
+

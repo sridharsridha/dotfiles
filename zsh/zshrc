@@ -46,7 +46,7 @@ source ~/.zsh/bindings.zsh
 
 # Local configuration
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
+[ -f ~/.zshrc.secure ] && source ~/.zshrc.secure
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

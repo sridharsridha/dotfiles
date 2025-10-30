@@ -29,10 +29,11 @@ paths=( \
 	.\
 	~\
 	~/bin\
-   ~/.bin\
+	~/.bin\
 	~/.dotfiles/bin\
 	~/scripts\
-   ~/.local/bin\
+	~/.local/bin\
+	/opt/homebrew/bin\
 	/opt/local/bin\
 	/usr/local/bin\
 	/usr/bin\
