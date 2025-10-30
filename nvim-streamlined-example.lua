@@ -115,23 +115,49 @@ require("lazy").setup({
       end
 
       -- Work-specific LSPs (only if available)
-      local work_lsps = {
-        { cmd = "/home/sridharn/bin/artoolslsp/ar-grok-ls", name = "argrok" },
-        { cmd = "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls", name = "arformatdiff" },
-        { cmd = "/home/sridharn/bin/artoolslsp/ar-pylint-ls", name = "arpylint" },
-      }
+      local configs = require('lspconfig.configs')
 
-      for _, lsp in ipairs(work_lsps) do
-        if vim.fn.executable(lsp.cmd) == 1 then
-          lspconfig[lsp.name] = {
-            default_config = {
-              cmd = { lsp.cmd },
-              root_dir = function() return "/src" end,
-              filetypes = lsp.name == "arpylint" and { "python" } or {},
-            },
-          }
-          lspconfig[lsp.name].setup({})
-        end
+      -- Define and setup ar-grok-ls if available
+      if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-grok-ls") == 1 then
+        configs.argrok = {
+          default_config = {
+            cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
+            root_dir = function() return "/src" end,
+            settings = { debug = false },
+          },
+        }
+        lspconfig.argrok.setup({
+          capabilities = require("blink.cmp").get_lsp_capabilities(),
+        })
+      end
+
+      -- Define and setup ar-formatdiff-ls if available
+      if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-formatdiff-ls") == 1 then
+        configs.arformatdiff = {
+          default_config = {
+            cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
+            root_dir = function() return "/src" end,
+            settings = { debug = false },
+          },
+        }
+        lspconfig.arformatdiff.setup({
+          capabilities = require("blink.cmp").get_lsp_capabilities(),
+        })
+      end
+
+      -- Define and setup ar-pylint-ls if available
+      if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-pylint-ls") == 1 then
+        configs.arpylint = {
+          default_config = {
+            cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
+            root_dir = function() return "/src" end,
+            settings = { debug = false },
+            filetypes = { "python" },
+          },
+        }
+        lspconfig.arpylint.setup({
+          capabilities = require("blink.cmp").get_lsp_capabilities(),
+        })
       end
 
       -- LSP keymaps
