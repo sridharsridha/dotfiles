@@ -1,60 +1,98 @@
 local opt = vim.opt
----@class vim.var_accessor
 local g = vim.g
 local gl = require("config/global")
 
 local opts = {}
 
 opts.initial = function()
-	opt.path:append("**")
-	opt.pumblend = 0
-	opt.showmode = false
-	opt.lazyredraw = false
-	opt.clipboard = "unnamed,unnamedplus"
-	opt.termguicolors = true
-	opt.laststatus = 2
-	opt.shortmess:append("aoOt")
-	opt.cursorline = true
-	opt.number = true
-	opt.relativenumber = false
-	opt.hlsearch = true
-	opt.inccommand = "split"
-	opt.swapfile = false
-	opt.undofile = true
-	opt.undodir = vim.fn.stdpath("data") .. "/undodir"
-	opt.cmdheight = 1
-	opt.completeopt = { "menuone", "noselect", "noinsert" }
-	opt.ignorecase = true
-	opt.smartcase = true
-	opt.timeoutlen = 200
-	opt.updatetime = 300
-	opt.splitbelow = true
-	opt.splitright = true
-	opt.scrolloff = 8
-	opt.signcolumn = "yes"
-	opt.tabstop = gl.indent
-	opt.shiftwidth = gl.indent
-	opt.expandtab = true
-	g.mapleader = gl.mapleader
+	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ Leader Key Configuration                                │
+	-- ╰─────────────────────────────────────────────────────────╯
+	g.mapleader = gl.mapleader -- Space as leader key (custom)
+
+	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ File & Search Settings                                  │
+	-- ╰─────────────────────────────────────────────────────────╯
+	opt.path:append("**") -- Search recursively in subdirectories (custom)
+	opt.ignorecase = true -- Case-insensitive search
+	opt.smartcase = true -- Override ignorecase if search has uppercase
+	opt.hlsearch = true -- Highlight search results (default, but explicit for clarity)
+	opt.inccommand = "split" -- Show substitution results in split preview
+
+	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ UI & Visual Settings                                    │
+	-- ╰─────────────────────────────────────────────────────────╯
+	opt.pumblend = 0 -- No transparency in popup menus (custom preference)
+	opt.showmode = false -- Don't show mode (using lualine instead)
+	opt.termguicolors = true -- Enable 24-bit RGB colors
+	opt.cursorline = true -- Highlight current line
+	opt.number = true -- Show line numbers
+	-- opt.relativenumber = false -- Default is false, removed redundancy
+	opt.scrolloff = 8 -- Keep 8 lines visible above/below cursor
+	opt.signcolumn = "yes" -- Always show sign column to prevent shifting
+	-- opt.laststatus = 2 -- Default is 2, removed redundancy
+
+	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ Editor Behavior                                         │
+	-- ╰─────────────────────────────────────────────────────────╯
+	opt.clipboard = "unnamed,unnamedplus" -- Use system clipboard (custom preference)
+	opt.completeopt = { "menuone", "noselect", "noinsert" } -- Better completion experience
+	opt.shortmess:append("aoOt") -- Shorter messages (custom: a=abbreviate, o=overwrite, O=file read, t=truncate)
+	opt.timeoutlen = 200 -- Faster key sequence completion (custom: default is 1000)
+	opt.updatetime = 300 -- Faster CursorHold events (custom: default is 4000)
+
+	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ Splits Configuration                                    │
+	-- ╰─────────────────────────────────────────────────────────╯
+	opt.splitbelow = true -- Horizontal splits go below
+	opt.splitright = true -- Vertical splits go right
+
+	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ Indentation Settings                                    │
+	-- ╰─────────────────────────────────────────────────────────╯
+	opt.tabstop = gl.indent -- Tab width (custom: 3 spaces from global config)
+	opt.shiftwidth = gl.indent -- Indent width (custom: 3 spaces from global config)
+	opt.expandtab = true -- Use spaces instead of tabs
+
+	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ Backup & Undo Settings                                  │
+	-- ╰─────────────────────────────────────────────────────────╯
+	opt.swapfile = false -- Disable swap files (custom preference)
+	opt.undofile = true -- Enable persistent undo
+	opt.undodir = vim.fn.stdpath("data") .. "/undodir" -- Custom undo directory
+
+	-- Note: Removed redundant defaults:
+	-- - lazyredraw = false (default)
+	-- - cmdheight = 1 (default)
+	-- - laststatus = 2 (default)
+	-- - relativenumber = false (default)
 end
 
---- Load shada after ui-enter
+-- ╭─────────────────────────────────────────────────────────╮
+-- │ Performance Optimization: Lazy Shada Loading            │
+-- ╰─────────────────────────────────────────────────────────╯
+-- Custom optimization: Defer shada (shared data) file loading
+-- to speed up startup time. Shada stores command history, marks, etc.
 local shada = vim.o.shada
-vim.o.shada = ""
+vim.o.shada = "" -- Temporarily disable shada
 vim.api.nvim_create_autocmd("User", {
 	pattern = "VeryLazy",
 	callback = function()
-		vim.o.shada = shada
-		pcall(vim.cmd.rshada, { bang = true })
+		vim.o.shada = shada -- Restore shada settings
+		pcall(vim.cmd.rshada, { bang = true }) -- Read shada file
 	end,
 })
 
+-- ╭─────────────────────────────────────────────────────────╮
+-- │ Diagnostic Display Configuration                        │
+-- ╰─────────────────────────────────────────────────────────╯
+-- Custom diagnostic formatting for cleaner inline messages
 vim.diagnostic.config({
 	virtual_text = {
-		prefix = "",
-		suffix = "",
+		prefix = "", -- No prefix icon (custom preference)
+		suffix = "", -- No suffix (custom preference)
 		format = function(diagnostic)
-			return "- " .. diagnostic.message .. " "
+			return "- " .. diagnostic.message .. " " -- Custom format with dash prefix
 		end,
 	},
 })

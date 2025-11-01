@@ -1,192 +1,436 @@
+-- ╭─────────────────────────────────────────────────────────╮
+-- │ LSP Configuration                                       │
+-- │ Language Server Protocol setup for code intelligence    │
+-- ╰─────────────────────────────────────────────────────────╯
+
 return {
-
-	{ -- LSP Configuration & Plugins
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"j-hui/fidget.nvim",
-		},
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {
-			servers = {
-				clangd = {
-					cmd = {
-						"/usr/bin/clangd",
-						"--pretty",
-						"-j=40",
-						"--pch-storage=memory",
-						"--clang-tidy",
-						"--compile-commands-dir=/src",
-					},
-					filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-					capabilities = { offsetEncoding = "utf-8" },
-				},
-				lua_ls = {
-					settings = {
-						Lua = {
-							runtime = { version = "LuaJIT" },
-							workspace = {
-								checkThirdParty = false,
-								-- Tells lua_ls where to find all the Lua files that you have loaded
-								-- for your neovim configuration.
-								library = {
-									"${3rd}/luv/library",
-									unpack(vim.api.nvim_get_runtime_file("", true)),
-								},
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							diagnostics = { globals = { "vim" }, disable = { "missing-fields" } },
-						},
-					},
-				},
-            -- basedpyright = {},
-			},
-			diagnostics = {
-				underline = true,
-				update_in_insert = true,
-				virtual_text = {
-					spacing = 4,
-					source = "if_many",
-				},
-				severity_sort = true,
-			},
-			inlay_hints = { enabled = true },
-		},
-		config = function(_, opts)
-			-- Only setup ar-grok-ls if executable exists
-			if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-grok-ls") == 1 then
-				vim.lsp.config("argrok", {
-					cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					settings = { debug = false },
-				})
-				vim.lsp.enable("argrok")
-			end
-
-			-- Only setup ar-formatdiff-ls if executable exists
-			if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-formatdiff-ls") == 1 then
-				vim.lsp.config("arformatdiff", {
-					cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					settings = { debug = false },
-				})
-				vim.lsp.enable("arformatdiff")
-			end
-
-			-- Only setup ar-pylint-ls if executable exists
-			if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-pylint-ls") == 1 then
-				vim.lsp.config("arpylint", {
-					cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					settings = { debug = false },
-					filetypes = { "python" },
-				})
-				vim.lsp.enable("arpylint")
-			end
-
-			-- Only setup arexlsp if executable exists
-			if vim.fn.executable("/usr/bin/arexlsp") == 1 then
-				vim.lsp.config("arex", {
-					cmd = { "/usr/bin/arexlsp" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					filetypes = { "arx" },
-				})
-				vim.lsp.enable("arex")
-			end
-
-			-- Only setup artaclsp if executable exists
-			if vim.fn.executable("/usr/bin/artaclsp") == 1 then
-				vim.lsp.config("tacc", {
-					cmd = { "/usr/bin/artaclsp", "-I", "/bld/" },
-					root_dir = function(_)
-						return "/src"
-					end,
-					filetypes = { "tac" },
-				})
-				vim.lsp.enable("tacc")
-			end
-
-			for server, config in pairs(opts.servers) do
-				-- passing config.capabilities to blink.cmp merges with the capabilities in your
-				-- `opts[server].capabilities, if you've defined it
-				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-				vim.lsp.enable(server, config)
-			end
-
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("sri-lsp-attach", { clear = true }),
-				callback = function(event)
-					local map = vim.keymap.set
-					-- The following two autocommands are used to highlight references of the
-					-- word under your cursor when your cursor rests there for a little while.
-					--    See `:help CursorHold` for information about when this is executed
-					-- When you move your cursor, the highlights will be cleared (the second autocommand).
-					local client = vim.lsp.get_client_by_id(event.data.client_id)
-					if client and client.server_capabilities.documentHighlightProvider then
-						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-							buffer = event.buf,
-							callback = vim.lsp.buf.document_highlight,
-						})
-						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-							buffer = event.buf,
-							callback = vim.lsp.buf.clear_references,
-						})
-					end
-
-					map("n", "<leader>cd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to Definition" })
-					map("n", "<leader>cD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "Go to Declaration" })
-					map("n", "<leader>ch", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover" })
-					map(
-						"n",
-						"<leader>ci",
-						vim.lsp.buf.implementation,
-						{ buffer = event.buf, desc = "Go to Implementation" }
-					)
-					map("n", "<leader>cs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature Help" })
-					map(
-						"n",
-						"<leader>cwa",
-						vim.lsp.buf.add_workspace_folder,
-						{ buffer = event.buf, desc = "Add Workspace Folder" }
-					)
-					map(
-						"n",
-						"<leader>cwr",
-						vim.lsp.buf.remove_workspace_folder,
-						{ buffer = event.buf, desc = "Remove Workspace Folder" }
-					)
-					map("n", "<leader>cwl", function()
-						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					end, { buffer = event.buf, desc = "List Workspace Folders" })
-					map(
-						"n",
-						"<leader>ct",
-						vim.lsp.buf.type_definition,
-						{ buffer = event.buf, desc = "Go to Type Definition" }
-					)
-					map("n", "<leader>cr", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename" })
-					map(
-						{ "n", "v" },
-						"<leader>ca",
-						vim.lsp.buf.code_action,
-						{ buffer = event.buf, desc = "Code Action" }
-					)
-					map("n", "<leader>cf", function()
-						vim.lsp.buf.format({ async = true })
-					end, { buffer = event.buf, desc = "Format" })
-				end,
-			})
-		end,
+	"neovim/nvim-lspconfig",
+	event = { "BufReadPre", "BufNewFile" }, -- Load on file open
+	dependencies = {
+		"williamboman/mason.nvim",            -- LSP installer
+		"williamboman/mason-lspconfig.nvim",  -- Mason-LSPConfig bridge
+		"saghen/blink.cmp",                   -- For LSP capabilities
 	},
+	config = function()
+		local keymap = vim.keymap
+
+		-- ╭─────────────────────────────────────────────────────────╮
+		-- │ LSP Attach Autocommand                                  │
+		-- │ Set up keymaps and features when LSP attaches to buffer │
+		-- ╰─────────────────────────────────────────────────────────╯
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("UserLspMapping", { clear = true }),
+			callback = function(ev)
+				-- Buffer local mappings
+				local opts = { buffer = ev.buf, silent = true }
+
+				-- -- Enable completion triggered by <c-x><c-o>
+				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+				local client = vim.lsp.get_client_by_id(ev.data.client_id)
+				if client and client.server_capabilities.documentHighlightProvider then
+					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+						buffer = ev.buf,
+						group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true }),
+						callback = vim.lsp.buf.document_highlight,
+					})
+					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+						buffer = ev.buf,
+						group = vim.api.nvim_create_augroup("lsp_document_highlight_clear", { clear = true }),
+						callback = vim.lsp.buf.clear_references,
+					})
+				end
+
+				-- Navigation
+				opts.desc = "Go to declaration"
+				keymap.set("n", "<leader>cD", vim.lsp.buf.declaration, opts)
+
+				opts.desc = "Show LSP definitions"
+				keymap.set("n", "<leader>cd", vim.lsp.buf.definition, opts)
+
+				opts.desc = "Show LSP implementations"
+				keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, opts)
+
+				opts.desc = "Show LSP type definitions"
+				keymap.set("n", "<leader>ct", vim.lsp.buf.type_definition, opts)
+
+				opts.desc = "Show LSP references"
+				keymap.set("n", "<leader>cr", vim.lsp.buf.references, opts)
+
+				-- Code actions
+				opts.desc = "Show available code actions"
+				keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+
+				opts.desc = "Smart rename"
+				keymap.set("n", "<leader>cR", vim.lsp.buf.rename, opts)
+
+				-- Diagnostics
+				opts.desc = "Show line diagnostics"
+				keymap.set("n", "<leader>dd", vim.diagnostic.open_float, opts)
+
+				opts.desc = "Go to previous diagnostic"
+				keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, opts)
+
+				opts.desc = "Go to next diagnostic"
+				keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, opts)
+
+				opts.desc = "Show buffer diagnostics"
+				keymap.set("n", "<leader>D", vim.diagnostic.setloclist, opts)
+
+				-- Documentation
+				opts.desc = "Show documentation for what is under cursor"
+				keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+				opts.desc = "Show signature help"
+				keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
+
+				-- Workspace
+				opts.desc = "Add workspace folder"
+				keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
+
+				opts.desc = "Remove workspace folder"
+				keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+
+				opts.desc = "List workspace folders"
+				keymap.set("n", "<leader>wl", function()
+					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+				end, opts)
+
+				-- Formatting
+				opts.desc = "Format document"
+				keymap.set("n", "<leader>cf", function()
+					vim.lsp.buf.format({ async = true })
+				end, opts)
+
+				-- LSP management
+				opts.desc = "Restart LSP"
+				keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", opts)
+
+				opts.desc = "LSP Info"
+				keymap.set("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
+
+				-- Inlay hints toggle
+				local client = vim.lsp.get_client_by_id(ev.data.client_id)
+				if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+					opts.desc = "Toggle inlay hints"
+					keymap.set("n", "<leader>ih", function()
+						vim.lsp.inlay_hint.enable(
+							not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
+							{ bufnr = ev.buf }
+						)
+					end, opts)
+				end
+			end,
+		})
+
+		-- ╭─────────────────────────────────────────────────────────╮
+		-- │ LSP Capabilities Setup                                  │
+		-- │ Configure completion and snippet support                │
+		-- ╰─────────────────────────────────────────────────────────╯
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		-- Extend with blink.cmp capabilities for better completion
+		capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+		-- ╭─────────────────────────────────────────────────────────╮
+		-- │ Diagnostic Configuration                                │
+		-- │ Customize how errors and warnings are displayed         │
+		-- ╰─────────────────────────────────────────────────────────╯
+		local x = vim.diagnostic.severity
+		vim.diagnostic.config({
+			virtual_text = { prefix = "●" },
+			signs = {
+				text = {
+					[x.ERROR] = " ",
+					[x.WARN] = " ",
+					[x.HINT] = " ",
+					[x.INFO] = " ",
+				},
+			},
+			underline = true,
+			float = {
+				focusable = false,
+				style = "minimal",
+				border = "rounded",
+				source = true,
+				header = "",
+				prefix = "",
+			},
+			severity_sort = true,
+			update_in_insert = false,
+		})
+
+		-- Enable inlay hints globally (custom preference)
+		if vim.lsp.inlay_hint then
+			vim.lsp.inlay_hint.enable(true)
+		end
+
+		-- ╭─────────────────────────────────────────────────────────╮
+		-- │ LSP Server Configurations                               │
+		-- │ Using native vim.lsp.config API (Neovim 0.11+)          │
+		-- ╰─────────────────────────────────────────────────────────╯
+
+		-- ════════════════════════════════════════════════════════════
+		-- Arista Custom Language Servers
+		-- Company-specific LSP servers for internal languages
+		-- ════════════════════════════════════════════════════════════
+
+		-- ArGrok - Arista code navigation and search
+		vim.lsp.config("argrok", {
+			cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
+			filetypes = { "c", "cpp", "python" },
+			root_dir = "/src/",
+			settings = { debug = false },
+			capabilities = capabilities,
+		})
+
+		-- ArFormatDiff - Arista format checking
+		vim.lsp.config("arformatdiff", {
+			cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
+			filetypes = { "c", "cpp", "python" },
+			root_dir = "/src/",
+			settings = { debug = false },
+			capabilities = capabilities,
+		})
+
+		-- ArPylint - Arista Python linting
+		vim.lsp.config("arpylint", {
+			cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
+			filetypes = { "python" },
+			root_dir = "/src/",
+			settings = { debug = false },
+			capabilities = capabilities,
+		})
+
+		-- ArEx - Arista ARX language server
+		vim.lsp.config("arex", {
+			cmd = { "/usr/bin/arexlsp" },
+			filetypes = { "arx" },
+			root_dir = "/src/",
+			capabilities = capabilities,
+		})
+
+		-- TACC - Arista TAC language server
+		vim.lsp.config("tacc", {
+			cmd = { "/usr/bin/artaclsp", "-I", "/bld/" }, -- Include build directory
+			filetypes = { "tac" },
+			root_dir = "/src/",
+			capabilities = capabilities,
+		})
+
+		-- ════════════════════════════════════════════════════════════
+		-- Standard Language Servers
+		-- General-purpose LSP servers with custom configurations
+		-- ════════════════════════════════════════════════════════════
+
+		-- Clangd - C/C++ language server with Arista-specific settings
+		vim.lsp.config("clangd", {
+			cmd = {
+				"/usr/bin/clangd",
+				"--background-index",
+				"--clang-tidy",
+				"--header-insertion=iwyu",
+				"--completion-style=detailed",
+				"--function-arg-placeholders",
+				"--fallback-style=llvm",
+				"--pch-storage=memory",
+				"--compile-commands-dir=/src",
+				"--offset-encoding=utf-16",
+				"-j=40",
+				"--pretty",
+			},
+			init_options = {
+				usePlaceholders = true,
+				completeUnimported = true,
+				clangdFileStatus = true,
+			},
+			root_dir = "/src/",
+			capabilities = vim.tbl_deep_extend("force", capabilities, {
+				offsetEncoding = { "utf-16" },
+			}),
+		})
+
+		-- Lua Language Server - For Neovim config and Lua development
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					runtime = {
+						version = "LuaJIT", -- Neovim uses LuaJIT
+					},
+					diagnostics = {
+						globals = { "vim" }, -- Recognize vim global
+						disable = { "missing-fields" }, -- Too noisy
+					},
+					workspace = {
+						checkThirdParty = false, -- Don't prompt about third-party
+						library = vim.api.nvim_get_runtime_file("", true), -- Include Neovim runtime
+					},
+					completion = {
+						callSnippet = "Replace", -- Better snippet behavior
+					},
+					telemetry = {
+						enable = false, -- Privacy
+					},
+				},
+			},
+			capabilities = capabilities,
+		})
+
+		-- Basedpyright - Minimal config for basic Python support
+		-- Most linting/formatting handled by Ruff for better performance
+		vim.lsp.config("basedpyright", {
+			settings = {
+				basedpyright = {
+					analysis = {
+						ignore = { "*" },
+						typeCheckingMode = "off",
+						-- Disable all heavy analysis features
+						autoSearchPaths = false,
+						useLibraryCodeForTypes = false,
+						diagnosticMode = "openFilesOnly",
+						autoImportCompletions = false,
+						indexing = false,
+					},
+					disableOrganizeImports = true, -- Let Ruff handle this
+					disableTaggedHints = true,
+				},
+			},
+			root_dir = "/src/",
+			capabilities = capabilities,
+		})
+
+		-- Ruff - Native fast Python linter and formatter
+		-- Much faster than traditional Python linters, optimized for large codebases
+		vim.lsp.config("ruff", {
+			cmd = { "ruff", "server" },
+			filetypes = { "python" },
+			root_dir = "/src/",
+			settings = {
+				-- Ruff server configuration
+				-- See: https://docs.astral.sh/ruff/editors/settings/
+				lint = {
+					enable = true,
+				},
+				format = {
+					enable = true,
+				},
+				organizeImports = {
+					enable = true,
+				},
+			},
+			capabilities = capabilities,
+		})
+
+		-- Python LSP (pylsp) - Fast, lightweight Python language server
+		-- Install with: pip install python-lsp-server[all]
+		vim.lsp.config("pylsp", {
+			cmd = { "pylsp" },
+			filetypes = { "python" },
+			root_dir = "/src/",
+			settings = {
+				pylsp = {
+					plugins = {
+						-- Disable heavy plugins for better performance
+						pylint = { enabled = false },
+						pyflakes = { enabled = false },
+						pycodestyle = { enabled = false },
+						mccabe = { enabled = false },
+						rope_autoimport = { enabled = false },
+						rope_completion = { enabled = false },
+						-- Keep only essential features
+						jedi_completion = {
+							enabled = true,
+							include_params = true,
+							fuzzy = true,
+						},
+						jedi_hover = { enabled = true },
+						jedi_references = { enabled = true },
+						jedi_signature_help = { enabled = true },
+						jedi_symbols = { enabled = true },
+					},
+				},
+			},
+			capabilities = capabilities,
+		})
+
+		-- Jedi Language Server - Lightweight Python LSP alternative to basedpyright
+		-- Uncomment to use instead of basedpyright for better performance on large codebases
+		-- vim.lsp.config("jedi_language_server", {
+		-- 	cmd = { "jedi-language-server" },
+		-- 	filetypes = { "python" },
+		-- 	root_dir = "/src/",
+		-- 	init_options = {
+		-- 		completion = {
+		-- 			disableSnippets = false,
+		-- 			resolveEagerly = false,
+		-- 		},
+		-- 		diagnostics = {
+		-- 			enable = false, -- Let Ruff handle diagnostics
+		-- 		},
+		-- 		hover = {
+		-- 			enable = true,
+		-- 		},
+		-- 		workspace = {
+		-- 			symbols = {
+		-- 				maxSymbols = 20,
+		-- 			},
+		-- 		},
+		-- 	},
+		-- 	capabilities = capabilities,
+		-- })
+
+		-- ╭─────────────────────────────────────────────────────────╮
+		-- │ LSP Server Enablement                                   │
+		-- │ Activate configured servers with conditional checks     │
+		-- ╰─────────────────────────────────────────────────────────╯
+
+		-- Standard servers (always enable, assume they're installed via Mason)
+		vim.lsp.enable("clangd")
+		vim.lsp.enable("lua_ls")
+
+		-- Python LSP configuration
+		-- Choose ONE of the following Python language servers based on your needs:
+		-- 1. basedpyright - Feature-rich but can be slow on large codebases
+		-- 2. pylsp - Fast and lightweight, good balance of features
+		-- 3. jedi_language_server - Minimal and fast
+
+		-- Option 1: basedpyright (default)
+		vim.lsp.enable("basedpyright")
+
+		-- Option 2: pylsp (uncomment to use instead of basedpyright)
+		-- if vim.fn.executable("pylsp") == 1 then
+		-- 	vim.lsp.enable("pylsp")
+		-- end
+
+		-- Option 3: jedi_language_server (uncomment to use instead of basedpyright)
+		-- if vim.fn.executable("jedi-language-server") == 1 then
+		-- 	vim.lsp.enable("jedi_language_server")
+		-- end
+
+		-- Ruff - Fast Python linter/formatter (can be used alongside any Python LSP)
+		-- Uses the native ruff server (ruff >= 0.5.0)
+		if vim.fn.executable("ruff") == 1 then
+			vim.lsp.enable("ruff")
+		end
+
+		-- Arista custom servers (only enable if executable exists)
+		if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-grok-ls") == 1 then
+			vim.lsp.enable("argrok")
+		end
+
+		if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-formatdiff-ls") == 1 then
+			vim.lsp.enable("arformatdiff")
+		end
+
+		if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-pylint-ls") == 1 then
+			vim.lsp.enable("arpylint")
+		end
+
+		if vim.fn.executable("/usr/bin/arexlsp") == 1 then
+			vim.lsp.enable("arex")
+		end
+
+		if vim.fn.executable("/usr/bin/artaclsp") == 1 then
+			vim.lsp.enable("tacc")
+		end
+	end,
 }
