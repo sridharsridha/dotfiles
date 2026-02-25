@@ -58,6 +58,9 @@ paths=( \
 	~/bin\
 	~/.bin\
 	~/.dotfiles/bin\
+   ~/dotfiles/bin\
+   ~/.dotfiles/scripts\
+   ~/dotfiles/scripts\
 	~/scripts\
 	~/.local/bin\
 	/opt/homebrew/bin\
