@@ -1,3 +1,4 @@
+[[ -o interactive ]] || exit 0
 # fzf oh-my-zsh plugin needs fzf to be installed already.
 # FZF installation
 export FZF_BASE=$HOME/.fzf

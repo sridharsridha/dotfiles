@@ -81,7 +81,7 @@ return {
 				keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
 				opts.desc = "Show signature help"
-				keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
+				keymap.set({ "n", "i" }, "<C-S>", vim.lsp.buf.signature_help, opts)
 
 				-- Workspace
 				opts.desc = "Add workspace folder"
@@ -96,10 +96,10 @@ return {
 				end, opts)
 
 				-- Formatting
-				opts.desc = "Format document"
-				keymap.set("n", "<leader>cf", function()
-					vim.lsp.buf.format({ async = true })
-				end, opts)
+				-- opts.desc = "Format document"
+				-- keymap.set("n", "<leader>cf", function()
+				-- 	vim.lsp.buf.format({ async = true })
+				-- end, opts)
 
 				-- LSP management
 				opts.desc = "Restart LSP"
@@ -175,31 +175,31 @@ return {
 		-- ════════════════════════════════════════════════════════════
 
 		-- ArGrok - Arista code navigation and search
-		vim.lsp.config("argrok", {
-			cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
-			filetypes = { "c", "cpp", "python" },
-			root_dir = "/src/",
-			settings = { debug = false },
-			capabilities = capabilities,
-		})
+		-- vim.lsp.config("argrok", {
+		-- 	cmd = { "/home/sridharn/bin/artoolslsp/ar-grok-ls" },
+		-- 	filetypes = { "c", "cpp", "python" },
+		-- 	root_dir = "/src/",
+		-- 	settings = { debug = false },
+		-- 	capabilities = capabilities,
+		-- })
 
 		-- ArFormatDiff - Arista format checking
-		vim.lsp.config("arformatdiff", {
-			cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
-			filetypes = { "c", "cpp", "python" },
-			root_dir = "/src/",
-			settings = { debug = false },
-			capabilities = capabilities,
-		})
+		-- vim.lsp.config("arformatdiff", {
+		-- 	cmd = { "/home/sridharn/bin/artoolslsp/ar-formatdiff-ls" },
+		-- 	filetypes = { "c", "cpp", "python" },
+		-- 	root_dir = "/src/",
+		-- 	settings = { debug = false },
+		-- 	capabilities = capabilities,
+		-- })
 
 		-- ArPylint - Arista Python linting
-		vim.lsp.config("arpylint", {
-			cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
-			filetypes = { "python" },
-			root_dir = "/src/",
-			settings = { debug = false },
-			capabilities = capabilities,
-		})
+		-- vim.lsp.config("arpylint", {
+		-- 	cmd = { "/home/sridharn/bin/artoolslsp/ar-pylint-ls" },
+		-- 	filetypes = { "python" },
+		-- 	root_dir = "/src/",
+		-- 	settings = { debug = false },
+		-- 	capabilities = capabilities,
+		-- })
 
 		-- ArEx - Arista ARX language server
 		vim.lsp.config("arex", {
@@ -224,6 +224,7 @@ return {
 
 		-- Clangd - C/C++ language server with Arista-specific settings
 		vim.lsp.config("clangd", {
+         -- cmd = { "clangd", "--background-index", "--clang-tidy" },
 			cmd = {
 				"/usr/bin/clangd",
 				"--background-index",
@@ -238,15 +239,17 @@ return {
 				"-j=40",
 				"--pretty",
 			},
+         root_dir = "/src",
 			init_options = {
+            compilationDatabasePath = "/src",
 				usePlaceholders = true,
 				completeUnimported = true,
 				clangdFileStatus = true,
 			},
-			root_dir = "/src/",
-			capabilities = vim.tbl_deep_extend("force", capabilities, {
-				offsetEncoding = { "utf-16" },
-			}),
+         capabilities = capabilities;
+			-- capabilities = vim.tbl_deep_extend("force", capabilities, {
+			-- 	offsetEncoding = { "utf-16" },
+			-- }),
 		})
 
 		-- Lua Language Server - For Neovim config and Lua development
@@ -275,29 +278,6 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- Basedpyright - Minimal config for basic Python support
-		-- Most linting/formatting handled by Ruff for better performance
-		vim.lsp.config("basedpyright", {
-			settings = {
-				basedpyright = {
-					analysis = {
-						ignore = { "*" },
-						typeCheckingMode = "off",
-						-- Disable all heavy analysis features
-						autoSearchPaths = false,
-						useLibraryCodeForTypes = false,
-						diagnosticMode = "openFilesOnly",
-						autoImportCompletions = false,
-						indexing = false,
-					},
-					disableOrganizeImports = true, -- Let Ruff handle this
-					disableTaggedHints = true,
-				},
-			},
-			root_dir = "/src/",
-			capabilities = capabilities,
-		})
-
 		-- Ruff - Native fast Python linter and formatter
 		-- Much faster than traditional Python linters, optimized for large codebases
 		vim.lsp.config("ruff", {
@@ -320,63 +300,31 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- Python LSP (pylsp) - Fast, lightweight Python language server
-		-- Install with: pip install python-lsp-server[all]
-		vim.lsp.config("pylsp", {
-			cmd = { "pylsp" },
+		-- Jedi Language Server - Lightweight Python LSP alternative to basedpyright
+		-- Uncomment to use instead of basedpyright for better performance on large codebases
+		vim.lsp.config("jedi_language_server", {
+			cmd = { "jedi-language-server" },
 			filetypes = { "python" },
 			root_dir = "/src/",
-			settings = {
-				pylsp = {
-					plugins = {
-						-- Disable heavy plugins for better performance
-						pylint = { enabled = false },
-						pyflakes = { enabled = false },
-						pycodestyle = { enabled = false },
-						mccabe = { enabled = false },
-						rope_autoimport = { enabled = false },
-						rope_completion = { enabled = false },
-						-- Keep only essential features
-						jedi_completion = {
-							enabled = true,
-							include_params = true,
-							fuzzy = true,
-						},
-						jedi_hover = { enabled = true },
-						jedi_references = { enabled = true },
-						jedi_signature_help = { enabled = true },
-						jedi_symbols = { enabled = true },
+			init_options = {
+				completion = {
+					disableSnippets = false,
+					resolveEagerly = false,
+				},
+				diagnostics = {
+					enable = false, -- Let Ruff handle diagnostics
+				},
+				hover = {
+					enable = true,
+				},
+				workspace = {
+					symbols = {
+						maxSymbols = 20,
 					},
 				},
 			},
 			capabilities = capabilities,
 		})
-
-		-- Jedi Language Server - Lightweight Python LSP alternative to basedpyright
-		-- Uncomment to use instead of basedpyright for better performance on large codebases
-		-- vim.lsp.config("jedi_language_server", {
-		-- 	cmd = { "jedi-language-server" },
-		-- 	filetypes = { "python" },
-		-- 	root_dir = "/src/",
-		-- 	init_options = {
-		-- 		completion = {
-		-- 			disableSnippets = false,
-		-- 			resolveEagerly = false,
-		-- 		},
-		-- 		diagnostics = {
-		-- 			enable = false, -- Let Ruff handle diagnostics
-		-- 		},
-		-- 		hover = {
-		-- 			enable = true,
-		-- 		},
-		-- 		workspace = {
-		-- 			symbols = {
-		-- 				maxSymbols = 20,
-		-- 			},
-		-- 		},
-		-- 	},
-		-- 	capabilities = capabilities,
-		-- })
 
 		-- ╭─────────────────────────────────────────────────────────╮
 		-- │ LSP Server Enablement                                   │
@@ -388,24 +336,9 @@ return {
 		vim.lsp.enable("lua_ls")
 
 		-- Python LSP configuration
-		-- Choose ONE of the following Python language servers based on your needs:
-		-- 1. basedpyright - Feature-rich but can be slow on large codebases
-		-- 2. pylsp - Fast and lightweight, good balance of features
-		-- 3. jedi_language_server - Minimal and fast
-
-		-- Option 1: basedpyright (default)
-		vim.lsp.enable("basedpyright")
-
-		-- Option 2: pylsp (uncomment to use instead of basedpyright)
-		-- if vim.fn.executable("pylsp") == 1 then
-		-- 	vim.lsp.enable("pylsp")
-		-- end
-
-		-- Option 3: jedi_language_server (uncomment to use instead of basedpyright)
-		-- if vim.fn.executable("jedi-language-server") == 1 then
-		-- 	vim.lsp.enable("jedi_language_server")
-		-- end
-
+		if vim.fn.executable("jedi-language-server") == 1 then
+			vim.lsp.enable("jedi_language_server")
+		end
 		-- Ruff - Fast Python linter/formatter (can be used alongside any Python LSP)
 		-- Uses the native ruff server (ruff >= 0.5.0)
 		if vim.fn.executable("ruff") == 1 then
@@ -413,17 +346,17 @@ return {
 		end
 
 		-- Arista custom servers (only enable if executable exists)
-		if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-grok-ls") == 1 then
-			vim.lsp.enable("argrok")
-		end
-
-		if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-formatdiff-ls") == 1 then
-			vim.lsp.enable("arformatdiff")
-		end
-
-		if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-pylint-ls") == 1 then
-			vim.lsp.enable("arpylint")
-		end
+		-- if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-grok-ls") == 1 then
+		-- 	vim.lsp.enable("argrok")
+		-- end
+		--
+		-- if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-formatdiff-ls") == 1 then
+		-- 	vim.lsp.enable("arformatdiff")
+		-- end
+		--
+		-- if vim.fn.executable("/home/sridharn/bin/artoolslsp/ar-pylint-ls") == 1 then
+		-- 	vim.lsp.enable("arpylint")
+		-- end
 
 		if vim.fn.executable("/usr/bin/arexlsp") == 1 then
 			vim.lsp.enable("arex")

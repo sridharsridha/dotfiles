@@ -13,6 +13,8 @@ return {
 				preset = "default",
 				["<C-y>"] = { "select_and_accept", "fallback" },
 				["<c-e>"] = { "hide", "fallback" },
+				["<C-j>"] = { "snippet_forward", "fallback" },
+				["<C-k>"] = { "snippet_backward", "fallback" },
 				["<tab>"] = { "snippet_forward", "fallback" },
 				["<s-tab>"] = { "snippet_backward", "fallback" },
 				["<c-b>"] = { "scroll_documentation_up", "fallback" },
@@ -20,7 +22,7 @@ return {
 				["<c-s>"] = { "show_signature", "hide_signature", "fallback" },
 			},
 			signature = {
-				enabled = true,
+				enabled = false,
 				window = {
 					border = "none", -- Set this to false to remove the border
 				},

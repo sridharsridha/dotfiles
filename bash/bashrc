@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
-[[ -z "$PS1" ]] && return
 
-# If not running interactively, don't do anything
-case $- in
-  *i*) ;;
-    *) return;;
-esac
+# If not running interactively, don't do anything and return early
+[[ $- == *i* ]] || return
+[[ -z "$PS1" ]] && return
 
 # BASH configuration directory
 BASH_D="$HOME/.bash"
