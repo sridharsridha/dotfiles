@@ -38,8 +38,8 @@ return {
 					enable = true,
 				},
 				refactor = {
-					highlight_definitions = { enable = true },
-					highlight_current_scope = { enable = true },
+					highlight_definitions = { enable = not require("config/global").is_remote },
+					highlight_current_scope = { enable = not require("config/global").is_remote },
 				},
 				textobjects = {
 					select = {

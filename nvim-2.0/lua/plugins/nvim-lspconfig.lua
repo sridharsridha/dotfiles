@@ -27,7 +27,9 @@ return {
 				-- -- Enable completion triggered by <c-x><c-o>
 				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 				local client = vim.lsp.get_client_by_id(ev.data.client_id)
-				if client and client.server_capabilities.documentHighlightProvider then
+				-- Skip document highlight over SSH/mosh (fires on every cursor move)
+				if not require("config/global").is_remote
+					and client and client.server_capabilities.documentHighlightProvider then
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = ev.buf,
 						group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true }),
@@ -159,8 +161,8 @@ return {
 			update_in_insert = false,
 		})
 
-		-- Enable inlay hints globally (custom preference)
-		if vim.lsp.inlay_hint then
+		-- Enable inlay hints (disable over SSH/mosh for perf)
+		if vim.lsp.inlay_hint and not require("config/global").is_remote then
 			vim.lsp.inlay_hint.enable(true)
 		end
 

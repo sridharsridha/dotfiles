@@ -28,7 +28,7 @@ return {
 				},
 			},
 			completion = {
-				ghost_text = { enabled = true },
+				ghost_text = { enabled = not require("config/global").is_remote },
 				list = {
 					selection = { preselect = true, auto_insert = true },
 				},

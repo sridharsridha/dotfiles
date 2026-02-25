@@ -25,7 +25,7 @@ opts.initial = function()
 	opt.pumblend = 0 -- No transparency in popup menus (custom preference)
 	opt.showmode = false -- Don't show mode (using lualine instead)
 	opt.termguicolors = true -- Enable 24-bit RGB colors
-	opt.cursorline = true -- Highlight current line
+	opt.cursorline = not gl.is_remote -- Highlight current line (disable over SSH/mosh for perf)
 	opt.number = true -- Show line numbers
 	-- opt.relativenumber = false -- Default is false, removed redundancy
 	opt.scrolloff = 8 -- Keep 8 lines visible above/below cursor
@@ -39,7 +39,7 @@ opts.initial = function()
 	opt.completeopt = { "menuone", "noselect", "noinsert" } -- Better completion experience
 	opt.shortmess:append("aoOt") -- Shorter messages (custom: a=abbreviate, o=overwrite, O=file read, t=truncate)
 	opt.timeoutlen = 200 -- Faster key sequence completion (custom: default is 1000)
-	opt.updatetime = 300 -- Faster CursorHold events (custom: default is 4000)
+	opt.updatetime = gl.is_remote and 1000 or 300 -- CursorHold delay (longer over SSH/mosh)
 
 	-- ╭─────────────────────────────────────────────────────────╮
 	-- │ Splits Configuration                                    │
@@ -61,11 +61,12 @@ opts.initial = function()
 	opt.undofile = true -- Enable persistent undo
 	opt.undodir = vim.fn.stdpath("data") .. "/undodir" -- Custom undo directory
 
-	-- Note: Removed redundant defaults:
-	-- - lazyredraw = false (default)
-	-- - cmdheight = 1 (default)
-	-- - laststatus = 2 (default)
-	-- - relativenumber = false (default)
+	-- Performance: reduce redraws over SSH/mosh
+	if gl.is_remote then
+		opt.lazyredraw = true -- Don't redraw during macros/mappings
+		opt.synmaxcol = 200 -- Limit syntax highlighting to first 200 columns
+		opt.ttyfast = true -- Faster terminal connection
+	end
 end
 
 -- ╭─────────────────────────────────────────────────────────╮

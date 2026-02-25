@@ -5,7 +5,7 @@ return {
 		config = function()
 			require("gitsigns").setup({
             signs_staged_enable = true,
-				current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+				current_line_blame = not require("config/global").is_remote, -- Disable over SSH/mosh (redraws on every cursor move)
 				current_line_blame_opts = {
 					virt_text = true,
 				},
