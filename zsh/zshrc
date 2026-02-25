@@ -41,7 +41,10 @@ antigen bundle zsh-users/zsh-autosuggestions
 
 # Below should be at the end
 # antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zdharma-continuum/fast-syntax-highlighting
+# Skip syntax highlighting on SSH/mosh (primary cause of character flickering)
+if [[ -z "$SSH_CONNECTION" ]]; then
+  antigen bundle zdharma-continuum/fast-syntax-highlighting
+fi
 antigen bundle zsh-users/zsh-history-substring-search
 
 # Tell Antigen that you're done.

@@ -5,6 +5,9 @@ export KEYTIMEOUT=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# Disable mosh client-side prediction to prevent typing lag and glitches
+export MOSH_PREDICTION_DISPLAY=never
+
 if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
     export TERM=xterm-256color
 fi
