@@ -13,7 +13,7 @@ opts.initial = function()
 	-- ╭─────────────────────────────────────────────────────────╮
 	-- │ File & Search Settings                                  │
 	-- ╰─────────────────────────────────────────────────────────╯
-	opt.path:append("**") -- Search recursively in subdirectories (custom)
+	-- opt.path:append("**") -- Removed: causes recursive scan on large repos, Telescope handles file finding
 	opt.ignorecase = true -- Case-insensitive search
 	opt.smartcase = true -- Override ignorecase if search has uppercase
 	opt.hlsearch = true -- Highlight search results (default, but explicit for clarity)
@@ -36,6 +36,20 @@ opts.initial = function()
 	-- │ Editor Behavior                                         │
 	-- ╰─────────────────────────────────────────────────────────╯
 	opt.clipboard = "unnamed,unnamedplus" -- Use system clipboard (custom preference)
+	-- Use OSC52 clipboard over SSH so yank/paste doesn't hang
+	if gl.is_remote then
+		vim.g.clipboard = {
+			name = "OSC 52",
+			copy = {
+				["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+				["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+			},
+			paste = {
+				["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+				["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+			},
+		}
+	end
 	opt.completeopt = { "menuone", "noselect", "noinsert" } -- Better completion experience
 	opt.shortmess:append("aoOt") -- Shorter messages (custom: a=abbreviate, o=overwrite, O=file read, t=truncate)
 	opt.timeoutlen = 200 -- Faster key sequence completion (custom: default is 1000)
@@ -66,6 +80,7 @@ opts.initial = function()
 		opt.lazyredraw = true -- Don't redraw during macros/mappings
 		opt.synmaxcol = 200 -- Limit syntax highlighting to first 200 columns
 		opt.ttyfast = true -- Faster terminal connection
+		opt.redrawtime = 1000 -- Limit syntax highlighting redraw time (default 2000)
 	end
 end
 

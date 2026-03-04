@@ -91,9 +91,12 @@ return {
 		config = function()
 			local telescope = require("telescope")
 			local actions = require("telescope.actions")
+			local gl = require("config/global")
 
 			telescope.setup({
 				defaults = {
+					file_ignore_patterns = { "%.git/", "node_modules/", "%.o$", "%.pyc$" },
+					path_display = { "truncate" },
 					-- Custom key mappings within Telescope
 					mappings = {
 						i = {
@@ -105,6 +108,14 @@ return {
 							["q"] = actions.close, -- Custom: Quick exit with q
 						},
 					},
+				},
+				pickers = {
+					find_files = {
+						find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+					},
+					live_grep = gl.is_remote and {
+						debounce = 150,
+					} or {},
 				},
 				extensions = {
 					-- FZF extension for better performance

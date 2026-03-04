@@ -34,14 +34,16 @@ return {
 				end, 100)
 			end)
 
-			mr.refresh(function()
-				for _, tool in ipairs(opts.ensure_installed) do
-					local p = mr.get_package(tool)
-					if not p:is_installed() then
-						p:install()
+			if not require("config/global").is_remote then
+				mr.refresh(function()
+					for _, tool in ipairs(opts.ensure_installed) do
+						local p = mr.get_package(tool)
+						if not p:is_installed() then
+							p:install()
+						end
 					end
-				end
-			end)
+				end)
+			end
 		end,
 	},
 }

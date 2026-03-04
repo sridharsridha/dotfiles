@@ -17,7 +17,7 @@ return {
 		config = function()
 			local config = require("nvim-treesitter.configs")
 			config.setup({
-				auto_install = true,
+				auto_install = not require("config/global").is_remote,
 				highlight = { enable = true },
 				indent = { enable = true },
 				ensure_installed = {

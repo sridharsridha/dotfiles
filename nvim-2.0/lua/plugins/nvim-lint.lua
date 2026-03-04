@@ -1,7 +1,7 @@
 return {
 	{
 		"mfussenegger/nvim-lint",
-		event = "InsertEnter",
+		event = "VeryLazy",
 		config = function()
 			local lint = require("lint")
 			lint.linters_by_ft = {}

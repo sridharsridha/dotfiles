@@ -13,6 +13,7 @@ return {
 			require("catppuccin").setup({
 				flavour = "mocha", -- Dark variant (custom preference)
 				transparent_background = true, -- Terminal transparency support (custom)
+				compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 			})
 			vim.cmd.colorscheme("catppuccin")
 		end,
