@@ -36,18 +36,12 @@ opts.initial = function()
 	-- │ Editor Behavior                                         │
 	-- ╰─────────────────────────────────────────────────────────╯
 	opt.clipboard = "unnamed,unnamedplus" -- Use system clipboard (custom preference)
-	-- Use OSC52 clipboard over SSH so yank/paste doesn't hang
+	-- Disable clipboard integration over SSH to avoid OSC 52 hangs
 	if gl.is_remote then
 		vim.g.clipboard = {
-			name = "OSC 52",
-			copy = {
-				["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-				["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-			},
-			paste = {
-				["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-				["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-			},
+			name = "none",
+			copy = { ["+"] = "", ["*"] = "" },
+			paste = { ["+"] = "", ["*"] = "" },
 		}
 	end
 	opt.completeopt = { "menuone", "noselect", "noinsert" } -- Better completion experience
