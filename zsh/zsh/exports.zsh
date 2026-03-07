@@ -49,6 +49,7 @@ if [[ -n "$SSH_CONNECTION" ]] || [[ -n "$MOSH_CONNECTION" ]]; then
   # Buffer max size to prevent slowdown
   export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 fi
+export ET_NO_TELEMETRY=1
 
 # Paths {{{
 ###########
