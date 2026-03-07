@@ -1,22 +1,4 @@
 
-function ialias { # If command you want to alias to exists, do it, else print an error
-	if command -v $2 >/dev/null 2>&1; then
-		alias $1=$2
-	elif [[ "$ialias_mute" != 'true' ]]; then
-		#echo "Command '$baseCmd' not found, using '$oldCmd'"
-		true
-		#alias $oldCmd='echo "Command $baseCmd not found, using $oldCmd" && $oldCmd'
-	fi
-}
-
-function ipath { # If directory exists, add it to path
-	dir="$1"
-
-	if [ -d $dir ]; then
-		export PATH="$PATH:$dir"
-	fi
-}
-
 function profVimStartUpTime() {
 	if [[ "$1" == "" ]]; then
 		cmd=nvim
@@ -82,79 +64,6 @@ function cu() {
 	else
 		cd "$d"
 	fi
-}
-# function _cu () {
-# 	compadd $(dirname "$PWD" | tr / \\n)
-# }
-# compdef _cu cu
-
-# Copy the full absolute path into the clipboard, and also echo it. Handles the
-# path in the argument, if any, else `pwd`.
-function copy-path() {
-	local apath=
-	if [[ -d "$1" ]]; then
-		apath=$(cd "$1" && pwd)
-	elif [[ -f "$1" ]]; then
-		apath="$PWD/$1"
-	fi
-	echo -n $apath | pbcopy
-	echo "Copied '$apath' to clipboard."
-}
-
-# Check if the given files (as arguments) are the same files, using md5 hashing.
-function same-files() {
-	local quite=false
-	if [[ $1 == -q ]]; then
-		quite=true
-		shift
-	fi
-	if [[ "$(md5sum "$@" | cut -d' ' -f1 | uniq | wc -l)" == 1 ]]; then
-		$quite || echo Yes. They are the same, according to md5 hashing.
-	else
-		$quite || echo No. They are NOT the same, according to md5 hashing.
-		return 1
-	fi
-}
-
-alias epoch-show='date +%s'
-function epoch-read() {
-	date --date @$1
-}
-
-# Freeze and unfreeze processes (for example: stop firefox)
-function stop(){
-  if [ $# -ne 1 ]; then
-          echo 1>&2 Usage: stop process
-  else
-    PROCESS=$1
-    echo "Stopping processes with the word ${tGreen}$1${tReset}"
-    ps axw | grep -i $1 | awk -v PROC="$1" '{print $1}' | xargs kill -STOP
-  fi
-}
-
-function cont(){
-  if [ $# -ne 1 ]; then
-          echo 1>&2 Usage: cont process
-  else
-    PROCESS=$1
-    echo "Continuing processes with the word ${tGreen}$1${tReset}"
-    ps axw | grep -i $1 | awk -v PROC="$1" '{print $1}' | xargs kill -CONT
-  fi
-}
-
-# Revert all the files in the diff
-#
-# Param: 1 - diff file
-# example: revert_diff test.diff
-function revert_diff() {
-   grep "+++" $1 | awk -F " " '{print $2}'  | xargs svn revert
-}
-
-function cscope_gen()
-{
-   rm -f cscope.files cscope.out cscope.po.out
-   find `pwd` -name '[^.]*.[chlyCGHL]' -print | grep -v CVS > cscope.files
-   cscope -buqk -F cscope.files
 }
 
 function splitPane() {
