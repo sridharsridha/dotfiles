@@ -16,6 +16,10 @@
 	<integer>2</integer>
 	<key>AIVectorStore</key>
 	<integer>0</integer>
+	<key>AboutToPasteTabsWithCancel</key>
+	<true/>
+	<key>AboutToPasteTabsWithCancel_selection</key>
+	<integer>2</integer>
 	<key>AdjustWindowForFontSizeChange</key>
 	<true/>
 	<key>AiMaxTokens</key>
@@ -8138,7 +8142,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<false/>
 			<key>Normal Font</key>
-			<string>SauceCodeProNF 13</string>
+			<string>SauceCodeProNF 12</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -8418,6 +8422,8 @@
 	</array>
 	<key>PMPrintingPanelSize</key>
 	<string>{777, 828}</string>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>0</integer>
 	<key>PerPaneBackgroundImage</key>
 	<false/>
 	<key>PointerActions</key>

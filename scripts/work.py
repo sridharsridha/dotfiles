@@ -86,19 +86,64 @@ class TerminalSizer:
         if not self.process.closed:
             self.process.setwinsize(*self.get_size())
 
-
-def get_workspaces(server, port=None):
+def get_workspaces(server, port=None, retry_login=True):
     portCmd = ""
     if port:
         portCmd = f"-p {port}"
     cmd = f"ssh {portCmd} {server} -t a4c ps -N"
-    p = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
+    
+    # Added stderr=subprocess.PIPE to capture the error stream properly
+    p = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (output, err) = p.communicate()
     p_status = p.wait()
+    
     if p_status != 0:
-        print(f"{cmd} failed with errcode {p_status}\n{err.decode()}")
+        # Safely decode the error message now that stderr is captured
+        err_msg = err.decode('utf-8', errors='ignore')
+        
+        # Check if the error is related to an expired session or permission denied
+        if retry_login and ("Auth session has expired" in err_msg or "Permission denied" in err_msg):
+            # Create a user-specific lock file in /tmp to prevent permission conflicts
+            lock_file_path = f"/tmp/arista_ssh_login_{os.getuid()}.lock"
+            
+            with open(lock_file_path, "w") as lock_file:
+                # fcntl.LOCK_EX blocks until the lock is acquired. 
+                # If another script instance is logging in, this script waits here.
+                fcntl.flock(lock_file, fcntl.LOCK_EX)
+                try:
+                    # DOUBLE-CHECK: Now that we have the lock, test the connection again. 
+                    # If the previous script instance successfully logged in, this will pass and we can skip the prompt.
+                    test_p = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    _, test_err = test_p.communicate()
+                    
+                    if test_p.wait() != 0:
+                        test_err_msg = test_err.decode('utf-8', errors='ignore')
+                        if "Auth session has expired" in test_err_msg or "Permission denied" in test_err_msg:
+                            print("Arista SSH session expired. Launching 'arista-ssh login'...")
+                            
+                            # Run the login command interactively so you can enter your credentials/MFA
+                            login_status = subprocess.call(["arista-ssh", "login"])
+                            
+                            if login_status != 0:
+                                print("Authentication failed or was cancelled.")
+                                return list()
+                            else:
+                                print("Login successful.")
+                finally:
+                    # Ensure the lock is ALWAYS released, even if the user hits Ctrl+C
+                    fcntl.flock(lock_file, fcntl.LOCK_UN)
+
+            print("Retrying connection...")
+            # Recursively call the function once, but disable retry to avoid infinite loops
+            return get_workspaces(server, port, retry_login=False)
+                
+        # If it's a different error or the retry already failed, print and return empty
+        print(f"{cmd} failed with errcode {p_status}\n{err_msg}")
         return list()
-    output = output.decode()
+        
+    output = output.decode('utf-8', errors='ignore').strip()
+    if not output:
+        return []
     output = output.split("\n")
     return output
 
@@ -169,3 +214,4 @@ if __name__ == "__main__":
         child.interact()
 
     print("Bye Bye!!!")
+
