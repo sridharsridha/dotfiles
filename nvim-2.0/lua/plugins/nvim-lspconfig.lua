@@ -8,7 +8,6 @@ return {
 	event = { "BufReadPre", "BufNewFile" }, -- Load on file open
 	dependencies = {
 		"williamboman/mason.nvim",            -- LSP installer
-		"williamboman/mason-lspconfig.nvim",  -- Mason-LSPConfig bridge
 		"saghen/blink.cmp",                   -- For LSP capabilities
 	},
 	config = function()
@@ -21,11 +20,7 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspMapping", { clear = true }),
 			callback = function(ev)
-				-- Buffer local mappings
 				local opts = { buffer = ev.buf, silent = true }
-
-				-- -- Enable completion triggered by <c-x><c-o>
-				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 				local client = vim.lsp.get_client_by_id(ev.data.client_id)
 				-- Skip document highlight over SSH/mosh (fires on every cursor move)
 				if not require("config/global").is_remote
@@ -78,13 +73,6 @@ return {
 				opts.desc = "Show buffer diagnostics"
 				keymap.set("n", "<leader>D", vim.diagnostic.setloclist, opts)
 
-				-- Documentation
-				opts.desc = "Show documentation for what is under cursor"
-				keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-				opts.desc = "Show signature help"
-				keymap.set({ "n", "i" }, "<C-S>", vim.lsp.buf.signature_help, opts)
-
 				-- Workspace
 				opts.desc = "Add workspace folder"
 				keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
@@ -97,12 +85,6 @@ return {
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, opts)
 
-				-- Formatting
-				-- opts.desc = "Format document"
-				-- keymap.set("n", "<leader>cf", function()
-				-- 	vim.lsp.buf.format({ async = true })
-				-- end, opts)
-
 				-- LSP management
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", opts)
@@ -111,7 +93,6 @@ return {
 				keymap.set("n", "<leader>li", "<cmd>LspInfo<CR>", opts)
 
 				-- Inlay hints toggle
-				local client = vim.lsp.get_client_by_id(ev.data.client_id)
 				if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 					opts.desc = "Toggle inlay hints"
 					keymap.set("n", "<leader>ih", function()
@@ -124,14 +105,7 @@ return {
 			end,
 		})
 
-		-- ╭─────────────────────────────────────────────────────────╮
-		-- │ LSP Capabilities Setup                                  │
-		-- │ Configure completion and snippet support                │
-		-- ╰─────────────────────────────────────────────────────────╯
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		-- Extend with blink.cmp capabilities for better completion
-		capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
-		capabilities.textDocument.completion.completionItem.snippetSupport = true
+		local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 		-- ╭─────────────────────────────────────────────────────────╮
 		-- │ Diagnostic Configuration                                │

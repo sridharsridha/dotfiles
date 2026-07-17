@@ -6,6 +6,13 @@ local opts = {}
 
 opts.initial = function()
 	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ Disable Unused Providers                                │
+	-- ╰─────────────────────────────────────────────────────────╯
+	g.loaded_node_provider = 0
+	g.loaded_perl_provider = 0
+	g.loaded_ruby_provider = 0
+
+	-- ╭─────────────────────────────────────────────────────────╮
 	-- │ Leader Key Configuration                                │
 	-- ╰─────────────────────────────────────────────────────────╯
 	g.mapleader = gl.mapleader -- Space as leader key (custom)
@@ -16,7 +23,6 @@ opts.initial = function()
 	-- opt.path:append("**") -- Removed: causes recursive scan on large repos, Telescope handles file finding
 	opt.ignorecase = true -- Case-insensitive search
 	opt.smartcase = true -- Override ignorecase if search has uppercase
-	opt.hlsearch = true -- Highlight search results (default, but explicit for clarity)
 	opt.inccommand = "split" -- Show substitution results in split preview
 
 	-- ╭─────────────────────────────────────────────────────────╮
@@ -33,8 +39,6 @@ opts.initial = function()
 	-- opt.laststatus = 2 -- Default is 2, removed redundancy
 	opt.colorcolumn = "85" -- Shows vertical line at 85
 	opt.textwidth = 85     -- Formats text to 85 columns
-	-- Optional: enable ruler in bottom right
-	vim.opt.ruler = true
 
 	-- ╭─────────────────────────────────────────────────────────╮
 	-- │ Editor Behavior                                         │
@@ -83,7 +87,6 @@ opts.initial = function()
 	if gl.is_remote then
 		opt.lazyredraw = true -- Don't redraw during macros/mappings
 		opt.synmaxcol = 200 -- Limit syntax highlighting to first 200 columns
-		opt.ttyfast = true -- Faster terminal connection
 		opt.redrawtime = 1000 -- Limit syntax highlighting redraw time (default 2000)
 	end
 end
@@ -101,20 +104,6 @@ vim.api.nvim_create_autocmd("User", {
 		vim.o.shada = shada -- Restore shada settings
 		pcall(vim.cmd.rshada, { bang = true }) -- Read shada file
 	end,
-})
-
--- ╭─────────────────────────────────────────────────────────╮
--- │ Diagnostic Display Configuration                        │
--- ╰─────────────────────────────────────────────────────────╯
--- Custom diagnostic formatting for cleaner inline messages
-vim.diagnostic.config({
-	virtual_text = {
-		prefix = "", -- No prefix icon (custom preference)
-		suffix = "", -- No suffix (custom preference)
-		format = function(diagnostic)
-			return "- " .. diagnostic.message .. " " -- Custom format with dash prefix
-		end,
-	},
 })
 
 return opts

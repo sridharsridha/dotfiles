@@ -34,12 +34,22 @@ function M.initial()
 	--   desc = "Detect ARX files for Arista ARX language"
 	-- })
 
-	-- Note: Additional autocmds can be added here as needed
-	-- Common patterns include:
-	-- - Auto-save on focus lost
-	-- - Trim trailing whitespace
-	-- - Highlight yanked text
-	-- - Restore cursor position
+	-- Restore cursor position on file open (replaces nvim-lastplace)
+	vim.api.nvim_create_autocmd("BufReadPost", {
+		group = augroup,
+		callback = function(args)
+			local ft = vim.bo[args.buf].filetype
+			if ft == "gitcommit" or ft == "gitrebase" then return end
+			local bt = vim.bo[args.buf].buftype
+			if bt == "quickfix" or bt == "nofile" or bt == "help" then return end
+			local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+			local line_count = vim.api.nvim_buf_line_count(args.buf)
+			if mark[1] > 0 and mark[1] <= line_count then
+				pcall(vim.api.nvim_win_set_cursor, 0, mark)
+				vim.cmd("normal! zv")
+			end
+		end,
+	})
 end
 
 return M

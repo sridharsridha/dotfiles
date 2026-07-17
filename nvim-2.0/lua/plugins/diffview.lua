@@ -23,6 +23,6 @@ return {
 				desc = "File history for the visual selection",
 			},
 		},
-      opt = {},
+      opts = {},
 	},
 }

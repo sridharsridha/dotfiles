@@ -2,7 +2,7 @@ return {
 	{
 		-- Split and join arguments
 		"echasnovski/mini.splitjoin",
-		event = "InsertEnter",
+		event = "VeryLazy",
 		opts = {
 			mappings = {
 				toggle = "gS",

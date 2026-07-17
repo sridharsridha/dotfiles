@@ -38,7 +38,6 @@ local function format_hunks(opts)
 		vim.notify("Gitsigns not available, formatting entire buffer", vim.log.levels.WARN)
 		return conform.format({
 			lsp_format = "fallback",
-			lsp_fallback = true,
 			timeout_ms = opts.timeout_ms or 2000,
 		})
 	end
@@ -51,7 +50,6 @@ local function format_hunks(opts)
 		vim.notify("Buffer not tracked by git, formatting entire buffer", vim.log.levels.INFO)
 		return conform.format({
 			lsp_format = "fallback",
-			lsp_fallback = true,
 			timeout_ms = opts.timeout_ms or 2000,
 		})
 	end
