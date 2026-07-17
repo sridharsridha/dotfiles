@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 Arista Networks, Inc.  All rights reserved.
-# Arista Networks, Inc. Confidential and Proprietary.
+# Copyright (c) 2024. All rights reserved.
+# Confidential and Proprietary.
 
 # Required packages:
 #   pexpect
@@ -86,7 +86,7 @@ class TerminalSizer:
         if not self.process.closed:
             self.process.setwinsize(*self.get_size())
 
-def get_workspaces(server, port=None, retry_login=True):
+def get_workspaces(server, port=None, retry_login=True, login_cmd="ssh"):
     portCmd = ""
     if port:
         portCmd = f"-p {port}"
@@ -104,7 +104,7 @@ def get_workspaces(server, port=None, retry_login=True):
         # Check if the error is related to an expired session or permission denied
         if retry_login and ("Auth session has expired" in err_msg or "Permission denied" in err_msg):
             # Create a user-specific lock file in /tmp to prevent permission conflicts
-            lock_file_path = f"/tmp/arista_ssh_login_{os.getuid()}.lock"
+            lock_file_path = f"/tmp/ssh_login_{os.getuid()}.lock"
             
             with open(lock_file_path, "w") as lock_file:
                 # fcntl.LOCK_EX blocks until the lock is acquired. 
@@ -119,10 +119,10 @@ def get_workspaces(server, port=None, retry_login=True):
                     if test_p.wait() != 0:
                         test_err_msg = test_err.decode('utf-8', errors='ignore')
                         if "Auth session has expired" in test_err_msg or "Permission denied" in test_err_msg:
-                            print("Arista SSH session expired. Launching 'arista-ssh login'...")
+                            print(f"SSH session expired. Launching '{login_cmd} login'...")
                             
                             # Run the login command interactively so you can enter your credentials/MFA
-                            login_status = subprocess.call(["arista-ssh", "login"])
+                            login_status = subprocess.call([login_cmd, "login"])
                             
                             if login_status != 0:
                                 print("Authentication failed or was cancelled.")
@@ -135,7 +135,7 @@ def get_workspaces(server, port=None, retry_login=True):
 
             print("Retrying connection...")
             # Recursively call the function once, but disable retry to avoid infinite loops
-            return get_workspaces(server, port, retry_login=False)
+            return get_workspaces(server, port, retry_login=False, login_cmd=login_cmd)
                 
         # If it's a different error or the retry already failed, print and return empty
         print(f"{cmd} failed with errcode {p_status}\n{err_msg}")
@@ -170,6 +170,12 @@ def setupArguments():
         help="Remote terminal application to use to login to userserver",
     )
     parser.add_argument(
+        "--login-cmd",
+        "-l",
+        default="ssh",
+        help="Command to use to trigger authentication when session expires",
+    )
+    parser.add_argument(
         "--fzf-options",
         "-f",
         default="--cycle --height=40% --layout=reverse",
@@ -179,7 +185,7 @@ def setupArguments():
         "--run-cmd",
         "-r",
         default="tmux a || tmux new -s DEFAULT",
-        help="Command to run after logining into userserver or container",
+        help="Command to run after logging into userserver or container",
     )
     parser.add_argument(
         "--remote-port",
@@ -194,7 +200,7 @@ if __name__ == "__main__":
     args = setupArguments()
 
     # Get the list of all containers in the userserver.
-    all_workspaces = get_workspaces(args.server, args.remote_port)
+    all_workspaces = get_workspaces(args.server, args.remote_port, login_cmd=args.login_cmd)
 
     # Use FZF to prompt to select a container or Ctrl+C to not select anything.
     # If none selected default to userserver.
@@ -214,4 +220,3 @@ if __name__ == "__main__":
         child.interact()
 
     print("Bye Bye!!!")
-
