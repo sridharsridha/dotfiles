@@ -385,4 +385,3 @@ class DotfilesManager( Printer ):
 if __name__ == "__main__":
    manager = DotfilesManager( Path( "config.yaml" ) )
    manager.run()
-

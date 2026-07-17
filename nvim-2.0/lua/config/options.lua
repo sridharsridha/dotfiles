@@ -31,17 +31,27 @@ opts.initial = function()
 	opt.scrolloff = 8 -- Keep 8 lines visible above/below cursor
 	opt.signcolumn = "yes" -- Always show sign column to prevent shifting
 	-- opt.laststatus = 2 -- Default is 2, removed redundancy
+	opt.colorcolumn = "85" -- Shows vertical line at 85
+	opt.textwidth = 85     -- Formats text to 85 columns
+	-- Optional: enable ruler in bottom right
+	vim.opt.ruler = true
 
 	-- ╭─────────────────────────────────────────────────────────╮
 	-- │ Editor Behavior                                         │
 	-- ╰─────────────────────────────────────────────────────────╯
-	opt.clipboard = "unnamed,unnamedplus" -- Use system clipboard (custom preference)
-	-- Disable clipboard integration over SSH to avoid OSC 52 hangs
+	opt.clipboard = "unnamed,unnamedplus"
+	-- Use OSC 52 for clipboard over SSH/mosh (requires terminal + tmux support)
 	if gl.is_remote then
 		vim.g.clipboard = {
-			name = "none",
-			copy = { ["+"] = "", ["*"] = "" },
-			paste = { ["+"] = "", ["*"] = "" },
+			name = "OSC 52",
+			copy = {
+				["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+				["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+			},
+			paste = {
+				["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+				["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+			},
 		}
 	end
 	opt.completeopt = { "menuone", "noselect", "noinsert" } -- Better completion experience

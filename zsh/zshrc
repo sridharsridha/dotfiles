@@ -67,8 +67,12 @@ source ~/.zsh/mosh-fixes.zsh
 # Lazy load NVM for faster shell startup
 export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
-  # Add nvm to PATH without loading it
-  export PATH="$NVM_DIR/versions/node/$(cat $NVM_DIR/alias/default 2>/dev/null || echo 'system')/bin:$PATH"
+  # Add current nvm node to PATH without loading nvm
+  local nvm_default_ver="$(cat $NVM_DIR/alias/default 2>/dev/null)"
+  local nvm_node_dir="$NVM_DIR/versions/node/$nvm_default_ver"
+  # If alias is symbolic (e.g. lts/*), find the latest installed version
+  [ ! -d "$nvm_node_dir" ] && nvm_node_dir="$(ls -d $NVM_DIR/versions/node/v* 2>/dev/null | tail -1)"
+  [ -d "$nvm_node_dir/bin" ] && export PATH="$nvm_node_dir/bin:$PATH"
 
   # Lazy load nvm only when called
   nvm() {
@@ -97,3 +101,5 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     npx "$@"
   }
 fi
+
+# ~/.local/bin already in ~/.zsh/exports.zsh

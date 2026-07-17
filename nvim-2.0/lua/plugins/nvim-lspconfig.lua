@@ -302,26 +302,18 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- Jedi Language Server - Lightweight Python LSP alternative to basedpyright
-		-- Uncomment to use instead of basedpyright for better performance on large codebases
-		vim.lsp.config("jedi_language_server", {
-			cmd = { "jedi-language-server" },
+		-- Pyright - Full-featured Python type checker and language server
+		vim.lsp.config("pyright", {
+			cmd = { "pyright-langserver", "--stdio" },
 			filetypes = { "python" },
 			root_dir = "/src/",
-			init_options = {
-				completion = {
-					disableSnippets = false,
-					resolveEagerly = false,
-				},
-				diagnostics = {
-					enable = false, -- Let Ruff handle diagnostics
-				},
-				hover = {
-					enable = true,
-				},
-				workspace = {
-					symbols = {
-						maxSymbols = 20,
+			settings = {
+				python = {
+					analysis = {
+						typeCheckingMode = "basic",
+						diagnosticMode = "openFilesOnly",
+						autoSearchPaths = true,
+						useLibraryCodeForTypes = true,
 					},
 				},
 			},
@@ -338,8 +330,8 @@ return {
 		vim.lsp.enable("lua_ls")
 
 		-- Python LSP configuration
-		if vim.fn.executable("jedi-language-server") == 1 then
-			vim.lsp.enable("jedi_language_server")
+		if vim.fn.executable("pyright-langserver") == 1 then
+			vim.lsp.enable("pyright")
 		end
 		-- Ruff - Fast Python linter/formatter (can be used alongside any Python LSP)
 		-- Uses the native ruff server (ruff >= 0.5.0)

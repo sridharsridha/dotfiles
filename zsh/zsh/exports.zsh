@@ -13,6 +13,9 @@ if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
 fi
 export EZA_COLORS="di=1;36"
 
+# Claude Code: use 1-hour prompt caching for cost savings
+export ENABLE_PROMPT_CACHING_1H=true
+
 export EDITOR='nvim'
 export PAGER='less'
 export LESS='--ignore-case --raw-control-chars'
@@ -54,22 +57,14 @@ export ET_NO_TELEMETRY=1
 # Paths {{{
 ###########
 paths=( \
-	.\
 	~\
 	~/bin\
-	~/.bin\
-	~/.dotfiles/bin\
-   ~/dotfiles/bin\
-   ~/.dotfiles/scripts\
-   ~/dotfiles/scripts\
+	~/dotfiles/scripts\
 	~/scripts\
 	~/.local/bin\
-	/opt/homebrew/bin\
-	/opt/local/bin\
 	/usr/local/bin\
 	/usr/bin\
 	/bin\
-	/opt/local/sbin\
 	/usr/local/sbin\
 	/usr/sbin\
 	/sbin\

@@ -30,6 +30,12 @@ keymaps.initial = function()
 	map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
 	-- ╭─────────────────────────────────────────────────────────╮
+	-- │ Clipboard                                               │
+	-- ╰─────────────────────────────────────────────────────────╯
+	map({ "n", "v" }, "<localleader>y", '"+y', { desc = "Yank to system clipboard" })
+	map("n", "<localleader>p", '"+p', { desc = "Paste from system clipboard" })
+
+	-- ╭─────────────────────────────────────────────────────────╮
 	-- │ Text Object Helpers                                     │
 	-- ╰─────────────────────────────────────────────────────────╯
 	-- Select last changed/yanked/put text (custom utility)
